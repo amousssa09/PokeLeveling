@@ -877,14 +877,201 @@ body {
 /* BAG & TEAM SWITCH overlays — deben ir POR ENCIMA del combat screen */
 #bag-overlay, #team-switch-overlay { z-index: 400; }
 
-/* RESPONSIVE tweaks */
-@media (max-width: 900px) {
-  .home-grid { grid-template-columns: 1fr; }
-  .home-right { display: none; }
-  .zones-grid { grid-template-columns: 1fr; }
-  .combat-panel { grid-template-columns: 1fr; }
-  .combat-log-side { grid-column: 1; grid-row: 3; min-height: 120px; }
+/* ===================== DASHBOARD ===================== */
+/* 3-column overlay layout */
+.dash-overlay {
+  display: grid;
+  grid-template-columns: 260px 1fr 280px;
+  gap: 14px;
+  align-items: start;
 }
+
+/* LEFT COLUMN */
+.dash-left {
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+/* Resource pills row inside cover card */
+.dash-res-row { display: flex; gap: 8px; margin-top: 4px; }
+.dash-res-pill {
+  flex: 1; display: flex; align-items: center; gap: 6px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 7px 10px;
+}
+.dash-res-val { font-size: 16px; font-weight: 700; color: var(--yellow); line-height: 1; }
+.dash-res-lbl { font-size: 9px; color: var(--text3); letter-spacing: 0.5px; margin-top: 1px; }
+
+/* Grade card */
+.dash-grade-card {
+  cursor: pointer;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 14px;
+  transition: border-color 0.15s;
+}
+.dash-grade-card:hover { border-color: var(--accent); }
+.dash-grade-val { font-size: 40px; font-weight: 900; font-family: 'Press Start 2P', monospace; line-height: 1; }
+.dash-grade-info { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.dash-grade-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; color: var(--text3); text-transform: uppercase; }
+.dash-grade-tip { font-size: 10px; color: var(--text2); line-height: 1.4; }
+
+/* CENTER COLUMN */
+.dash-center {
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+.dash-widget {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.dash-widget-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 14px 10px;
+  font-size: 12px; font-weight: 700;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+}
+.dash-sp-badge {
+  font-size: 11px; font-weight: 700; color: var(--accent);
+  background: rgba(79,142,247,0.12); border: 1px solid rgba(79,142,247,0.25);
+  border-radius: 6px; padding: 2px 8px;
+}
+.dash-widget-footer-btn {
+  display: block; width: 100%;
+  background: none; border: none; border-top: 1px solid var(--border);
+  color: var(--text3); font-family: 'Exo 2', sans-serif;
+  font-size: 11px; font-weight: 600; padding: 8px;
+  cursor: pointer; text-align: center; transition: color 0.15s, background 0.15s;
+}
+.dash-widget-footer-btn:hover { color: var(--accent); background: var(--bg3); }
+
+/* Center 2-col sub-grid for team+shop */
+.dash-center-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+
+/* RIGHT COLUMN */
+.dash-right {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.dash-activity-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  display: flex; flex-direction: column;
+  position: sticky; top: 70px;
+}
+.dash-activity-header {
+  padding: 12px 14px 10px; font-size: 12px; font-weight: 700;
+  border-bottom: 1px solid var(--border); color: var(--text2);
+}
+.dash-activity-log {
+  overflow-y: auto; padding: 8px 12px;
+  display: flex; flex-direction: column; gap: 2px;
+  max-height: calc(100vh - 180px);
+}
+
+@media (max-width: 1100px) {
+  .dash-overlay { grid-template-columns: 240px 1fr; }
+  .dash-right { display: none; }
+}
+@media (max-width: 700px) {
+  .dash-overlay { grid-template-columns: 1fr; }
+  .dash-center-row { grid-template-columns: 1fr; }
+}
+
+/* Tasks in dashboard */
+.dash-tasks-list { padding: 6px 10px; display: flex; flex-direction: column; gap: 4px; max-height: 340px; overflow-y: auto; }
+.dash-task-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 6px; border-radius: 7px;
+  transition: background 0.1s;
+}
+.dash-task-row:hover { background: var(--bg3); }
+.dash-task-dot { width: 3px; height: 30px; border-radius: 2px; flex-shrink: 0; }
+.dash-task-name { font-size: 12px; font-weight: 600; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dash-task-meta { font-size: 9px; color: var(--text3); }
+.dash-task-done-btn {
+  background: rgba(61,186,110,0.15); border: 1px solid rgba(61,186,110,0.3);
+  color: var(--green); border-radius: 6px; padding: 3px 8px;
+  font-size: 10px; font-weight: 700; cursor: pointer; white-space: nowrap;
+  font-family: 'Exo 2', sans-serif; transition: background 0.1s;
+}
+.dash-task-done-btn:hover { background: rgba(61,186,110,0.3); }
+.dash-task-add {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 6px; border-top: 1px solid var(--border); margin-top: 4px;
+}
+/* quick add input inside task widget */
+.dash-task-add input {
+  flex: 1; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 6px; color: var(--text); font-family: 'Exo 2', sans-serif;
+  font-size: 12px; padding: 5px 10px;
+}
+.dash-task-add input:focus { outline: none; border-color: var(--accent); }
+
+/* Zones mini */
+.dash-zones-mini { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+.dash-zone-row {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 9px; padding: 10px 12px; cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.dash-zone-row:hover { border-color: var(--accent); transform: translateX(2px); }
+.dash-zone-row.locked { opacity: 0.4; cursor: not-allowed; }
+.dash-zone-row.locked:hover { transform: none; border-color: var(--border); }
+.dash-zone-icon { font-size: 22px; }
+.dash-zone-info { flex: 1; }
+.dash-zone-name { font-size: 12px; font-weight: 700; }
+.dash-zone-sub { font-size: 9px; color: var(--text3); margin-top: 1px; }
+.dash-zone-btn {
+  background: var(--accent2); color: white; border: none;
+  border-radius: 6px; padding: 5px 12px; font-size: 11px; font-weight: 700;
+  cursor: pointer; font-family: 'Exo 2', sans-serif; transition: background 0.12s;
+}
+.dash-zone-btn:hover { background: var(--accent); }
+.dash-zone-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Team mini */
+.dash-team-mini {
+  padding: 10px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+}
+.dash-pk-slot {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px 4px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  cursor: pointer; transition: border-color 0.12s;
+}
+.dash-pk-slot:hover { border-color: var(--accent); }
+.dash-pk-slot.empty { opacity: 0.25; cursor: default; }
+.dash-pk-slot img { width: 40px; height: 40px; image-rendering: pixelated; }
+.dash-pk-name { font-size: 8px; font-weight: 700; text-align: center; }
+.dash-pk-lv { font-size: 8px; color: var(--text3); }
+.dash-pk-pts { font-size: 7px; color: var(--yellow); font-weight: 700; }
+
+/* Shop mini */
+.dash-shop-mini {
+  padding: 8px 10px; display: flex; flex-direction: column; gap: 5px;
+}
+.dash-shop-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 2px; border-bottom: 1px solid var(--border);
+}
+.dash-shop-row:last-child { border-bottom: none; }
+.dash-shop-icon { font-size: 16px; width: 24px; text-align: center; }
+.dash-shop-name { font-size: 11px; font-weight: 600; flex: 1; }
+.dash-shop-price { font-size: 10px; color: var(--yellow); font-weight: 700; }
+.dash-shop-buy {
+  background: none; border: 1px solid var(--border2);
+  color: var(--text2); border-radius: 5px; padding: 2px 8px;
+  font-size: 10px; font-weight: 700; cursor: pointer;
+  font-family: 'Exo 2', sans-serif; transition: all 0.1s;
+}
+.dash-shop-buy:hover { border-color: var(--accent); color: var(--accent); }
+.dash-shop-buy:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* Log widget stretches height */
 </style>
 </head>
 <body>
@@ -904,67 +1091,124 @@ body {
   </div>
 </div>
 
-<!-- HOME -->
+<!-- HOME / DASHBOARD -->
 <div class="section active main" id="sec-home">
-  <div class="home-grid">
-    <div class="home-left">
-      <div class="player-card">
-        <div class="player-avatar" id="avatar-home">
-          <span id="avatar-emoji-home">🧑‍💼</span>
-          <img id="avatar-img-home" src="" style="display:none">
-        </div>
-        <div class="player-name" id="home-player-name">Entrenador</div>
-        <div class="player-level">Nivel <span id="home-player-level">1</span> Entrenador</div>
-        <div class="xp-bar-wrap">
-          <div class="xp-label"><span>XP</span><span id="home-xp-label">0 / 100</span></div>
-          <div class="bar-bg"><div class="bar-fill xp" id="home-xp-bar" style="width:0%"></div></div>
-        </div>
-        <div class="player-stats">
-          <div class="mini-stat"><div class="val" id="stat-battles">0</div><div class="lbl">Batallas</div></div>
-          <div class="mini-stat"><div class="val" id="stat-captures">0</div><div class="lbl">Capturas</div></div>
-          <div class="mini-stat"><div class="val" id="stat-tasks">0</div><div class="lbl">Tareas</div></div>
-          <div class="mini-stat"><div class="val" id="stat-wins">0</div><div class="lbl">Victorias</div></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">Equipo Actual</div>
-        <div class="team-grid" id="home-team-grid"></div>
-      </div>
-    </div>
 
-    <div class="home-center">
-      <div class="card">
-        <div class="card-title">Tareas Pendientes</div>
-        <div id="home-tasks-preview"></div>
-        <button class="btn ghost" style="width:100%; margin-top:10px" onclick="nav('tasks',null)">Ver todas las tareas</button>
-      </div>
-      <div class="card">
-        <div class="card-title">📣 Combat Log</div>
-        <div class="combat-log" id="home-log">
-          <div class="log-entry info">¡Bienvenido a PokéLeveling! Completa tareas para obtener puntos de búsqueda.</div>
-        </div>
-      </div>
-    </div>
+  <!-- 3-COLUMN OVERLAY -->
+  <div class="dash-overlay">
 
-    <div class="home-right">
-      <div class="card">
-        <div class="card-title">Progreso Rápido</div>
-        <div style="font-size:12px; color: var(--text2); line-height:1.8">
-          <div>🔍 Puntos de Búsqueda: <strong id="sp-right">0</strong></div>
-          <div>🪙 Monedas: <strong id="coins-right">50</strong></div>
-          <div>⚔️ Nivel Entrenador: <strong id="lvl-right">1</strong></div>
-          <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border)">
-            <div style="font-size:11px; color:var(--text3); margin-bottom:8px;">SIGUIENTE NIVEL DESBLOQUEA</div>
-            <div style="font-size:11px; color:var(--text)">🗺️ Nivel 3 → Cueva Roca</div>
+    <!-- ======== LEFT: Profile card + Grade ======== -->
+    <div class="dash-left">
+
+      <!-- Profile cover card (same as profile section) -->
+      <div class="profile-cover-card">
+        <div id="dash-cover-wrap" style="cursor:default">
+          <div class="profile-cover-placeholder" id="dash-cover-placeholder">
+            <span class="upload-icon">🖼️</span>
+            <span class="upload-text" style="font-size:9px">SIN PORTADA</span>
+          </div>
+          <img id="dash-cover-img" class="profile-cover-img" src="" style="display:none;height:180px" alt="Portada">
+        </div>
+        <div class="profile-cover-info">
+          <div class="profile-cover-name" id="home-player-name">Entrenador</div>
+          <div class="profile-cover-desc" id="dash-player-desc">Aspirante a Maestro Pokémon</div>
+          <div class="profile-cover-badge">
+            <span style="color:var(--yellow)">★</span>
+            <span>Nivel <span id="home-player-level">1</span> · <span id="home-player-class">Entrenador</span></span>
+            <span style="margin-left:auto">🪙 <span id="home-coins-val">50</span></span>
+          </div>
+          <div style="width:100%">
+            <div class="xp-label">
+              <span style="font-size:10px;color:var(--text3)">XP</span>
+              <span style="font-size:10px;color:var(--text3)" id="home-xp-label">0 / 100</span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill xp" id="home-xp-bar" style="width:0%"></div></div>
+          </div>
+          <!-- Resources row -->
+          <div class="dash-res-row" style="margin-top:4px">
+            <div class="dash-res-pill">
+              <span style="font-size:14px">🔍</span>
+              <div><div class="dash-res-val" id="home-sp-val">0</div><div class="dash-res-lbl">SP</div></div>
+            </div>
+            <div class="dash-res-pill">
+              <span style="font-size:14px">🪙</span>
+              <div><div class="dash-res-val" id="home-coins-val2">50</div><div class="dash-res-lbl">Monedas</div></div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-title">Pokémons Capturados</div>
-        <div id="home-captured-list" style="font-size:12px; color:var(--text2)">Ninguno aún.</div>
+
+      <!-- Grade card -->
+      <div class="dash-grade-card" id="dash-grade-pill"
+        onclick="nav('profile',null);setTimeout(()=>switchProfileTab('trainer',document.querySelector('.profile-tab-btn:nth-child(2)')),200)">
+        <div class="dash-grade-val" id="dash-grade-val" style="color:var(--text3)">—</div>
+        <div class="dash-grade-info">
+          <div class="dash-grade-label">Nota de hoy</div>
+          <div class="dash-grade-tip" id="dash-grade-tip">Ver rendimiento completo →</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======== CENTER: Tasks + Explore + Team + Shop ======== -->
+    <div class="dash-center">
+
+      <!-- Tasks widget -->
+      <div class="dash-widget">
+        <div class="dash-widget-header">
+          <span>📋 Tareas</span>
+          <button class="btn ghost sm" onclick="openTaskModal()">+ Nueva</button>
+        </div>
+        <div id="dash-tasks-list" class="dash-tasks-list"></div>
+        <button class="dash-widget-footer-btn" onclick="nav('tasks',null)">Ver todas las tareas →</button>
+      </div>
+
+      <!-- 2-col row: Explore + Team -->
+      <div class="dash-center-row">
+
+        <!-- Explore mini -->
+        <div class="dash-widget">
+          <div class="dash-widget-header">
+            <span>🗺️ Exploración</span>
+            <span class="dash-sp-badge">🔍 <span id="dash-sp-badge">0</span> SP</span>
+          </div>
+          <div id="dash-zones-mini" class="dash-zones-mini"></div>
+        </div>
+
+        <!-- Team -->
+        <div class="dash-widget">
+          <div class="dash-widget-header">
+            <span>⚔️ Equipo</span>
+            <button class="btn ghost sm" onclick="nav('profile',null)">Gestionar →</button>
+          </div>
+          <div class="dash-team-mini" id="dash-team-mini"></div>
+        </div>
+
+      </div>
+
+      <!-- Quick shop -->
+      <div class="dash-widget">
+        <div class="dash-widget-header">
+          <span>🏪 Tienda Rápida</span>
+          <span style="font-size:11px;color:var(--yellow);font-weight:700">🪙 <span id="dash-shop-coins">50</span></span>
+        </div>
+        <div id="dash-shop-mini" class="dash-shop-mini"></div>
+      </div>
+
+    </div>
+
+    <!-- ======== RIGHT: Activity log ======== -->
+    <div class="dash-right">
+      <div class="dash-activity-card">
+        <div class="dash-activity-header">📜 Actividad Reciente</div>
+        <div class="dash-activity-log combat-log" id="home-log">
+          <div class="log-entry info">¡Bienvenido a PokéLeveling!</div>
+        </div>
       </div>
     </div>
+
   </div>
+
 </div>
 
 <!-- PROFILE -->
@@ -992,12 +1236,6 @@ body {
           <div style="width:100%">
             <div class="xp-label"><span style="font-size:10px;color:var(--text3)">XP</span><span style="font-size:10px;color:var(--text3)" id="profile-xp-label">0 / 100</span></div>
             <div class="bar-bg"><div class="bar-fill xp" id="profile-xp-bar" style="width:0%"></div></div>
-          </div>
-          <div class="profile-cover-stats">
-            <div class="mini-stat"><div class="val" id="p-stat-battles">0</div><div class="lbl">Batallas</div></div>
-            <div class="mini-stat"><div class="val" id="p-stat-captures">0</div><div class="lbl">Capturas</div></div>
-            <div class="mini-stat"><div class="val" id="p-stat-tasks">0</div><div class="lbl">Tareas</div></div>
-            <div class="mini-stat"><div class="val" id="p-stat-wins">0</div><div class="lbl">Victorias</div></div>
           </div>
         </div>
       </div>
@@ -1032,69 +1270,40 @@ body {
       <div class="profile-tab-content" id="ptab-trainer">
         <div class="card">
           <div class="card-title">Datos del Entrenador</div>
-          <div class="form-group">
-            <label>Nombre del Entrenador</label>
-            <input type="text" id="cfg-name" placeholder="Tu nombre">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:center;gap:16px;padding:14px;background:var(--bg3);border-radius:10px;border:1px solid var(--border)">
+              <div style="font-size:40px" id="pt-avatar-emoji">🧑‍💼</div>
+              <img id="pt-avatar-img" src="" style="display:none;width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)">
+              <div>
+                <div style="font-size:18px;font-weight:700" id="pt-name">Entrenador</div>
+                <div style="font-size:12px;color:var(--text2);margin-top:2px" id="pt-desc">Aspirante a Maestro Pokémon</div>
+                <div style="font-size:11px;color:var(--text3);margin-top:4px">
+                  <span id="pt-class-display">Entrenador</span> · Región de <span id="pt-region-display">Kanto</span>
+                </div>
+              </div>
+              <button class="btn ghost sm" style="margin-left:auto" onclick="nav('config',null)">✏️ Editar</button>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Descripción</label>
-            <textarea id="cfg-desc" rows="3" placeholder="Descripción del entrenador..."></textarea>
+        </div>
+
+        <div class="card" style="margin-top:16px" id="rendimiento-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <div class="card-title" style="margin-bottom:0">📊 Rendimiento del Entrenador</div>
+            <div style="display:flex;gap:4px">
+              <button class="tab-btn active" id="perf-tab-hoy" onclick="switchPerfTab('hoy')">Hoy</button>
+              <button class="tab-btn" id="perf-tab-semana" onclick="switchPerfTab('semana')">Semana</button>
+              <button class="tab-btn" id="perf-tab-mes" onclick="switchPerfTab('mes')">Mes</button>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Región de origen</label>
-            <select id="cfg-region">
-              <option value="Kanto">Kanto</option>
-              <option value="Johto">Johto</option>
-              <option value="Hoenn">Hoenn</option>
-              <option value="Sinnoh">Sinnoh</option>
-              <option value="Unova">Unova</option>
-              <option value="Kalos">Kalos</option>
-              <option value="Alola">Alola</option>
-              <option value="Galar">Galar</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Clase</label>
-            <select id="cfg-class">
-              <option value="Entrenador">Entrenador</option>
-              <option value="Líder de Gimnasio">Líder de Gimnasio</option>
-              <option value="Rival">Rival</option>
-              <option value="Maestro Pokémon">Maestro Pokémon</option>
-              <option value="Alto Mando">Alto Mando</option>
-              <option value="Campeón">Campeón</option>
-            </select>
-          </div>
-          <button class="btn" onclick="saveConfig()" style="width:100%;margin-top:8px">💾 Guardar Cambios</button>
+          <div id="rendimiento-content"></div>
         </div>
 
         <div class="card" style="margin-top:16px">
-          <div class="card-title">Estadísticas del Entrenador</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border)">
-              <div style="font-size:22px;font-weight:700;color:var(--yellow)" id="pt-level">1</div>
-              <div style="font-size:10px;color:var(--text3);letter-spacing:0.5px;margin-top:2px">NIVEL</div>
-            </div>
-            <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border)">
-              <div style="font-size:22px;font-weight:700;color:var(--cyan)" id="pt-battles">0</div>
-              <div style="font-size:10px;color:var(--text3);letter-spacing:0.5px;margin-top:2px">BATALLAS</div>
-            </div>
-            <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border)">
-              <div style="font-size:22px;font-weight:700;color:var(--green)" id="pt-wins">0</div>
-              <div style="font-size:10px;color:var(--text3);letter-spacing:0.5px;margin-top:2px">VICTORIAS</div>
-            </div>
-            <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border)">
-              <div style="font-size:22px;font-weight:700;color:var(--pink)" id="pt-captures">0</div>
-              <div style="font-size:10px;color:var(--text3);letter-spacing:0.5px;margin-top:2px">CAPTURAS</div>
-            </div>
-            <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border)">
-              <div style="font-size:22px;font-weight:700;color:var(--accent)" id="pt-tasks">0</div>
-              <div style="font-size:10px;color:var(--text3);letter-spacing:0.5px;margin-top:2px">TAREAS</div>
-            </div>
-            <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border)">
-              <div style="font-size:22px;font-weight:700;color:var(--yellow)" id="pt-coins">50</div>
-              <div style="font-size:10px;color:var(--text3);letter-spacing:0.5px;margin-top:2px">MONEDAS 🪙</div>
-            </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <div class="card-title" style="margin-bottom:0">🎒 Inventario</div>
+            <button class="btn ghost sm" onclick="nav('shop',null)">Tienda →</button>
           </div>
+          <div id="profile-inventory" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
         </div>
       </div>
 
@@ -1157,16 +1366,59 @@ body {
 <div class="section main" id="sec-config">
   <h2 style="font-size:20px; font-weight:700; margin-bottom:20px">⚙️ Configuración</h2>
   <div style="display:grid; grid-template-columns:400px 1fr; gap:16px">
-    <div class="card">
-      <div class="card-title">Datos del Juego</div>
-      <div style="font-size:12px;color:var(--text2);line-height:2.2">
-        <div>🔍 Puntos de Búsqueda: <strong id="cfg-sp-display">0</strong></div>
-        <div>🪙 Monedas: <strong id="cfg-coins-display">50</strong></div>
-        <div>⚔️ Nivel: <strong id="cfg-level-display">1</strong></div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card">
+        <div class="card-title">Perfil del Entrenador</div>
+        <div class="form-group">
+          <label>Nombre del Entrenador</label>
+          <input type="text" id="cfg-name" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea id="cfg-desc" rows="3" placeholder="Descripción del entrenador..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Región de origen</label>
+          <select id="cfg-region">
+            <option value="Kanto">Kanto</option>
+            <option value="Johto">Johto</option>
+            <option value="Hoenn">Hoenn</option>
+            <option value="Sinnoh">Sinnoh</option>
+            <option value="Unova">Unova</option>
+            <option value="Kalos">Kalos</option>
+            <option value="Alola">Alola</option>
+            <option value="Galar">Galar</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Clase</label>
+          <select id="cfg-class">
+            <option value="Entrenador">Entrenador</option>
+            <option value="Líder de Gimnasio">Líder de Gimnasio</option>
+            <option value="Rival">Rival</option>
+            <option value="Maestro Pokémon">Maestro Pokémon</option>
+            <option value="Alto Mando">Alto Mando</option>
+            <option value="Campeón">Campeón</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Foto de Perfil</label>
+          <input type="file" id="cfg-photo" accept="image/*">
+          <div style="font-size:10px;color:var(--text3);margin-top:4px">PNG · JPG · WEBP · GIF</div>
+        </div>
+        <button class="btn" onclick="saveConfig()" style="width:100%;margin-top:4px">💾 Guardar Cambios</button>
       </div>
-      <hr style="border:none;border-top:1px solid var(--border);margin:16px 0">
-      <div style="font-size:10px;color:var(--red);font-weight:700;letter-spacing:1px;margin-bottom:10px">⚠ ZONA DE PELIGRO</div>
-      <button class="btn danger" onclick="resetGame()" style="width:100%">🗑️ Reiniciar Partida</button>
+      <div class="card">
+        <div class="card-title">Datos del Juego</div>
+        <div style="font-size:12px;color:var(--text2);line-height:2.2">
+          <div>🔍 Puntos de Búsqueda: <strong id="cfg-sp-display">0</strong></div>
+          <div>🪙 Monedas: <strong id="cfg-coins-display">50</strong></div>
+          <div>⚔️ Nivel: <strong id="cfg-level-display">1</strong></div>
+        </div>
+        <hr style="border:none;border-top:1px solid var(--border);margin:16px 0">
+        <div style="font-size:10px;color:var(--red);font-weight:700;letter-spacing:1px;margin-bottom:10px">⚠ ZONA DE PELIGRO</div>
+        <button class="btn danger" onclick="resetGame()" style="width:100%">🗑️ Reiniciar Partida</button>
+      </div>
     </div>
 
     <div class="card">
@@ -1272,6 +1524,152 @@ body {
       <button class="btn ghost" onclick="document.getElementById('pk-detail-overlay').classList.remove('show')">Cerrar</button>
     </div>
   </div>
+</div>
+
+<!-- STAT POINTS MODAL -->
+<div class="overlay" id="stat-points-overlay">
+  <div class="modal" style="width:480px">
+    <h3 id="stat-points-title">🎯 Invertir Puntos de Estadística</h3>
+    <div id="stat-points-content"></div>
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="document.getElementById('stat-points-overlay').classList.remove('show')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== EVOLUTION OVERLAY ===================== -->
+<style>
+.evolution-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.93);
+  z-index: 500;
+  align-items: center; justify-content: center;
+}
+.evolution-overlay.show { display: flex; }
+
+@keyframes evo-flash {
+  0%,100% { opacity:1; filter:brightness(1); }
+  40%,60% { opacity:0.1; filter:brightness(3); }
+}
+@keyframes evo-glow {
+  0%,100% { filter: drop-shadow(0 0 8px #f0c040) brightness(1); }
+  50% { filter: drop-shadow(0 0 30px #f0c040) brightness(1.5); }
+}
+@keyframes evo-slide-in {
+  from { opacity:0; transform:translateY(24px) scale(0.97); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+.evo-panel {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 30px 28px;
+  width: 580px;
+  max-width: 96vw;
+  max-height: 94vh;
+  overflow-y: auto;
+  animation: evo-slide-in 0.4s cubic-bezier(.2,1,.4,1);
+}
+.evo-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: var(--yellow);
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 22px;
+  text-shadow: 0 0 20px rgba(240,192,64,0.6);
+}
+.evo-sprites-row {
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+  margin-bottom: 22px;
+}
+.evo-sprite-box { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.evo-sprite-box img { width: 96px; height: 96px; image-rendering: pixelated; }
+.evo-sprite-box.old img { animation: evo-flash 1.4s ease infinite; }
+.evo-sprite-box.new img { animation: evo-glow 1.6s ease infinite; }
+.evo-arrow { font-size: 32px; color: var(--yellow); animation: evo-glow 1.6s ease infinite; }
+.evo-sprite-label { font-size: 13px; font-weight: 700; }
+.evo-types { display:flex;gap:4px;justify-content:center;margin-top:2px; }
+
+.evo-section-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--text3);
+  margin-bottom: 10px; margin-top: 18px;
+}
+.evo-moves-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.evo-move-card {
+  background: var(--bg3); border: 2px solid var(--border);
+  border-radius: 10px; padding: 10px 12px;
+  cursor: pointer; transition: all 0.15s;
+  display: flex; flex-direction: column; gap: 4px;
+  position: relative; user-select:none;
+}
+.evo-move-card:hover { border-color: var(--accent); }
+.evo-move-card.selected-keep {
+  border-color: var(--green) !important;
+  background: rgba(61,186,110,0.12);
+}
+.evo-move-card.selected-keep::after {
+  content: '✓ CONSERVAR';
+  position: absolute; top: 5px; right: 7px;
+  font-size: 8px; font-weight: 700; color: var(--green);
+  letter-spacing: 0.5px;
+}
+.evo-move-card.new-move { border-color: rgba(79,142,247,0.25); }
+.evo-move-card.new-move.replaced {
+  border-color: rgba(224,82,82,0.4) !important;
+  background: rgba(224,82,82,0.06);
+  opacity: 0.5;
+}
+.evo-move-card.new-move.replaced::after {
+  content: '✕ REEMPLAZADO';
+  position: absolute; top: 5px; right: 7px;
+  font-size: 8px; font-weight: 700; color: var(--red);
+  letter-spacing: 0.5px;
+}
+.evo-move-name { font-size: 12px; font-weight: 700; }
+.evo-move-info { font-size: 9px; color: var(--text3); }
+.evo-hint {
+  font-size: 11px; color: var(--text2); text-align: center;
+  padding: 10px 14px; background: var(--bg3); border-radius: 8px;
+  margin: 14px 0 4px; line-height: 1.6;
+  border: 1px solid var(--border);
+}
+.evo-stat-changes {
+  display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:4px;
+}
+.evo-stat-pill {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px 10px;
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:11px;
+}
+.evo-stat-up { color: var(--green); font-weight: 700; }
+.evo-stat-neutral { color: var(--text3); }
+.evo-confirm-btn {
+  width:100%; margin-top:18px;
+  background: linear-gradient(90deg, #2d5fc4, #4f8ef7);
+  border: none; border-radius: 10px; padding: 14px;
+  color: white; font-family: 'Exo 2', sans-serif;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  letter-spacing: 0.5px; transition: all 0.15s;
+}
+.evo-confirm-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+.evo-confirm-btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+.evo-skip-btn {
+  width:100%; margin-top:8px;
+  background: transparent; border: 1px solid var(--border2);
+  border-radius: 10px; padding: 10px;
+  color: var(--text3); font-family: 'Exo 2', sans-serif;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: all 0.15s;
+}
+.evo-skip-btn:hover { border-color: var(--red); color: var(--red); }
+</style>
+
+<div class="evolution-overlay" id="evo-overlay">
+  <div class="evo-panel" id="evo-panel"></div>
 </div>
 
 <!-- ===================== COMBAT SCREEN ===================== -->
@@ -1427,8 +1825,11 @@ let state = {
   tasks: [],
   inventory: { potion:2, pokeball:3, great_ball:0, ultra_ball:0, super_potion:1, hyper_potion:0, antidote:1, burn_heal:0 },
   log: [],
+  activityLog: [],
   currentZone: null,
   combat: null,
+  // Performance tracking: array of {ts, type, detail} events
+  performance: [],
 };
 
 // ===================== LOCALSTORAGE =====================
@@ -1451,6 +1852,7 @@ function loadGame() {
     state.tasks = saved.tasks ?? state.tasks;
     state.inventory = { ...state.inventory, ...saved.inventory };
     state.log = saved.log ?? [];
+    state.performance = saved.performance ?? [];
     return true;
   } catch(e) { return false; }
 }
@@ -1461,23 +1863,44 @@ function resetGame() {
 }
 setInterval(saveGame, 30000);
 
+// ===================== MOVE UNLOCK SYSTEM =====================
+// Each pokemon has 4 moves. They unlock at these levels:
+const MOVE_UNLOCK_LEVELS = [1, 10, 20, 35];
+
+function getUnlockedMoveCount(level) {
+  let count = 0;
+  for(const lv of MOVE_UNLOCK_LEVELS) {
+    if(level >= lv) count++;
+  }
+  return Math.min(count, 4);
+}
+
 // ===================== POKEMON INSTANCES =====================
+// Move categories: special types use spAtk/spDef in damage calc
+const SPECIAL_TYPES = new Set(['water','fire','grass','electric','ice','psychic','dragon','ghost','dark','poison','bug','flying','fairy']);
+function isSpecialMove(move) { return SPECIAL_TYPES.has(move.type); }
+
 function mkPokemon(id, level) {
   const base = POKEMONS[id];
-  const hpMax = Math.floor((2 * base.stats.hp * level / 100) + level + 10);
-  const atk = Math.floor((2 * base.stats.atk * level / 100) + 5);
-  const def = Math.floor((2 * base.stats.def * level / 100) + 5);
-  const spd = Math.floor((2 * base.stats.spd * level / 100) + 5);
+  const hpMax  = Math.floor((2 * base.stats.hp    * level / 100) + level + 10);
+  const atk    = Math.floor((2 * base.stats.atk   * level / 100) + 5);
+  const def    = Math.floor((2 * base.stats.def   * level / 100) + 5);
+  const spAtk  = Math.floor((2 * base.stats.spAtk * level / 100) + 5);
+  const spDef  = Math.floor((2 * base.stats.spDef * level / 100) + 5);
+  const spd    = Math.floor((2 * base.stats.spd   * level / 100) + 5);
+  const unlockedCount = getUnlockedMoveCount(level);
   return {
     id, level,
     name: base.name,
     types: base.types,
     hp: hpMax, hpMax,
-    atk, def, spd,
-    moves: base.moves.map(m => ({...m, ppLeft: m.pp})),
-    xp: 0, xpNext: level * 50,
+    atk, def, spAtk, spDef, spd,
+    moves: base.moves.map((m, i) => ({...m, ppLeft: m.pp, unlocked: i < unlockedCount})),
+    xp: 0, xpNext: Math.floor(level * level * 4),
     status: null,
     statMods: { atk:0, def:0, spd:0, spAtk:0, spDef:0 },
+    statPoints: 0,
+    bonusStats: { hp:0, atk:0, def:0, spAtk:0, spDef:0, spd:0 },
   };
 }
 
@@ -1494,77 +1917,230 @@ function nav(id, btn) {
   if(id === 'explore') renderExplore();
   if(id === 'shop') renderShop();
   if(id === 'config') {
+    const p = state.player;
+    const cfgName = document.getElementById('cfg-name');
+    if(cfgName) cfgName.value = p.name;
+    const cfgDesc = document.getElementById('cfg-desc');
+    if(cfgDesc) cfgDesc.value = p.desc || '';
+    const cfgRegion = document.getElementById('cfg-region');
+    if(cfgRegion) cfgRegion.value = p.region || 'Kanto';
+    const cfgClass = document.getElementById('cfg-class');
+    if(cfgClass) cfgClass.value = p.class || 'Entrenador';
     const cfgSp = document.getElementById('cfg-sp-display');
     if(cfgSp) cfgSp.textContent = state.searchPoints;
     const cfgCoins = document.getElementById('cfg-coins-display');
     if(cfgCoins) cfgCoins.textContent = state.coins;
     const cfgLevel = document.getElementById('cfg-level-display');
-    if(cfgLevel) cfgLevel.textContent = state.player.level;
+    if(cfgLevel) cfgLevel.textContent = p.level;
   }
 }
 
-// ===================== RENDER HUD =====================
 function updateHUD() {
   document.getElementById('sp-display').textContent = state.searchPoints;
   document.getElementById('coins-display').textContent = state.coins;
+  // Update dashboard if visible
+  const spVal = document.getElementById('home-sp-val');
+  const coinsVal = document.getElementById('home-coins-val');
+  const coinsVal2 = document.getElementById('home-coins-val2');
+  const spBadge = document.getElementById('dash-sp-badge');
+  const shopCoins = document.getElementById('dash-shop-coins');
+  if(spVal) spVal.textContent = state.searchPoints;
+  if(coinsVal) coinsVal.textContent = state.coins;
+  if(coinsVal2) coinsVal2.textContent = state.coins;
+  if(spBadge) spBadge.textContent = state.searchPoints;
+  if(shopCoins) shopCoins.textContent = state.coins;
 }
 
-// ===================== RENDER HOME =====================
+// ===================== RENDER HOME / DASHBOARD =====================
 function renderHome() {
   const p = state.player;
+
+  // Player info (left cover card)
   document.getElementById('home-player-name').textContent = p.name;
+  document.getElementById('home-player-class').textContent = p.class || 'Entrenador';
   document.getElementById('home-player-level').textContent = p.level;
   document.getElementById('home-xp-label').textContent = `${p.xp} / ${p.xpNext}`;
-  const xpPct = Math.min(100, (p.xp / p.xpNext) * 100);
-  document.getElementById('home-xp-bar').style.width = xpPct + '%';
-  document.getElementById('stat-battles').textContent = state.stats.battles;
-  document.getElementById('stat-captures').textContent = state.stats.captures;
-  document.getElementById('stat-tasks').textContent = state.stats.tasks;
-  document.getElementById('stat-wins').textContent = state.stats.wins;
-  document.getElementById('sp-right').textContent = state.searchPoints;
-  document.getElementById('coins-right').textContent = state.coins;
-  document.getElementById('lvl-right').textContent = p.level;
+  document.getElementById('home-xp-bar').style.width = Math.min(100,(p.xp/p.xpNext)*100) + '%';
+  document.getElementById('home-sp-val').textContent = state.searchPoints;
+  document.getElementById('home-coins-val').textContent = state.coins;
+  document.getElementById('home-coins-val2').textContent = state.coins;
+  document.getElementById('dash-sp-badge').textContent = state.searchPoints;
+  document.getElementById('dash-shop-coins').textContent = state.coins;
 
-  if(p.photo) {
-    document.getElementById('avatar-img-home').src = p.photo;
-    document.getElementById('avatar-img-home').style.display = '';
-    document.getElementById('avatar-emoji-home').style.display = 'none';
+  // Player description
+  const descEl = document.getElementById('dash-player-desc');
+  if(descEl) descEl.textContent = p.desc || 'Aspirante a Maestro Pokémon';
+
+  // Cover photo
+  const coverImg = document.getElementById('dash-cover-img');
+  const coverPlaceholder = document.getElementById('dash-cover-placeholder');
+  if(p.cover) {
+    coverImg.src = p.cover;
+    coverImg.style.display = '';
+    coverPlaceholder.style.display = 'none';
   } else {
-    document.getElementById('avatar-img-home').style.display = 'none';
-    document.getElementById('avatar-emoji-home').style.display = '';
+    coverImg.style.display = 'none';
+    coverPlaceholder.style.display = '';
   }
 
-  renderTeamGrid('home-team-grid');
+  // Today grade
+  const todayEvents = getPerformanceWindow('hoy');
+  const todayMetrics = {
+    tasks: todayEvents.filter(e=>e.type==='task').length,
+    battles: todayEvents.filter(e=>e.type==='battle').length,
+    captures: todayEvents.filter(e=>e.type==='capture').length,
+    searches: todayEvents.filter(e=>e.type==='search').length,
+    playerLevelUps: todayEvents.filter(e=>e.type==='playerLevelUp').length,
+    pkLevelUps: todayEvents.filter(e=>e.type==='pkLevelUp').length,
+  };
+  const { grade, color, tip } = calcGrade(todayMetrics);
+  const gradeEl = document.getElementById('dash-grade-val');
+  const tipEl = document.getElementById('dash-grade-tip');
+  if(gradeEl) { gradeEl.textContent = grade; gradeEl.style.color = color; }
+  if(tipEl) { tipEl.textContent = tip.length > 50 ? tip.slice(0,48)+'…' : tip; }
 
-  const pending = state.tasks.filter(t => !t.completed).slice(0,3);
-  const tPreview = document.getElementById('home-tasks-preview');
+  // Tasks widget
+  renderDashTasks();
+
+  // Zones mini-map
+  renderDashZones();
+
+  // Team mini
+  renderDashTeam();
+
+  // Shop mini
+  renderDashShop();
+}
+
+function renderDashTasks() {
+  const listEl = document.getElementById('dash-tasks-list');
+  if(!listEl) return;
+  const pending = state.tasks.filter(t => !t.completed);
   if(pending.length === 0) {
-    tPreview.innerHTML = '<div style="font-size:12px; color:var(--text3); padding:8px 0">No hay tareas pendientes</div>';
+    listEl.innerHTML = `<div style="text-align:center;padding:20px;color:var(--text3);font-size:12px">🎉 ¡Sin tareas pendientes!<br><span style="font-size:10px">Crea una nueva para ganar SP</span></div>`;
   } else {
-    tPreview.innerHTML = pending.map(t => `
-      <div style="display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border)">
-        <div class="task-priority priority-${t.priority}" style="width:3px;height:32px;border-radius:2px"></div>
-        <div style="flex:1">
-          <div style="font-size:12px;font-weight:600">${t.name}</div>
-          <div style="font-size:10px;color:var(--text3)">${t.type} · ${t.diff}</div>
+    listEl.innerHTML = pending.map(t => {
+      const overdue = t.end && new Date(t.end) < new Date();
+      const endStr = t.end ? new Date(t.end).toLocaleString('es-ES',{weekday:'short',hour:'2-digit',minute:'2-digit'}) : '';
+      return `<div class="dash-task-row">
+        <div class="dash-task-dot priority-${t.priority}"></div>
+        <div style="flex:1;min-width:0">
+          <div class="dash-task-name">${t.name}</div>
+          <div class="dash-task-meta" style="color:${overdue?'var(--red)':'var(--text3)'}">
+            ${overdue?'⚠ Vencida':'⏰'} ${endStr} · +${t.spReward}SP +${t.coinReward}🪙
+          </div>
         </div>
-        <span class="badge badge-search">+${t.spReward} SP</span>
-      </div>`).join('');
-  }
-
-  const captDiv = document.getElementById('home-captured-list');
-  if(state.captured.length === 0) {
-    captDiv.innerHTML = 'Ninguno aún.';
-  } else {
-    captDiv.innerHTML = state.captured.map(id => {
-      const pk = POKEMONS[id];
-      return `<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid var(--border)">
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png" style="width:28px;height:28px;image-rendering:pixelated">
-        <span style="font-size:12px">${pk.name}</span>
+        <button class="dash-task-done-btn" onclick="completeTask('${t.id}')">✓</button>
       </div>`;
     }).join('');
   }
+  // Quick add row
+  listEl.innerHTML += `<div class="dash-task-add">
+    <input type="text" id="dash-quick-task" placeholder="Nueva tarea rápida…" onkeydown="if(event.key==='Enter')quickAddTask()">
+    <button class="btn sm" onclick="quickAddTask()">+</button>
+  </div>`;
 }
+
+function quickAddTask() {
+  const inp = document.getElementById('dash-quick-task');
+  const name = inp?.value?.trim();
+  if(!name) return;
+  const task = {
+    id: Date.now().toString(), name, type:'task', priority:'mid', diff:'easy',
+    start: new Date().toISOString(), end: new Date(Date.now()+86400000).toISOString(),
+    completed: false, spReward: 1, coinReward: 5, createdAt: Date.now(),
+  };
+  state.tasks.push(task);
+  saveGame();
+  renderDashTasks();
+  notify('Tarea creada: ' + name, 'good');
+}
+
+function renderDashZones() {
+  const el = document.getElementById('dash-zones-mini');
+  if(!el) return;
+  el.innerHTML = ZONES.map(z => {
+    const locked = state.player.level < z.reqLevel;
+    return `<div class="dash-zone-row ${locked?'locked':''}" ${locked?'':'onclick="dashExplore(\''+z.id+'\')"'}>
+      <div class="dash-zone-icon">${z.icon}</div>
+      <div class="dash-zone-info">
+        <div class="dash-zone-name">${z.name}</div>
+        <div class="dash-zone-sub">${locked ? `🔒 Nivel ${z.reqLevel} requerido` : `${z.pokemon.length} Pokémon · Nv.${z.reqLevel}`}</div>
+      </div>
+      ${!locked ? `<button class="dash-zone-btn" ${state.searchPoints<1?'disabled':''} onclick="event.stopPropagation();dashExplore('${z.id}')">
+        🔍 Explorar
+      </button>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function dashExplore(zoneId) {
+  if(state.searchPoints < 1) { notify('Sin puntos de búsqueda', 'bad'); return; }
+  if(state.team.filter(Boolean).length === 0) { notify('Sin Pokémon en el equipo', 'bad'); return; }
+  selectedZoneId = zoneId;
+  startExplore();
+}
+
+function renderDashTeam() {
+  const el = document.getElementById('dash-team-mini');
+  if(!el) return;
+  let html = '';
+  for(let i = 0; i < 6; i++) {
+    const pk = state.team[i];
+    if(pk) {
+      const hpPct = Math.max(0,(pk.hp/pk.hpMax)*100);
+      const hpCls = hpPct>50?'hp':hpPct>20?'hp mid':'hp low';
+      const pts = pk.statPoints||0;
+      html += `<div class="dash-pk-slot" onclick="showPokemonDetailFull(${i},'team')">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pk.id}.png" alt="${pk.name}">
+        <div class="dash-pk-name">${pk.name}</div>
+        <div class="dash-pk-lv">Nv.${pk.level}</div>
+        ${pts>0?`<div class="dash-pk-pts">★ ${pts}pts</div>`:''}
+        <div style="width:100%;margin-top:2px"><div class="bar-bg" style="height:3px"><div class="bar-fill ${hpCls}" style="width:${hpPct}%"></div></div></div>
+      </div>`;
+    } else {
+      html += `<div class="dash-pk-slot empty"><div style="font-size:18px;opacity:0.3">+</div></div>`;
+    }
+  }
+  el.innerHTML = html;
+}
+
+function renderDashShop() {
+  const el = document.getElementById('dash-shop-mini');
+  if(!el) return;
+  const quickItems = [
+    {id:'pokeball',  name:'Poké Ball',   icon:'⚪', price:20},
+    {id:'potion',    name:'Poción',       icon:'🧪', price:30},
+    {id:'great_ball',name:'Super Ball',  icon:'🔵', price:60},
+    {id:'super_potion',name:'Super Poc.',icon:'💊', price:70},
+    {id:'ultra_ball',name:'Ultra Ball',  icon:'⚫', price:120},
+    {id:'hyper_potion',name:'Hiperpc.',  icon:'💉', price:150},
+  ];
+  el.innerHTML = quickItems.map(item => {
+    const canBuy = state.coins >= item.price;
+    const owned = state.inventory[item.id]||0;
+    return `<div class="dash-shop-row">
+      <span class="dash-shop-icon">${item.icon}</span>
+      <span class="dash-shop-name">${item.name} <span style="color:var(--text3);font-size:9px">${owned>0?'(x'+owned+')':''}</span></span>
+      <span class="dash-shop-price">🪙${item.price}</span>
+      <button class="dash-shop-buy" onclick="dashBuy('${item.id}',${item.price})" ${!canBuy?'disabled':''}>Comprar</button>
+    </div>`;
+  }).join('');
+}
+
+function dashBuy(id, price) {
+  if(state.coins < price) { notify('Sin monedas suficientes','bad'); return; }
+  state.coins -= price;
+  state.inventory[id] = (state.inventory[id]||0)+1;
+  updateHUD();
+  document.getElementById('dash-shop-coins').textContent = state.coins;
+  document.getElementById('home-coins-val').textContent = state.coins;
+  saveGame();
+  renderDashShop();
+  notify('¡Comprado!','good');
+}
+
+
 
 function renderTeamGrid(containerId) {
   const container = document.getElementById(containerId);
@@ -1604,16 +2180,12 @@ function switchProfileTab(tab, btn) {
 function renderProfile() {
   const p = state.player;
   document.getElementById('profile-name').textContent = p.name;
-  document.getElementById('profile-desc').textContent = p.desc;
+  document.getElementById('profile-desc').textContent = p.desc || 'Aspirante a Maestro Pokémon';
   document.getElementById('profile-level').textContent = p.level;
   document.getElementById('profile-coins').textContent = state.coins;
   const xpPct = Math.min(100, (p.xp / p.xpNext) * 100);
   document.getElementById('profile-xp-bar').style.width = xpPct + '%';
   document.getElementById('profile-xp-label').textContent = `${p.xp} / ${p.xpNext}`;
-  document.getElementById('p-stat-battles').textContent = state.stats.battles;
-  document.getElementById('p-stat-captures').textContent = state.stats.captures;
-  document.getElementById('p-stat-tasks').textContent = state.stats.tasks;
-  document.getElementById('p-stat-wins').textContent = state.stats.wins;
   if(p.cover) {
     document.getElementById('profile-cover-img').src = p.cover;
     document.getElementById('profile-cover-img').style.display = '';
@@ -1644,17 +2216,302 @@ function loadCoverPhoto(input) {
 
 function renderTrainerTab() {
   const p = state.player;
-  document.getElementById('cfg-name').value = p.name;
-  document.getElementById('cfg-desc').value = p.desc;
-  if(document.getElementById('cfg-region')) document.getElementById('cfg-region').value = p.region || 'Kanto';
-  if(document.getElementById('cfg-class')) document.getElementById('cfg-class').value = p.class || 'Entrenador';
-  document.getElementById('pt-level').textContent = p.level;
-  document.getElementById('pt-battles').textContent = state.stats.battles;
-  document.getElementById('pt-wins').textContent = state.stats.wins;
-  document.getElementById('pt-captures').textContent = state.stats.captures;
-  document.getElementById('pt-tasks').textContent = state.stats.tasks;
-  document.getElementById('pt-coins').textContent = state.coins;
+  document.getElementById('pt-name').textContent = p.name;
+  document.getElementById('pt-desc').textContent = p.desc || 'Aspirante a Maestro Pokémon';
+  document.getElementById('pt-class-display').textContent = p.class || 'Entrenador';
+  document.getElementById('pt-region-display').textContent = p.region || 'Kanto';
+  if(p.photo) {
+    document.getElementById('pt-avatar-img').src = p.photo;
+    document.getElementById('pt-avatar-img').style.display = '';
+    document.getElementById('pt-avatar-emoji').style.display = 'none';
+  } else {
+    document.getElementById('pt-avatar-img').style.display = 'none';
+    document.getElementById('pt-avatar-emoji').style.display = '';
+  }
+  // Inventario en perfil
+  const ALL_ITEMS = [
+    {icon:'🧪', name:'Poción', id:'potion'},
+    {icon:'💊', name:'Super Poción', id:'super_potion'},
+    {icon:'💉', name:'Hiperpoción', id:'hyper_potion'},
+    {icon:'⚪', name:'Poké Ball', id:'pokeball'},
+    {icon:'🔵', name:'Super Ball', id:'great_ball'},
+    {icon:'⚫', name:'Ultra Ball', id:'ultra_ball'},
+    {icon:'🟢', name:'Antídoto', id:'antidote'},
+    {icon:'🧊', name:'Quema-s', id:'burn_heal'},
+  ];
+  const invEl = document.getElementById('profile-inventory');
+  if(invEl) {
+    const owned = ALL_ITEMS.filter(i => (state.inventory[i.id] || 0) > 0);
+    if(owned.length === 0) {
+      invEl.innerHTML = '<div style="font-size:12px;color:var(--text3);grid-column:1/-1">Inventario vacío. ¡Visita la tienda!</div>';
+    } else {
+      invEl.innerHTML = owned.map(i => `
+        <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
+          <span style="font-size:12px">${i.icon} ${i.name}</span>
+          <span style="font-size:13px;font-weight:700;color:var(--accent)">x${state.inventory[i.id]}</span>
+        </div>`).join('');
+    }
+  }
+  renderRendimiento('hoy');
 }
+
+// ===================== RENDIMIENTO DEL ENTRENADOR =====================
+let currentPerfTab = 'hoy';
+function switchPerfTab(period) {
+  currentPerfTab = period;
+  ['hoy','semana','mes'].forEach(t => {
+    const btn = document.getElementById('perf-tab-' + t);
+    if(btn) btn.classList.toggle('active', t === period);
+  });
+  renderRendimiento(period);
+}
+
+function getPerformanceWindow(period) {
+  const now = Date.now();
+  const d = new Date();
+  let from;
+  if(period === 'hoy') {
+    from = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  } else if(period === 'semana') {
+    const day = d.getDay(); // 0=sun
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Monday
+    from = new Date(d.getFullYear(), d.getMonth(), diff).getTime();
+  } else {
+    from = new Date(d.getFullYear(), d.getMonth(), 1).getTime();
+  }
+  return (state.performance || []).filter(e => e.ts >= from);
+}
+
+function calcGrade(metrics) {
+  let score = 0;
+  // Tasks
+  if(metrics.tasks >= 5) score += 25;
+  else if(metrics.tasks >= 3) score += 15;
+  else if(metrics.tasks >= 1) score += 8;
+  // Battles
+  if(metrics.battles >= 5) score += 20;
+  else if(metrics.battles >= 3) score += 12;
+  else if(metrics.battles >= 1) score += 5;
+  // Captures
+  if(metrics.captures >= 3) score += 20;
+  else if(metrics.captures >= 1) score += 10;
+  // Searches
+  if(metrics.searches >= 5) score += 15;
+  else if(metrics.searches >= 3) score += 10;
+  else if(metrics.searches >= 1) score += 5;
+  // Level ups
+  if(metrics.playerLevelUps >= 2) score += 10;
+  else if(metrics.playerLevelUps >= 1) score += 6;
+  // Pokemon level ups
+  if(metrics.pkLevelUps >= 3) score += 10;
+  else if(metrics.pkLevelUps >= 1) score += 5;
+
+  if(score >= 90) return { grade: 'S', color: '#f0c040', tip: '¡Rendimiento LEGENDARIO! Eres un maestro Pokémon en toda regla. Sigue así.' };
+  if(score >= 70) return { grade: 'A', color: '#3dba6e', tip: 'Excelente trabajo. Estás muy cerca de la perfección. ¡Una batalla más y llegas a la cima!' };
+  if(score >= 50) return { grade: 'B', color: '#4f8ef7', tip: 'Buen rendimiento. Completa más tareas y explora más zonas para mejorar.' };
+  if(score >= 30) return { grade: 'C', color: '#e07830', tip: 'Rendimiento aceptable. Prueba a completar al menos 3 tareas y hacer varias búsquedas.' };
+  if(score >= 15) return { grade: 'D', color: '#e85d8a', tip: 'Necesitas más actividad. ¡Completa tareas y sal a explorar para ganar XP!' };
+  return { grade: 'F', color: '#e05252', tip: 'Sin actividad registrada en este período. ¡Empieza completando una tarea ahora mismo!' };
+}
+
+function renderRendimiento(period) {
+  const el = document.getElementById('rendimiento-content');
+  if(!el) return;
+  const events = getPerformanceWindow(period);
+  const p = state.player;
+
+  // Aggregate metrics
+  const completedTasks = events.filter(e => e.type === 'task');
+  const battles = events.filter(e => e.type === 'battle');
+  const captures = events.filter(e => e.type === 'capture');
+  const searches = events.filter(e => e.type === 'search');
+  const playerLevelUps = events.filter(e => e.type === 'playerLevelUp');
+  const pkLevelUps = events.filter(e => e.type === 'pkLevelUp');
+
+  const coinsEarned = battles.reduce((acc, e) => acc + (e.detail?.coins || 0), 0)
+    + completedTasks.reduce((acc, e) => acc + (e.detail?.coins || 0), 0);
+
+  const metrics = {
+    tasks: completedTasks.length,
+    battles: battles.length,
+    captures: captures.length,
+    searches: searches.length,
+    playerLevelUps: playerLevelUps.length,
+    pkLevelUps: pkLevelUps.length,
+  };
+
+  const { grade, color, tip } = calcGrade(metrics);
+
+  // Pokemon level ups detail
+  const pkLvMap = {};
+  pkLevelUps.forEach(e => {
+    const key = e.detail.pkId;
+    if(!pkLvMap[key]) pkLvMap[key] = { name: e.detail.pkName, count: 0, latest: e.detail.newLevel };
+    pkLvMap[key].count++;
+    pkLvMap[key].latest = Math.max(pkLvMap[key].latest, e.detail.newLevel);
+  });
+
+  const pkLvHtml = Object.values(pkLvMap).length > 0
+    ? Object.values(pkLvMap).map(pk =>
+        `<span style="display:inline-flex;align-items:center;gap:4px;background:var(--bg);border-radius:6px;padding:2px 8px;font-size:10px;margin:2px">
+          <strong>${pk.name}</strong> ×${pk.count} subida${pk.count > 1 ? 's' : ''} → Nv.${pk.latest}
+        </span>`).join('')
+    : '<span style="font-size:11px;color:var(--text3)">Ninguno aún</span>';
+
+  const taskListHtml = completedTasks.length > 0
+    ? completedTasks.slice(-5).map(e =>
+        `<div style="font-size:11px;padding:3px 0;border-bottom:1px solid var(--border);color:var(--text2)">
+          ✅ ${e.detail?.name || 'Tarea'} <span style="color:var(--yellow);margin-left:4px">+${e.detail?.coins||0}🪙</span>
+        </div>`).join('')
+    : '<div style="font-size:11px;color:var(--text3)">Ninguna completada</div>';
+
+  const periodLabel = { hoy: 'HOY', semana: 'ESTA SEMANA', mes: 'ESTE MES' }[period];
+
+  el.innerHTML = `
+    <!-- Grade banner -->
+    <div style="display:flex;align-items:center;gap:16px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px">
+      <div style="font-size:52px;font-weight:900;color:${color};font-family:'Press Start 2P',monospace;line-height:1;text-shadow:0 0 20px ${color}44">${grade}</div>
+      <div style="flex:1">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-bottom:4px">CALIFICACIÓN ${periodLabel}</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.5">${tip}</div>
+      </div>
+    </div>
+
+    <!-- Nivel actual -->
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:8px">⚡ Nivel Actual del Entrenador</div>
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">
+        <span style="font-size:26px;font-weight:700;color:var(--yellow)">${p.level}</span>
+        <span style="font-size:11px;color:var(--text3)">${p.xp} / ${p.xpNext} XP</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill xp" style="width:${Math.min(100,(p.xp/p.xpNext)*100)}%"></div></div>
+    </div>
+
+    <!-- Stats grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:24px;font-weight:700;color:var(--yellow)">${coinsEarned}</div>
+        <div style="font-size:9px;color:var(--text3);letter-spacing:0.5px;margin-top:2px">MONEDAS 🪙</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:24px;font-weight:700;color:var(--green)">${metrics.tasks}</div>
+        <div style="font-size:9px;color:var(--text3);letter-spacing:0.5px;margin-top:2px">TAREAS ✅</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:24px;font-weight:700;color:var(--accent)">${metrics.searches}</div>
+        <div style="font-size:9px;color:var(--text3);letter-spacing:0.5px;margin-top:2px">BÚSQUEDAS 🔍</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:24px;font-weight:700;color:var(--red)">${metrics.battles}</div>
+        <div style="font-size:9px;color:var(--text3);letter-spacing:0.5px;margin-top:2px">BATALLAS ⚔️</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:24px;font-weight:700;color:var(--pink)">${metrics.captures}</div>
+        <div style="font-size:9px;color:var(--text3);letter-spacing:0.5px;margin-top:2px">CAPTURAS 🎯</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:24px;font-weight:700;color:var(--cyan)">${metrics.playerLevelUps}</div>
+        <div style="font-size:9px;color:var(--text3);letter-spacing:0.5px;margin-top:2px">NIVELES ↑ ⬆️</div>
+      </div>
+    </div>
+
+    <!-- Tareas completadas -->
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:8px">📋 Tareas Completadas</div>
+      ${taskListHtml}
+    </div>
+
+    <!-- Pokémon que subieron de nivel -->
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:8px">🎮 Subidas de Nivel de Pokémon</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px">${pkLvHtml}</div>
+    </div>
+  `;
+}
+
+// ===================== STAT POINTS SYSTEM =====================
+let statPointsTarget = null;
+
+function openStatPoints(pk, source, idx) {
+  if(!pk) return;
+  if(!pk.statPoints) pk.statPoints = 0;
+  if(!pk.bonusStats) pk.bonusStats = { hp:0, atk:0, def:0, spAtk:0, spDef:0, spd:0 };
+  // migrate old saves missing spAtk/spDef
+  pk.bonusStats.spAtk = pk.bonusStats.spAtk || 0;
+  pk.bonusStats.spDef = pk.bonusStats.spDef || 0;
+  if(!pk.spAtk) { const b = POKEMONS[pk.id].stats; pk.spAtk = Math.floor((2*b.spAtk*pk.level/100)+5)+(pk.bonusStats.spAtk||0); }
+  if(!pk.spDef) { const b = POKEMONS[pk.id].stats; pk.spDef = Math.floor((2*b.spDef*pk.level/100)+5)+(pk.bonusStats.spDef||0); }
+  statPointsTarget = { pk, source, idx };
+  renderStatPointsModal();
+  document.getElementById('stat-points-overlay').classList.add('show');
+}
+
+function renderStatPointsModal() {
+  const { pk } = statPointsTarget;
+  if(!pk.statPoints) pk.statPoints = 0;
+  if(!pk.bonusStats) pk.bonusStats = { hp:0, atk:0, def:0, spAtk:0, spDef:0, spd:0 };
+
+  document.getElementById('stat-points-title').textContent = `🎯 ${pk.name} — Puntos de Estadística`;
+
+  const statDefs = [
+    { key:'hp',    label:'HP',          icon:'❤️',  color:'#e85d8a', desc:'Aumenta la vida máxima',               live: pk.hpMax,  base: pk.hpMax  - (pk.bonusStats.hp    || 0) },
+    { key:'atk',   label:'Ataque',      icon:'⚔️',  color:'#e07830', desc:'Daño de moves físicos (roca, normal…)',  live: pk.atk,   base: pk.atk    - (pk.bonusStats.atk   || 0) },
+    { key:'def',   label:'Defensa',     icon:'🛡️',  color:'#f0c040', desc:'Reduce daño físico recibido',           live: pk.def,   base: pk.def    - (pk.bonusStats.def   || 0) },
+    { key:'spAtk', label:'Atq. Esp.',   icon:'✨',  color:'#4f8ef7', desc:'Daño de moves especiales (agua, fuego…)',live: pk.spAtk, base: pk.spAtk  - (pk.bonusStats.spAtk || 0) },
+    { key:'spDef', label:'Def. Esp.',   icon:'💠',  color:'#2ec4b6', desc:'Reduce daño especial recibido',          live: pk.spDef, base: pk.spDef  - (pk.bonusStats.spDef || 0) },
+    { key:'spd',   label:'Velocidad',   icon:'💨',  color:'#3dba6e', desc:'Determina quién actúa primero',          live: pk.spd,   base: pk.spd    - (pk.bonusStats.spd   || 0) },
+  ];
+
+  const statRows = statDefs.map(s => {
+    const bonus = pk.bonusStats[s.key] || 0;
+    const canSpend = pk.statPoints > 0;
+    return `
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;margin-bottom:6px">
+        <div style="font-size:20px;width:26px;text-align:center">${s.icon}</div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span style="font-size:12px;font-weight:700;color:${s.color}">${s.label}</span>
+            <span style="font-size:18px;font-weight:700;color:var(--text)">${s.live}</span>
+            ${bonus > 0 ? `<span style="font-size:10px;color:${s.color};font-weight:700">(+${bonus})</span>` : ''}
+          </div>
+          <div style="font-size:9px;color:var(--text3);margin-top:1px">${s.desc}</div>
+        </div>
+        <button class="btn ghost sm" onclick="spendStatPoint('${s.key}')" ${!canSpend ? 'disabled style="opacity:0.35"' : ''}>+1</button>
+      </div>`;
+  }).join('');
+
+  document.getElementById('stat-points-content').innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;gap:12px;background:var(--bg);border-radius:10px;padding:14px;margin-bottom:16px;border:1px solid var(--border)">
+      <div style="font-size:36px;font-weight:700;color:var(--accent);line-height:1">${pk.statPoints}</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text)">Puntos disponibles</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">Ganas 3 puntos por cada nivel subido</div>
+      </div>
+    </div>
+    ${statRows}
+    ${pk.statPoints <= 0 ? `<div style="text-align:center;font-size:11px;color:var(--text3);margin-top:10px;padding:8px;background:var(--bg3);border-radius:6px">Sin puntos — ¡sube de nivel para obtener más!</div>` : ''}
+  `;
+}
+
+function spendStatPoint(statKey) {
+  const { pk } = statPointsTarget;
+  if(!pk || pk.statPoints <= 0) return;
+  if(!pk.bonusStats) pk.bonusStats = { hp:0, atk:0, def:0, spAtk:0, spDef:0, spd:0 };
+  pk.statPoints--;
+  pk.bonusStats[statKey] = (pk.bonusStats[statKey] || 0) + 1;
+  // Apply to live stat immediately (affects combat)
+  if     (statKey === 'hp')    { pk.hpMax++; pk.hp = Math.min(pk.hp + 1, pk.hpMax); }
+  else if(statKey === 'atk')   pk.atk++;
+  else if(statKey === 'def')   pk.def++;
+  else if(statKey === 'spAtk') pk.spAtk = (pk.spAtk || 0) + 1;
+  else if(statKey === 'spDef') pk.spDef = (pk.spDef || 0) + 1;
+  else if(statKey === 'spd')   pk.spd++;
+  saveGame();
+  renderStatPointsModal();
+  const labels = { hp:'HP', atk:'Ataque', def:'Defensa', spAtk:'Atq.Esp.', spDef:'Def.Esp.', spd:'Velocidad' };
+  notify(`+1 ${labels[statKey]} para ${pk.name}!`, 'good');
+}
+
 
 function renderPCAndTeam() {
   const teamGrid = document.getElementById('profile-team-manage');
@@ -1665,10 +2522,14 @@ function renderPCAndTeam() {
     if(pk) {
       const hpPct = Math.max(0, (pk.hp / pk.hpMax) * 100);
       const hpClass = hpPct > 50 ? 'hp' : hpPct > 20 ? 'hp mid' : 'hp low';
-      teamHtml += `<div class="team-manage-slot" title="${pk.name} Nv.${pk.level}" onclick="showPokemonDetail(${i}, true)">
+      const hasPoints = (pk.statPoints || 0) > 0;
+      const lockedMoves = pk.moves.filter(m => !m.unlocked).length;
+      teamHtml += `<div class="team-manage-slot" title="${pk.name} Nv.${pk.level}" onclick="showPokemonDetailFull(${i}, 'team')">
         <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pk.id}.png" alt="${pk.name}">
         <div class="tm-name">${pk.name}</div>
         <div class="tm-lv">Nv.${pk.level}</div>
+        ${hasPoints ? `<div style="font-size:8px;color:var(--yellow);font-weight:700">★ ${pk.statPoints} pts</div>` : ''}
+        ${lockedMoves > 0 ? `<div style="font-size:8px;color:var(--text3)">🔒 ${lockedMoves} mov.</div>` : `<div style="font-size:8px;color:var(--green)">✓ Todos moves</div>`}
         <div style="width:100%;margin-top:2px"><div class="bar-bg"><div class="bar-fill ${hpClass}" style="width:${hpPct}%"></div></div></div>
         <button class="btn ghost sm" style="margin-top:4px;font-size:9px;padding:2px 6px" onclick="event.stopPropagation();sendToPC(${i})">📦 PC</button>
       </div>`;
@@ -1684,16 +2545,23 @@ function renderPCAndTeam() {
     pcGrid.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:16px 0;grid-column:1/-1">El PC está vacío. ¡Captura más Pokémon!</div>';
     return;
   }
-  pcGrid.innerHTML = state.pc.map((pk, i) => `
-    <div class="pc-slot" title="${pk.name} Nv.${pk.level}">
+  pcGrid.innerHTML = state.pc.map((pk, i) => {
+    const hasPoints = (pk.statPoints || 0) > 0;
+    const lockedMoves = pk.moves.filter(m => !m.unlocked).length;
+    return `
+    <div class="pc-slot" title="${pk.name} Nv.${pk.level}" onclick="showPokemonDetailFull(${i}, 'pc')">
       <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pk.id}.png" alt="${pk.name}">
       <div class="pc-name">${pk.name}</div>
       <div class="pc-lv">Nv.${pk.level}</div>
+      ${hasPoints ? `<div style="font-size:8px;color:var(--yellow);font-weight:700">★ ${pk.statPoints}</div>` : ''}
+      ${lockedMoves > 0 ? `<div style="font-size:7px;color:var(--text3)">🔒 ${lockedMoves} bloq.</div>` : ''}
       <div class="pc-slot-actions">
-        <button class="pc-action-btn" onclick="sendToTeam(${i})">⚔️ Al equipo</button>
-        <button class="pc-action-btn" onclick="showPkDetailById(${pk.id})">🔍 Info</button>
+        <button class="pc-action-btn" onclick="event.stopPropagation();sendToTeam(${i})">⚔️ Al equipo</button>
+        <button class="pc-action-btn" onclick="event.stopPropagation();showPokemonDetailFull(${i},'pc')">🎯 Stats</button>
+        <button class="pc-action-btn" onclick="event.stopPropagation();showPkDetailById(${pk.id})">🔍 Info</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function sendToPC(teamIdx) {
@@ -1839,6 +2707,8 @@ function completeTask(id) {
   state.searchPoints += task.spReward;
   state.coins += task.coinReward;
   state.stats.tasks++;
+  trackPerformance('task', { name: task.name, sp: task.spReward, coins: task.coinReward });
+  addActivity(`<strong>${state.player.name}</strong> completó la tarea "<strong>${task.name}</strong>" · +${task.spReward} SP, +${task.coinReward}🪙`, 'good');
   updateHUD();
   addLog(`✅ Tarea "${task.name}" completada. +${task.spReward} SP, +${task.coinReward}🪙`, 'good');
   notify(`+${task.spReward} SP y +${task.coinReward}🪙 ganados!`, 'good');
@@ -1914,11 +2784,15 @@ function startExplore() {
     if(rand <= cumul) { chosen = p; break; }
   }
   if(!chosen) chosen = zone.pokemon[0];
-  const level = Math.max(2, Math.floor(Math.random() * 8) + 3);
+  // Wild pokemon level = zone required level (fixed, as requested)
+  const level = zone.reqLevel;
   const wildPk = mkPokemon(chosen.id, level);
   state.searchPoints--;
+  trackPerformance('search', { zoneId: zone.id });
   updateHUD();
   closeAreaModal();
+  const rarityLabel = {'common':'Común','uncommon':'Poco común','rare':'Raro','legendary':'¡LEGENDARIO!'}[chosen.rarity] || '';
+  addActivity(`<strong>${state.player.name}</strong> exploró <strong>${zone.name}</strong> y encontró a <strong>${POKEMONS[chosen.id].name}</strong> [${rarityLabel}]`, 'info');
   startCombat(wildPk, zone, chosen.rarity);
 }
 
@@ -1974,12 +2848,22 @@ function renderCombat() {
 }
 
 function renderMoveButtons(p) {
-  document.getElementById('moves-grid').innerHTML = p.moves.map((m, i) => `
-    <button class="move-btn" onclick="useMove(${i})">
+  document.getElementById('moves-grid').innerHTML = p.moves.map((m, i) => {
+    const isLocked = !m.unlocked;
+    const unlockLv = MOVE_UNLOCK_LEVELS[i] || 99;
+    if(isLocked) {
+      return `<button class="move-btn" disabled style="opacity:0.4;cursor:not-allowed;position:relative">
+        <span style="font-size:14px;margin-bottom:2px">🔒</span>
+        <div class="move-name" style="color:var(--text3)">${m.name}</div>
+        <div class="move-info" style="color:var(--text3)">Nivel ${unlockLv} para desbloquear</div>
+      </button>`;
+    }
+    return `<button class="move-btn" onclick="useMove(${i})">
       <span class="type-badge type-${m.type}" style="margin-bottom:2px">${m.type.toUpperCase()}</span>
       <div class="move-name">${m.name}</div>
       <div class="move-info">PP: ${m.ppLeft}/${m.pp} · Poder: ${m.power||'—'}</div>
-    </button>`).join('');
+    </button>`;
+  }).join('');
 }
 
 function showMoves() {
@@ -2032,17 +2916,46 @@ function addSideLog(msg, type='') {
   container.scrollTop = container.scrollHeight;
 }
 
-function addLog(msg, type='') {
+// addActivity: registra eventos del sistema en "Actividades Recientes"
+function addActivity(msg, type='') {
+  if(!state.activityLog) state.activityLog = [];
+  const entry = { msg, type, ts: Date.now() };
+  state.activityLog.unshift(entry);
+  if(state.activityLog.length > 30) state.activityLog.pop();
+  renderActivityLog();
+}
+
+function renderActivityLog() {
   const log = document.getElementById('home-log');
   if(!log) return;
-  log.innerHTML += `<div class="log-entry ${type}">${msg}</div>`;
-  log.scrollTop = log.scrollHeight;
+  if(!state.activityLog || state.activityLog.length === 0) {
+    log.innerHTML = '<div class="log-entry info">¡Bienvenido a PokéLeveling! Completa tareas para obtener puntos de búsqueda.</div>';
+    return;
+  }
+  log.innerHTML = state.activityLog.map(e => {
+    const time = new Date(e.ts).toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+    return `<div class="log-entry ${e.type}"><span style="color:var(--text3);font-size:10px">${time}</span> ${e.msg}</div>`;
+  }).join('');
+  log.scrollTop = 0;
+}
+
+function addLog(msg, type='') {
+  // No-op: combat log lines no van a actividades recientes
+}
+
+// ===================== PERFORMANCE TRACKING =====================
+function trackPerformance(type, detail = {}) {
+  if(!state.performance) state.performance = [];
+  state.performance.push({ ts: Date.now(), type, detail });
+  // Keep only last 2000 events
+  if(state.performance.length > 2000) state.performance = state.performance.slice(-2000);
 }
 
 function useMove(moveIdx) {
   if(combatState.turn !== 'player') return;
   const pk = state.team[combatState.playerIdx];
   const move = pk.moves[moveIdx];
+  if(!move.unlocked) { notify('Este movimiento aún no está desbloqueado', 'bad'); return; }
   if(move.ppLeft <= 0) { notify('Sin PP en ese movimiento', 'bad'); return; }
   if(pk.status === 'sleep') {
     if(Math.random() < 0.5) { combatLog(`${pk.name} está dormido y no puede atacar!`, ''); enemyTurn(); return; }
@@ -2084,7 +2997,10 @@ function useMove(moveIdx) {
 
 function calcDamage(attacker, defender, move) {
   if(!move.power) return 0;
-  const base = Math.floor((2 * attacker.level / 5) + 2) * move.power * (attacker.atk / defender.def);
+  const special = isSpecialMove(move);
+  const atkStat = special ? (attacker.spAtk || attacker.atk) : attacker.atk;
+  const defStat = special ? (defender.spDef || defender.def) : defender.def;
+  const base = Math.floor((2 * attacker.level / 5) + 2) * move.power * (atkStat / defStat);
   const dmg = Math.floor(base / 50 + 2);
   const stab = attacker.types.includes(move.type) ? 1.5 : 1;
   const rand = 0.85 + Math.random() * 0.15;
@@ -2151,6 +3067,7 @@ function combatVictory() {
   const e = combatState.enemy;
   const p = state.team[combatState.playerIdx];
   combatLog(`¡${e.name} fue derrotado!`, 'good');
+  addActivity(`<strong>${state.player.name}</strong> venció a <strong>${e.name}</strong> (Nv.${e.level})`, 'good');
   state.stats.wins++;
   const playerXP = Math.floor(e.level * 15);
   givePlayerXP(playerXP);
@@ -2158,12 +3075,13 @@ function combatVictory() {
   const totalDmg = combatState.damageToEnemy;
   const threshold = e.hpMax * 0.5;
   if(totalDmg >= threshold) {
-    const pkXP = Math.floor(e.level * 20);
+    const pkXP = 220;
     givePokemonXP(p, pkXP);
     combatLog(`${p.name} ganó ${pkXP} XP!`, 'good');
   }
   const coins = Math.floor(e.level * 8 + Math.random() * 20);
   state.coins += coins;
+  trackPerformance('battle', { won: true, coins });
   notify(`Victoria! +${playerXP} XP, +${coins} 🪙`, 'good');
   updateHUD();
   setTimeout(endCombat, 2000);
@@ -2177,6 +3095,8 @@ function givePlayerXP(xp) {
     p.level++;
     p.xpNext = Math.floor(p.xpNext * 1.5);
     combatLog(`¡Subiste al nivel ${p.level}!`, 'good');
+    addActivity(`<strong>${state.player.name}</strong> subió al nivel <strong>${p.level}</strong> como entrenador`, 'good');
+    trackPerformance('playerLevelUp', { newLevel: p.level });
     notify(`¡Nivel ${p.level}!`, 'good');
   }
 }
@@ -2186,20 +3106,266 @@ function givePokemonXP(pk, xp) {
   while(pk.xp >= pk.xpNext) {
     pk.xp -= pk.xpNext;
     pk.level++;
-    pk.xpNext = Math.floor(pk.level * 50);
+    pk.xpNext = Math.floor(pk.level * pk.level * 4);
     const base = POKEMONS[pk.id].stats;
-    pk.hpMax = Math.floor((2 * base.hp * pk.level / 100) + pk.level + 10);
-    pk.hp = Math.min(pk.hp + 5, pk.hpMax);
-    pk.atk = Math.floor((2 * base.atk * pk.level / 100) + 5);
-    pk.def = Math.floor((2 * base.def * pk.level / 100) + 5);
-    pk.spd = Math.floor((2 * base.spd * pk.level / 100) + 5);
-    combatLog(`¡${pk.name} subió al nivel ${pk.level}!`, 'good');
+    pk.hpMax  = Math.floor((2 * base.hp    * pk.level / 100) + pk.level + 10) + (pk.bonusStats?.hp    || 0);
+    pk.hp     = Math.min(pk.hp + 5, pk.hpMax);
+    pk.atk    = Math.floor((2 * base.atk   * pk.level / 100) + 5) + (pk.bonusStats?.atk   || 0);
+    pk.def    = Math.floor((2 * base.def   * pk.level / 100) + 5) + (pk.bonusStats?.def   || 0);
+    pk.spAtk  = Math.floor((2 * base.spAtk * pk.level / 100) + 5) + (pk.bonusStats?.spAtk || 0);
+    pk.spDef  = Math.floor((2 * base.spDef * pk.level / 100) + 5) + (pk.bonusStats?.spDef || 0);
+    pk.spd    = Math.floor((2 * base.spd   * pk.level / 100) + 5) + (pk.bonusStats?.spd   || 0);
+    if(!pk.statPoints) pk.statPoints = 0;
+    pk.statPoints += 3;
+    // Unlock moves based on new level
+    unlockMovesForLevel(pk);
+    combatLog(`¡${pk.name} subió al nivel ${pk.level}! (+3 puntos de estadística)`, 'good');
+    addActivity(`<strong>${pk.name}</strong> subió al nivel <strong>${pk.level}</strong>`, 'good');
+    trackPerformance('pkLevelUp', { pkId: pk.id, pkName: pk.name, newLevel: pk.level });
+    // Check evolution
+    const baseDef = POKEMONS[pk.id];
+    if(baseDef.evolves && baseDef.evolveLv && pk.level >= baseDef.evolveLv && pk._evoDeclined !== baseDef.evolves) {
+      evolvePokemon(pk);
+    }
   }
+}
+
+function unlockMovesForLevel(pk) {
+  const newCount = getUnlockedMoveCount(pk.level);
+  let newlyUnlocked = [];
+  pk.moves.forEach((m, i) => {
+    if(i < newCount && !m.unlocked) {
+      m.unlocked = true;
+      newlyUnlocked.push(m.name);
+    }
+  });
+  if(newlyUnlocked.length > 0) {
+    newlyUnlocked.forEach(mName => {
+      combatLog(`¡${pk.name} aprendió ${mName}!`, 'good');
+      addActivity(`<strong>${pk.name}</strong> aprendió el movimiento <strong>${mName}</strong>`, 'good');
+    });
+  }
+}
+
+// ===================== EVOLUTION SYSTEM =====================
+let _evoContext = null; // { pk, oldId, evoId, selectedKeep: Set of old-move indices }
+
+function evolvePokemon(pk) {
+  const baseDef = POKEMONS[pk.id];
+  if(!baseDef.evolves || !POKEMONS[baseDef.evolves]) return;
+  _evoContext = {
+    pk,
+    oldId: pk.id,
+    oldName: pk.name,
+    evoId: baseDef.evolves,
+    selectedKeep: new Set(), // indices of OLD moves the player wants to keep (max 2)
+  };
+  renderEvoOverlay();
+  document.getElementById('evo-overlay').classList.add('show');
+}
+
+function renderEvoOverlay() {
+  const { pk, oldId, oldName, evoId, selectedKeep } = _evoContext;
+  const oldDef = POKEMONS[oldId];
+  const evoDef = POKEMONS[evoId];
+
+  // Old unlocked moves (the ones the player can choose to keep)
+  const oldUnlocked = pk.moves
+    .map((m, i) => ({ ...m, origIdx: i }))
+    .filter(m => m.unlocked);
+
+  // Stat comparison
+  const lv = pk.level;
+  const calcStat = (base, lv, bonus) => Math.floor((2 * base * lv / 100) + 5) + (bonus || 0);
+  const calcHP   = (base, lv, bonus) => Math.floor((2 * base * lv / 100) + lv + 10) + (bonus || 0);
+  const bonus = pk.bonusStats || {};
+  const oldStats = {
+    hp:    calcHP  (oldDef.stats.hp,    lv, bonus.hp),
+    atk:   calcStat(oldDef.stats.atk,   lv, bonus.atk),
+    def:   calcStat(oldDef.stats.def,   lv, bonus.def),
+    spAtk: calcStat(oldDef.stats.spAtk, lv, bonus.spAtk),
+    spDef: calcStat(oldDef.stats.spDef, lv, bonus.spDef),
+    spd:   calcStat(oldDef.stats.spd,   lv, bonus.spd),
+  };
+  const newStats = {
+    hp:    calcHP  (evoDef.stats.hp,    lv, bonus.hp),
+    atk:   calcStat(evoDef.stats.atk,   lv, bonus.atk),
+    def:   calcStat(evoDef.stats.def,   lv, bonus.def),
+    spAtk: calcStat(evoDef.stats.spAtk, lv, bonus.spAtk),
+    spDef: calcStat(evoDef.stats.spDef, lv, bonus.spDef),
+    spd:   calcStat(evoDef.stats.spd,   lv, bonus.spd),
+  };
+  const statLabels = { hp:'❤️ HP', atk:'⚔️ Ataque', def:'🛡️ Defensa', spAtk:'✨ Atq.Esp.', spDef:'💠 Def.Esp.', spd:'💨 Velocidad' };
+
+  // New evolution moves (all 4, unlocked)
+  const newMoves = evoDef.moves;
+
+  // Which new moves are replaced by kept old moves?
+  // We slot kept old moves into indices 0..1 of the new moveset (first 2 replaced)
+  const keepArr = [...selectedKeep]; // up to 2 old-move origIdx values
+  const replacedNewIndices = new Set(keepArr.map((_, i) => i)); // new move slots 0,1 get replaced
+
+  const statHtml = Object.entries(statLabels).map(([key, label]) => {
+    const diff = newStats[key] - oldStats[key];
+    const sign = diff > 0 ? '+' : '';
+    const cls = diff > 0 ? 'evo-stat-up' : diff < 0 ? 'evo-stat-neutral' : 'evo-stat-neutral';
+    return `<div class="evo-stat-pill">
+      <span style="color:var(--text2)">${label}</span>
+      <span>${oldStats[key]} → <strong class="${cls}">${newStats[key]}</strong> <span style="font-size:9px">(${sign}${diff})</span></span>
+    </div>`;
+  }).join('');
+
+  const oldMovesHtml = oldUnlocked.length === 0
+    ? `<div style="font-size:11px;color:var(--text3)">Sin movimientos desbloqueados para conservar.</div>`
+    : oldUnlocked.map(m => {
+        const isSelected = selectedKeep.has(m.origIdx);
+        return `<div class="evo-move-card ${isSelected ? 'selected-keep' : ''}"
+          onclick="evoToggleKeep(${m.origIdx})">
+          <span class="type-badge type-${m.type}" style="font-size:8px">${m.type.toUpperCase()}</span>
+          <div class="evo-move-name">${m.name}</div>
+          <div class="evo-move-info">POD: ${m.power||'—'} · PP: ${m.pp}</div>
+        </div>`;
+      }).join('');
+
+  const newMovesHtml = newMoves.map((m, i) => {
+    const isReplaced = replacedNewIndices.has(i) && keepArr.length > i;
+    const keepIdx = keepArr[i]; // which old move replaces this slot
+    const keepMove = keepIdx !== undefined ? pk.moves[keepIdx] : null;
+    return `<div class="evo-move-card new-move ${isReplaced ? 'replaced' : ''}">
+      <span class="type-badge type-${m.type}" style="font-size:8px">${m.type.toUpperCase()}</span>
+      <div class="evo-move-name">${m.name}</div>
+      <div class="evo-move-info">POD: ${m.power||'—'} · PP: ${m.pp}</div>
+      ${isReplaced && keepMove ? `<div style="font-size:9px;color:var(--green);margin-top:2px">← ${keepMove.name}</div>` : ''}
+    </div>`;
+  }).join('');
+
+  const canEvolve = true; // always can confirm (0, 1 or 2 moves kept)
+  const keepCount = selectedKeep.size;
+
+  document.getElementById('evo-panel').innerHTML = `
+    <div class="evo-title">✨ ¡${oldName} está evolucionando! ✨</div>
+
+    <div class="evo-sprites-row">
+      <div class="evo-sprite-box old">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${oldId}.png" alt="${oldName}">
+        <div class="evo-sprite-label" style="color:var(--text3)">${oldName}</div>
+        <div class="evo-types">${(oldDef.types||[]).map(t=>`<span class="type-badge type-${t}">${t}</span>`).join('')}</div>
+      </div>
+      <div class="evo-arrow">→</div>
+      <div class="evo-sprite-box new">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evoId}.png" alt="${evoDef.name}">
+        <div class="evo-sprite-label" style="color:var(--yellow)">${evoDef.name}</div>
+        <div class="evo-types">${(evoDef.types||[]).map(t=>`<span class="type-badge type-${t}">${t}</span>`).join('')}</div>
+      </div>
+    </div>
+
+    <div class="evo-section-title">📈 Mejora de Estadísticas</div>
+    <div class="evo-stat-changes">${statHtml}</div>
+
+    <div class="evo-section-title">🌟 Nuevos Movimientos de ${evoDef.name}</div>
+    <div class="evo-moves-grid">${newMovesHtml}</div>
+
+    ${oldUnlocked.length > 0 ? `
+    <div class="evo-hint">
+      Puedes conservar hasta <strong>2 movimientos</strong> de ${oldName} (selecciona cuáles).<br>
+      Reemplazarán los primeros huecos del nuevo set.<br>
+      <span style="color:var(--text3)">${keepCount}/2 seleccionados</span>
+    </div>
+    <div class="evo-section-title">🔄 Movimientos de ${oldName} para Conservar</div>
+    <div class="evo-moves-grid">${oldMovesHtml}</div>
+    ` : ''}
+
+    <button class="evo-confirm-btn" onclick="confirmEvolution()">
+      ✨ Confirmar Evolución${keepCount > 0 ? ` (conservando ${keepCount} movimiento${keepCount>1?'s':''})` : ''}
+    </button>
+    <button class="evo-skip-btn" onclick="cancelEvolution()">✕ No evolucionar ahora</button>
+  `;
+}
+
+function evoToggleKeep(origIdx) {
+  const { selectedKeep } = _evoContext;
+  if(selectedKeep.has(origIdx)) {
+    selectedKeep.delete(origIdx);
+  } else {
+    if(selectedKeep.size >= 2) {
+      // Remove the oldest selection (first one)
+      const first = selectedKeep.values().next().value;
+      selectedKeep.delete(first);
+    }
+    selectedKeep.add(origIdx);
+  }
+  renderEvoOverlay();
+}
+
+function confirmEvolution() {
+  if(!_evoContext) return;
+  const { pk, oldId, oldName, evoId, selectedKeep } = _evoContext;
+  const evoDef = POKEMONS[evoId];
+  const lv = pk.level;
+  const bonus = pk.bonusStats || {};
+
+  // Build final moveset: start with all 4 new moves (all unlocked)
+  let finalMoves = evoDef.moves.map(m => ({...m, ppLeft: m.pp, unlocked: true}));
+
+  // Slot kept old moves into positions 0, 1
+  const keepArr = [...selectedKeep];
+  keepArr.forEach((origIdx, slotI) => {
+    if(slotI < 2) {
+      const oldMove = pk.moves[origIdx];
+      finalMoves[slotI] = { ...oldMove, ppLeft: oldMove.ppLeft, unlocked: true };
+    }
+  });
+
+  // Apply evolution
+  pk.id = evoId;
+  pk.name = evoDef.name;
+  pk.types = evoDef.types;
+  pk.hpMax  = Math.floor((2 * evoDef.stats.hp    * lv / 100) + lv + 10) + (bonus.hp    || 0);
+  pk.hp     = Math.min(pk.hp, pk.hpMax);
+  pk.atk    = Math.floor((2 * evoDef.stats.atk   * lv / 100) + 5) + (bonus.atk   || 0);
+  pk.def    = Math.floor((2 * evoDef.stats.def   * lv / 100) + 5) + (bonus.def   || 0);
+  pk.spAtk  = Math.floor((2 * evoDef.stats.spAtk * lv / 100) + 5) + (bonus.spAtk || 0);
+  pk.spDef  = Math.floor((2 * evoDef.stats.spDef * lv / 100) + 5) + (bonus.spDef || 0);
+  pk.spd    = Math.floor((2 * evoDef.stats.spd   * lv / 100) + 5) + (bonus.spd   || 0);
+  pk.moves  = finalMoves;
+
+  document.getElementById('evo-overlay').classList.remove('show');
+  _evoContext = null;
+
+  const keptNames = keepArr.map(i => pk.moves.find(m => m.name === (finalMoves.find((f,fi)=> fi < 2 && keepArr.indexOf(i) === keepArr.indexOf(i)) || {}).name)).filter(Boolean);
+  combatLog(`¡${oldName} evolucionó a ${pk.name}! ✨`, 'good');
+  addActivity(`<strong>${oldName}</strong> evolucionó a <strong>${pk.name}</strong>! ✨ ${keepArr.length > 0 ? `Conservó ${keepArr.length} movimiento(s) anteriore(s).` : 'Moveset completamente renovado.'}`, 'good');
+  notify(`¡${oldName} evolucionó a ${pk.name}!`, 'good');
+  saveGame();
+  if(combatState.active) renderCombat();
+}
+
+function cancelEvolution() {
+  // Mark as already tried to evolve so it doesn't retrigger next level
+  if(_evoContext) {
+    _evoContext.pk._evoDeclined = _evoContext.evoId;
+  }
+  document.getElementById('evo-overlay').classList.remove('show');
+  _evoContext = null;
+  combatLog('¡Decidiste no evolucionar por ahora!', 'info');
 }
 
 function endCombat() {
   combatState.active = false;
   hideMoves();
+  // Recuperar toda la vida al terminar la batalla
+  state.team.forEach(pk => {
+    if(pk) {
+      pk.hp = pk.hpMax;
+      pk.status = null;
+    }
+  });
+  state.pc.forEach(pk => {
+    if(pk) {
+      pk.hp = pk.hpMax;
+      pk.status = null;
+    }
+  });
   document.getElementById('combat-log-main').innerHTML = '';
   document.getElementById('combat-screen').classList.remove('show');
   saveGame();
@@ -2258,7 +3424,9 @@ function useBagItem(id, effect) {
     if(e.status) chance += 0.15;
     if(Math.random() < chance) {
       combatLog(`¡Capturaste a ${e.name}!`, 'good');
+      addActivity(`<strong>${state.player.name}</strong> capturó a <strong>${e.name}</strong>`, 'good');
       state.stats.captures++;
+      trackPerformance('capture', { pkId: e.id, pkName: e.name });
       if(!state.captured.includes(e.id)) state.captured.push(e.id);
       const newPk = mkPokemon(e.id, e.level);
       newPk.hp = e.hp;
@@ -2338,13 +3506,32 @@ function buyItem(id, price) {
 
 // ===================== CONFIG =====================
 function saveConfig() {
-  state.player.name = document.getElementById('cfg-name').value.trim() || state.player.name;
-  state.player.desc = document.getElementById('cfg-desc').value.trim() || state.player.desc;
+  const nameVal = document.getElementById('cfg-name').value.trim();
+  const descVal = document.getElementById('cfg-desc').value.trim();
+  if(nameVal) state.player.name = nameVal;
+  if(descVal) state.player.desc = descVal;
   if(document.getElementById('cfg-region')) state.player.region = document.getElementById('cfg-region').value;
   if(document.getElementById('cfg-class')) state.player.class = document.getElementById('cfg-class').value;
+  // Photo upload
+  const photoFile = document.getElementById('cfg-photo').files[0];
+  if(photoFile) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      state.player.photo = e.target.result;
+      finalizeConfig();
+    };
+    reader.readAsDataURL(photoFile);
+  } else {
+    finalizeConfig();
+  }
+}
+
+function finalizeConfig() {
   document.getElementById('profile-name').textContent = state.player.name;
   document.getElementById('profile-desc').textContent = state.player.desc;
   document.getElementById('home-player-name').textContent = state.player.name;
+  document.getElementById('home-player-desc').textContent = state.player.desc || 'Aspirante a Maestro Pokémon';
+  document.getElementById('home-player-class').textContent = state.player.class || 'Entrenador';
   renderTrainerTab();
   saveGame();
   notify('Perfil actualizado', 'good');
@@ -2355,6 +3542,15 @@ function showPokemonDetail(teamIdx, fromTeam) {
   const pk = fromTeam ? state.team[teamIdx] : null;
   if(!pk) return;
   showPkDetailById(pk.id, pk);
+}
+
+// New: opens full detail + stat points for team/pc pokemon
+function showPokemonDetailFull(idx, source) {
+  const pk = source === 'team' ? state.team[idx] : state.pc[idx];
+  if(!pk) return;
+  if(!pk.statPoints) pk.statPoints = 0;
+  if(!pk.bonusStats) pk.bonusStats = { hp:0, atk:0, def:0, spd:0 };
+  openStatPoints(pk, source, idx);
 }
 
 function showPkDetailById(id, pkInstance) {
@@ -2393,12 +3589,29 @@ function showPkDetailById(id, pkInstance) {
         <div class="stats-bars">${statsHtml}</div>
         <div style="margin-top:16px">
           <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:8px">MOVIMIENTOS</div>
+          ${pk ? `<div style="font-size:10px;color:var(--text3);margin-bottom:8px">
+            ${getUnlockedMoveCount(pk.level)} / 4 desbloqueados · Próximo: ${
+              MOVE_UNLOCK_LEVELS.filter(lv => lv > pk.level)[0]
+                ? `Nv.${MOVE_UNLOCK_LEVELS.filter(lv => lv > pk.level)[0]}`
+                : '¡Todos desbloqueados!'
+            }
+          </div>` : ''}
           <div style="display:flex;flex-direction:column;gap:6px">
-            ${base.moves.map(m => `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg3);border-radius:6px">
-              <span class="type-badge type-${m.type}">${m.type}</span>
-              <span style="font-size:12px;font-weight:600">${m.name}</span>
-              <span style="font-size:10px;color:var(--text3);margin-left:auto">POD:${m.power||'—'} PP:${m.pp}</span>
-            </div>`).join('')}
+            ${base.moves.map((m, i) => {
+              const isLocked = pk ? !pk.moves[i]?.unlocked : i > 0;
+              const unlockLv = MOVE_UNLOCK_LEVELS[i] || 99;
+              return `<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg3);border-radius:6px;${isLocked ? 'opacity:0.45;' : ''}border:1px solid ${isLocked ? 'var(--border)' : 'transparent'}">
+                ${isLocked
+                  ? `<span style="font-size:14px">🔒</span>`
+                  : `<span class="type-badge type-${m.type}">${m.type}</span>`
+                }
+                <span style="font-size:12px;font-weight:600;color:${isLocked ? 'var(--text3)' : 'var(--text)'}">${m.name}</span>
+                ${isLocked
+                  ? `<span style="font-size:10px;color:var(--text3);margin-left:auto">Se desbloquea al Nv.${unlockLv}</span>`
+                  : `<span style="font-size:10px;color:var(--text3);margin-left:auto">POD:${m.power||'—'} PP:${m.pp}</span>`
+                }
+              </div>`;
+            }).join('')}
           </div>
         </div>
       </div>
@@ -2473,7 +3686,7 @@ function confirmImport() {
       stats: { battles:0, captures:0, tasks:0, wins:0 },
       team: [], pc: [], captured: [], tasks: [],
       inventory: { potion:0, pokeball:0, great_ball:0, ultra_ball:0, super_potion:0, hyper_potion:0, antidote:0, burn_heal:0 },
-      log: []
+      log: [], performance: []
     };
     state = { ...defaults, ..._pendingImport };
     state.player = { ...defaults.player, ..._pendingImport.player };
@@ -2505,9 +3718,9 @@ function notify(msg, type='info') {
 function init() {
   const loaded = loadGame();
   if(!loaded) {
-    state.team.push(mkPokemon(1, 5));
-    state.team.push(mkPokemon(4, 5));
-    state.team.push(mkPokemon(25, 5));
+    state.team.push(mkPokemon(1, 1));
+    state.team.push(mkPokemon(4, 1));
+    state.team.push(mkPokemon(25, 1));
     state.captured = [1, 4, 25];
     state.searchPoints = 3;
     state.coins = 50;
@@ -2523,8 +3736,28 @@ function init() {
     });
     saveGame();
   }
+  if(!state.performance) state.performance = [];
+  if(!state.activityLog) state.activityLog = [];
+  // Migrate: ensure all pokemon have full bonusStats and spAtk/spDef live stats
+  [...state.team, ...state.pc].forEach(pk => {
+    if(pk) {
+      if(pk.statPoints === undefined) pk.statPoints = 0;
+      if(!pk.bonusStats) pk.bonusStats = { hp:0, atk:0, def:0, spAtk:0, spDef:0, spd:0 };
+      pk.bonusStats.spAtk = pk.bonusStats.spAtk || 0;
+      pk.bonusStats.spDef = pk.bonusStats.spDef || 0;
+      // Ensure spAtk/spDef live stats exist
+      if(!pk.spAtk) { const b = POKEMONS[pk.id]?.stats; if(b) pk.spAtk = Math.floor((2*b.spAtk*pk.level/100)+5)+(pk.bonusStats.spAtk||0); }
+      if(!pk.spDef) { const b = POKEMONS[pk.id]?.stats; if(b) pk.spDef = Math.floor((2*b.spDef*pk.level/100)+5)+(pk.bonusStats.spDef||0); }
+      // Migrate move unlock flag
+      const unlockedCount = getUnlockedMoveCount(pk.level);
+      pk.moves.forEach((m, i) => {
+        if(m.unlocked === undefined) m.unlocked = i < unlockedCount;
+      });
+    }
+  });
   updateHUD();
   renderHome();
+  renderActivityLog();
   renderTasks();
 }
 
