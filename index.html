@@ -2162,50 +2162,113 @@ let state = {
 
 // ===================== LOCALSTORAGE =====================
 const SAVE_KEY = 'pokeleveling_save_v1';
+const PHOTO_KEY = 'pokeleveling_photos_v1';
+
+// Guardar fotos (base64 grandes) en clave separada para no saturar el save principal
+function savePhotos(player) {
+  try {
+    const photos = { photo: player.photo || null, cover: player.cover || null };
+    localStorage.setItem(PHOTO_KEY, JSON.stringify(photos));
+  } catch(e) {
+    // Si ni las fotos caben, las ignoramos
+    try { localStorage.removeItem(PHOTO_KEY); } catch(_) {}
+  }
+}
+function loadPhotos() {
+  try {
+    const raw = localStorage.getItem(PHOTO_KEY);
+    if (!raw) return {};
+    return JSON.parse(raw) || {};
+  } catch(e) { return {}; }
+}
+
 function saveGame() {
   try {
-    // Exclude transient combat/session state from the save to avoid corrupt reloads
+    // Guardar fotos por separado (pueden ser base64 muy grandes)
+    savePhotos(state.player);
+
+    // Clonar jugador sin fotos para el save principal
+    const playerWithoutPhotos = { ...state.player, photo: null, cover: null };
+
+    // Truncar logs para no exceder la cuota (~5MB en la mayoría de navegadores)
+    // Mantenemos solo los últimos N registros de cada log
+    const MAX_LOG        = 80;
+    const MAX_ACTIVITY   = 100;
+    const MAX_PERF       = 150;
+
     const toSave = {
-      player: state.player,
+      player:       playerWithoutPhotos,
       searchPoints: state.searchPoints,
-      coins: state.coins,
-      stats: state.stats,
-      team: state.team,
-      pc: state.pc,
-      captured: state.captured,
-      tasks: state.tasks,
-      inventory: state.inventory,
-      log: state.log,
-      activityLog: state.activityLog,
-      performance: state.performance,
+      coins:        state.coins,
+      stats:        state.stats,
+      team:         state.team,
+      pc:           state.pc,
+      captured:     state.captured,
+      tasks:        state.tasks,
+      inventory:    state.inventory,
+      log:          (state.log        || []).slice(-MAX_LOG),
+      activityLog:  (state.activityLog|| []).slice(-MAX_ACTIVITY),
+      performance:  (state.performance|| []).slice(-MAX_PERF),
     };
+
     localStorage.setItem(SAVE_KEY, JSON.stringify(toSave));
-  } catch(e) {}
+  } catch(e) {
+    // Cuota excedida: intentar guardar versión mínima sin logs
+    try {
+      const minSave = {
+        player:       { ...state.player, photo: null, cover: null },
+        searchPoints: state.searchPoints,
+        coins:        state.coins,
+        stats:        state.stats,
+        team:         state.team,
+        pc:           state.pc,
+        captured:     state.captured,
+        tasks:        state.tasks,
+        inventory:    state.inventory,
+        log:          [],
+        activityLog:  [],
+        performance:  [],
+      };
+      localStorage.setItem(SAVE_KEY, JSON.stringify(minSave));
+      console.warn('PokéLeveling: guardado sin logs por falta de espacio en localStorage.');
+    } catch(e2) {
+      console.error('PokéLeveling: no se pudo guardar la partida.', e2);
+    }
+  }
 }
+
 function loadGame() {
   try {
     const raw = localStorage.getItem(SAVE_KEY);
     if (!raw) return false;
     const saved = JSON.parse(raw);
     if (!saved || typeof saved !== 'object') return false;
+
     state.player = { ...state.player, ...(saved.player || {}) };
+
+    // Restaurar fotos desde su clave separada
+    const photos = loadPhotos();
+    if (photos.photo) state.player.photo = photos.photo;
+    if (photos.cover) state.player.cover = photos.cover;
+
     state.searchPoints = saved.searchPoints ?? state.searchPoints;
-    state.coins = saved.coins ?? state.coins;
-    state.stats = { ...state.stats, ...(saved.stats || {}) };
-    state.team = saved.team ?? state.team;
-    state.pc = saved.pc ?? [];
-    state.captured = saved.captured ?? state.captured;
-    state.tasks = saved.tasks ?? state.tasks;
-    state.inventory = { ...state.inventory, ...(saved.inventory || {}) };
-    state.log = saved.log ?? [];
-    state.activityLog = saved.activityLog ?? [];
-    state.performance = saved.performance ?? [];
+    state.coins        = saved.coins        ?? state.coins;
+    state.stats        = { ...state.stats, ...(saved.stats || {}) };
+    state.team         = saved.team         ?? state.team;
+    state.pc           = saved.pc           ?? [];
+    state.captured     = saved.captured     ?? state.captured;
+    state.tasks        = saved.tasks        ?? state.tasks;
+    state.inventory    = { ...state.inventory, ...(saved.inventory || {}) };
+    state.log          = saved.log          ?? [];
+    state.activityLog  = saved.activityLog  ?? [];
+    state.performance  = saved.performance  ?? [];
     return true;
   } catch(e) { return false; }
 }
 function resetGame() {
   if (!confirm('¿Seguro que quieres reiniciar la partida? Se perderá todo el progreso.')) return;
   localStorage.removeItem(SAVE_KEY);
+  localStorage.removeItem(PHOTO_KEY);
   location.reload();
 }
 setInterval(saveGame, 30000);
@@ -4174,6 +4237,7 @@ function cancelImport() {
 
 function confirmImport() {
   if (!_pendingImport) return;
+  const s = document.getElementById('import-status');
   try {
     const imp = _pendingImport;
     const defaults = {
@@ -4184,32 +4248,64 @@ function confirmImport() {
       inventory: { potion:0, pokeball:0, great_ball:0, ultra_ball:0, master_ball:0, super_potion:0, hyper_potion:0, antidote:0, burn_heal:0, full_restore:0, elixir:0 },
       log: [], activityLog: [], performance: []
     };
+
+    const MAX_LOG = 80, MAX_ACTIVITY = 100, MAX_PERF = 150;
+
+    // Build merged player — extraer fotos para guardar por separado
+    const mergedPlayer = { ...defaults.player, ...(imp.player && typeof imp.player === 'object' ? imp.player : {}) };
+    const importPhotos = { photo: mergedPlayer.photo || null, cover: mergedPlayer.cover || null };
+    const playerWithoutPhotos = { ...mergedPlayer, photo: null, cover: null };
+
     // Build merged state safely — never spread undefined/null
     const merged = {
-      player:       { ...defaults.player,    ...(imp.player    && typeof imp.player    === 'object' ? imp.player    : {}) },
+      player:       playerWithoutPhotos,
       searchPoints: imp.searchPoints != null  ? imp.searchPoints  : defaults.searchPoints,
-      coins:        imp.coins        != null  ? imp.coins          : defaults.coins,
-      stats:        { ...defaults.stats,     ...(imp.stats     && typeof imp.stats     === 'object' ? imp.stats     : {}) },
-      team:         Array.isArray(imp.team)    ? imp.team          : defaults.team,
-      pc:           Array.isArray(imp.pc)      ? imp.pc            : defaults.pc,
-      captured:     Array.isArray(imp.captured)? imp.captured      : defaults.captured,
-      tasks:        Array.isArray(imp.tasks)   ? imp.tasks         : defaults.tasks,
-      inventory:    { ...defaults.inventory,  ...(imp.inventory && typeof imp.inventory === 'object' ? imp.inventory : {}) },
-      log:          Array.isArray(imp.log)         ? imp.log          : defaults.log,
-      activityLog:  Array.isArray(imp.activityLog) ? imp.activityLog : defaults.activityLog,
-      performance:  Array.isArray(imp.performance) ? imp.performance : defaults.performance,
+      coins:        imp.coins        != null  ? imp.coins         : defaults.coins,
+      stats:        { ...defaults.stats,    ...(imp.stats     && typeof imp.stats     === 'object' ? imp.stats     : {}) },
+      team:         Array.isArray(imp.team)    ? imp.team         : defaults.team,
+      pc:           Array.isArray(imp.pc)      ? imp.pc           : defaults.pc,
+      captured:     Array.isArray(imp.captured)? imp.captured     : defaults.captured,
+      tasks:        Array.isArray(imp.tasks)   ? imp.tasks        : defaults.tasks,
+      inventory:    { ...defaults.inventory, ...(imp.inventory && typeof imp.inventory === 'object' ? imp.inventory : {}) },
+      // Truncar logs para no exceder la cuota
+      log:         (Array.isArray(imp.log)         ? imp.log         : defaults.log).slice(-MAX_LOG),
+      activityLog: (Array.isArray(imp.activityLog) ? imp.activityLog : defaults.activityLog).slice(-MAX_ACTIVITY),
+      performance: (Array.isArray(imp.performance) ? imp.performance : defaults.performance).slice(-MAX_PERF),
     };
-    localStorage.setItem(SAVE_KEY, JSON.stringify(merged));
-    _pendingImport = null;
-    document.getElementById('import-preview').style.display = 'none';
-    const s = document.getElementById('import-status');
-    s.textContent = '✅ Progreso importado correctamente. Recargando...';
-    s.style.color = 'var(--green)';
-    s.style.display = '';
-    setTimeout(() => location.reload(), 1200);
+
+    // Guardar fotos por separado
+    try {
+      localStorage.setItem(PHOTO_KEY, JSON.stringify(importPhotos));
+    } catch(_) {
+      try { localStorage.removeItem(PHOTO_KEY); } catch(__) {}
+    }
+
+    // Intentar guardar el save principal; si falla por cuota, quitar logs
+    let saved = false;
+    try {
+      localStorage.setItem(SAVE_KEY, JSON.stringify(merged));
+      saved = true;
+    } catch(quotaErr) {
+      // Reintentar sin logs
+      try {
+        merged.log = []; merged.activityLog = []; merged.performance = [];
+        localStorage.setItem(SAVE_KEY, JSON.stringify(merged));
+        saved = true;
+      } catch(e2) {
+        throw new Error('No hay espacio suficiente en el navegador para importar la partida.');
+      }
+    }
+
+    if (saved) {
+      _pendingImport = null;
+      document.getElementById('import-preview').style.display = 'none';
+      s.textContent = '✅ Progreso importado correctamente. Recargando...';
+      s.style.color = 'var(--green)';
+      s.style.display = '';
+      setTimeout(() => location.reload(), 1200);
+    }
   } catch(err) {
     _pendingImport = null;
-    const s = document.getElementById('import-status');
     s.textContent = '❌ Error al procesar el archivo: ' + (err.message || 'formato no válido');
     s.style.color = 'var(--red)';
     s.style.display = '';
