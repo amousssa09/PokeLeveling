@@ -2163,23 +2163,42 @@ let state = {
 // ===================== LOCALSTORAGE =====================
 const SAVE_KEY = 'pokeleveling_save_v1';
 function saveGame() {
-  try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch(e) {}
+  try {
+    // Exclude transient combat/session state from the save to avoid corrupt reloads
+    const toSave = {
+      player: state.player,
+      searchPoints: state.searchPoints,
+      coins: state.coins,
+      stats: state.stats,
+      team: state.team,
+      pc: state.pc,
+      captured: state.captured,
+      tasks: state.tasks,
+      inventory: state.inventory,
+      log: state.log,
+      activityLog: state.activityLog,
+      performance: state.performance,
+    };
+    localStorage.setItem(SAVE_KEY, JSON.stringify(toSave));
+  } catch(e) {}
 }
 function loadGame() {
   try {
     const raw = localStorage.getItem(SAVE_KEY);
     if (!raw) return false;
     const saved = JSON.parse(raw);
-    state.player = { ...state.player, ...saved.player };
+    if (!saved || typeof saved !== 'object') return false;
+    state.player = { ...state.player, ...(saved.player || {}) };
     state.searchPoints = saved.searchPoints ?? state.searchPoints;
     state.coins = saved.coins ?? state.coins;
-    state.stats = { ...state.stats, ...saved.stats };
+    state.stats = { ...state.stats, ...(saved.stats || {}) };
     state.team = saved.team ?? state.team;
     state.pc = saved.pc ?? [];
     state.captured = saved.captured ?? state.captured;
     state.tasks = saved.tasks ?? state.tasks;
-    state.inventory = { ...state.inventory, ...saved.inventory };
+    state.inventory = { ...state.inventory, ...(saved.inventory || {}) };
     state.log = saved.log ?? [];
+    state.activityLog = saved.activityLog ?? [];
     state.performance = saved.performance ?? [];
     return true;
   } catch(e) { return false; }
@@ -4156,20 +4175,31 @@ function cancelImport() {
 function confirmImport() {
   if (!_pendingImport) return;
   try {
+    const imp = _pendingImport;
     const defaults = {
       player: { name:'Entrenador', desc:'', level:1, xp:0, xpNext:80, photo:null, region:'Kanto', class:'Entrenador', cover:null },
       searchPoints: 0, coins: 50,
       stats: { battles:0, captures:0, tasks:0, wins:0 },
       team: [], pc: [], captured: [], tasks: [],
       inventory: { potion:0, pokeball:0, great_ball:0, ultra_ball:0, master_ball:0, super_potion:0, hyper_potion:0, antidote:0, burn_heal:0, full_restore:0, elixir:0 },
-      log: [], performance: []
+      log: [], activityLog: [], performance: []
     };
-    state = { ...defaults, ..._pendingImport };
-    state.player = { ...defaults.player, ..._pendingImport.player };
-    state.stats = { ...defaults.stats, ..._pendingImport.stats };
-    state.inventory = { ...defaults.inventory, ..._pendingImport.inventory };
-    state.pc = _pendingImport.pc || [];
-    localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+    // Build merged state safely — never spread undefined/null
+    const merged = {
+      player:       { ...defaults.player,    ...(imp.player    && typeof imp.player    === 'object' ? imp.player    : {}) },
+      searchPoints: imp.searchPoints != null  ? imp.searchPoints  : defaults.searchPoints,
+      coins:        imp.coins        != null  ? imp.coins          : defaults.coins,
+      stats:        { ...defaults.stats,     ...(imp.stats     && typeof imp.stats     === 'object' ? imp.stats     : {}) },
+      team:         Array.isArray(imp.team)    ? imp.team          : defaults.team,
+      pc:           Array.isArray(imp.pc)      ? imp.pc            : defaults.pc,
+      captured:     Array.isArray(imp.captured)? imp.captured      : defaults.captured,
+      tasks:        Array.isArray(imp.tasks)   ? imp.tasks         : defaults.tasks,
+      inventory:    { ...defaults.inventory,  ...(imp.inventory && typeof imp.inventory === 'object' ? imp.inventory : {}) },
+      log:          Array.isArray(imp.log)         ? imp.log          : defaults.log,
+      activityLog:  Array.isArray(imp.activityLog) ? imp.activityLog : defaults.activityLog,
+      performance:  Array.isArray(imp.performance) ? imp.performance : defaults.performance,
+    };
+    localStorage.setItem(SAVE_KEY, JSON.stringify(merged));
     _pendingImport = null;
     document.getElementById('import-preview').style.display = 'none';
     const s = document.getElementById('import-status');
@@ -4178,7 +4208,12 @@ function confirmImport() {
     s.style.display = '';
     setTimeout(() => location.reload(), 1200);
   } catch(err) {
-    notify('Error al importar el archivo', 'bad');
+    _pendingImport = null;
+    const s = document.getElementById('import-status');
+    s.textContent = '❌ Error al procesar el archivo: ' + (err.message || 'formato no válido');
+    s.style.color = 'var(--red)';
+    s.style.display = '';
+    document.getElementById('import-preview').style.display = 'none';
   }
 }
 
