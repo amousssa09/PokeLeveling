@@ -1099,6 +1099,317 @@ body {
 .dash-shop-buy:disabled { opacity: 0.3; cursor: not-allowed; }
 
 /* Log widget stretches height */
+
+/* ===================== POKÉMON WORLD ===================== */
+.pw-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 18px;
+}
+.pw-title { font-size: 22px; font-weight: 700; }
+.pw-subtitle { font-size: 12px; color: var(--text2); margin-top: 4px; }
+
+.pw-tabs {
+  display: flex; gap: 6px; margin-bottom: 20px;
+  border-bottom: 1px solid var(--border); padding-bottom: 0;
+}
+.pw-tab {
+  background: none; border: none;
+  color: var(--text2); font-family: 'Exo 2', sans-serif;
+  font-size: 12px; font-weight: 700; padding: 9px 16px;
+  cursor: pointer; border-bottom: 2px solid transparent;
+  margin-bottom: -1px; letter-spacing: 0.3px; transition: all 0.15s;
+}
+.pw-tab:hover { color: var(--text); }
+.pw-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.pw-content { display: none; }
+.pw-content.active { display: block; }
+
+/* MAP */
+.pw-map-container { }
+.pw-map-bg {
+  background: radial-gradient(ellipse at 20% 80%, rgba(61,186,110,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(79,142,247,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, rgba(155,89,182,0.04) 0%, transparent 70%),
+              var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  position: relative;
+  overflow: hidden;
+  min-height: 360px;
+}
+.pw-map-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px; color: var(--yellow);
+  margin-bottom: 24px; letter-spacing: 1px;
+}
+.pw-map-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  max-width: 860px;
+}
+.pw-map-district {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.pw-map-district::before {
+  content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.2s;
+}
+.district-hunt::before    { background: radial-gradient(ellipse at top left, rgba(61,186,110,0.2), transparent 60%); }
+.district-gym::before     { background: radial-gradient(ellipse at top left, rgba(240,192,64,0.2), transparent 60%); }
+.district-tournament::before { background: radial-gradient(ellipse at top left, rgba(232,93,138,0.2), transparent 60%); }
+.district-market::before  { background: radial-gradient(ellipse at top left, rgba(79,142,247,0.2), transparent 60%); }
+
+.pw-map-district:hover::before { opacity: 1; }
+.pw-map-district:hover { transform: translateY(-3px); border-color: var(--border2); }
+
+.district-hunt:hover    { border-color: var(--green); }
+.district-gym:hover     { border-color: var(--yellow); }
+.district-tournament:hover { border-color: var(--pink); }
+.district-market:hover  { border-color: var(--accent); }
+
+.district-locked { opacity: 0.55; cursor: default; }
+.district-locked:hover { transform: none !important; }
+
+.pw-district-icon { font-size: 36px; margin-bottom: 6px; }
+.pw-district-name { font-size: 15px; font-weight: 700; }
+.pw-district-desc { font-size: 11px; color: var(--text2); }
+.pw-district-badge {
+  display: inline-block; margin-top: 10px;
+  font-size: 9px; font-weight: 700; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 20px;
+  width: fit-content;
+}
+.pw-district-badge.unlocked { background: rgba(61,186,110,0.15); color: var(--green); border: 1px solid rgba(61,186,110,0.3); }
+.pw-district-badge.locked   { background: rgba(92,100,120,0.2); color: var(--text3); border: 1px solid var(--border); }
+
+.pw-map-deco { position: absolute; inset: 0; pointer-events: none; }
+.pw-map-cloud { position: absolute; font-size: 20px; opacity: 0.25; animation: cloudFloat 6s ease-in-out infinite alternate; }
+.pw-map-cloud:nth-child(2) { animation-delay: 2s; }
+.pw-map-cloud:nth-child(3) { animation-delay: 4s; }
+@keyframes cloudFloat { from { transform: translateY(0); } to { transform: translateY(-6px); } }
+
+/* COMING SOON */
+.pw-coming-soon {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 60px 20px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 16px; text-align: center; gap: 12px;
+}
+.pw-cs-icon { font-size: 56px; opacity: 0.6; }
+.pw-cs-title { font-size: 20px; font-weight: 700; color: var(--text); }
+.pw-cs-desc { font-size: 13px; color: var(--text2); max-width: 480px; line-height: 1.7; }
+.pw-cs-badge {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  padding: 6px 18px; border-radius: 20px;
+  background: rgba(92,100,120,0.2); color: var(--text3);
+  border: 1px solid var(--border); margin-top: 8px;
+}
+
+/* TRAINING */
+.train-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.train-sidebar { display: flex; flex-direction: column; gap: 14px; }
+.train-main { display: flex; flex-direction: column; gap: 14px; }
+
+.train-mode-card {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 13px 14px; cursor: pointer;
+  transition: all 0.15s;
+}
+.train-mode-card:hover { border-color: var(--yellow); transform: translateX(2px); }
+.train-mode-card.active-mode { border-color: var(--yellow); background: rgba(240,192,64,0.07); }
+.train-mode-icon { font-size: 24px; width: 32px; text-align: center; }
+.train-mode-info { flex: 1; }
+.train-mode-name { font-size: 12px; font-weight: 700; }
+.train-mode-desc { font-size: 10px; color: var(--text2); margin-top: 1px; }
+.train-mode-rewards { font-size: 10px; color: var(--yellow); font-weight: 700; margin-top: 4px; }
+.train-mode-cost { color: var(--yellow); }
+
+.train-pk-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  margin-top: 8px;
+}
+.train-pk-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 8px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  cursor: pointer; transition: all 0.15s;
+  position: relative;
+}
+.train-pk-card:hover { border-color: var(--yellow); transform: translateY(-2px); }
+.train-pk-card.selected { border-color: var(--yellow); background: rgba(240,192,64,0.07); }
+.train-pk-card.empty { opacity: 0.25; cursor: default; }
+.train-pk-card img { width: 56px; height: 56px; image-rendering: pixelated; }
+.train-pk-name { font-size: 10px; font-weight: 700; text-align: center; }
+.train-pk-lv { font-size: 9px; color: var(--text3); }
+.train-pk-hp { width: 100%; margin-top: 4px; }
+.train-pk-xp { width: 100%; margin-top: 2px; }
+.train-pk-xplabel { font-size: 8px; color: var(--text3); text-align: center; margin-top: 1px; }
+.train-confirm-btn {
+  width: 100%; margin-top: 14px;
+  background: var(--yellow); color: #000; border: none;
+  padding: 11px; border-radius: 8px; font-size: 13px; font-weight: 700;
+  cursor: pointer; font-family: 'Exo 2', sans-serif;
+  transition: all 0.15s; letter-spacing: 0.5px;
+}
+.train-confirm-btn:hover { background: #f8d840; transform: translateY(-1px); }
+.train-confirm-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+/* ===================== TIMED TRAINING ===================== */
+.timed-train-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+.timed-plan-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 10px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  cursor: pointer; transition: all 0.15s;
+}
+.timed-plan-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+.timed-plan-card.selected { border-color: var(--cyan); background: rgba(46,196,182,0.07); }
+.timed-plan-icon { font-size: 24px; }
+.timed-plan-name { font-size: 11px; font-weight: 700; text-align: center; }
+.timed-plan-xp { font-size: 10px; color: var(--cyan); font-weight: 700; }
+.timed-plan-cost { font-size: 9px; color: var(--text3); text-align: center; }
+.timed-train-timer {
+  text-align: center; padding: 20px;
+  background: var(--bg3); border: 1px solid var(--border); border-radius: 12px;
+}
+.timed-timer-val { font-family: 'Press Start 2P', monospace; font-size: 28px; color: var(--cyan); }
+.timed-timer-bar { width: 100%; margin-top: 12px; }
+.timed-progress-ring { display: flex; align-items: center; justify-content: center; margin: 10px 0; }
+
+/* ===================== TOURNAMENT ===================== */
+.tournament-layout { display: flex; flex-direction: column; gap: 16px; }
+.tourn-req-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px;
+}
+.tourn-bracket {
+  display: flex; gap: 10px; overflow-x: auto;
+  padding-bottom: 8px;
+}
+.tourn-round-col {
+  display: flex; flex-direction: column; gap: 6px; min-width: 130px;
+}
+.tourn-round-title {
+  font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--text3);
+  text-align: center; margin-bottom: 4px;
+}
+.tourn-match {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 10px;
+  display: flex; flex-direction: column; gap: 4px;
+  font-size: 10px;
+}
+.tourn-match.player-match { border-color: var(--accent); }
+.tourn-match.won { border-color: var(--green); background: rgba(61,186,110,0.08); }
+.tourn-match.lost { border-color: var(--red); background: rgba(224,82,82,0.08); }
+.tourn-match.pending { opacity: 0.5; }
+.tourn-trainer { display: flex; align-items: center; gap: 6px; }
+.tourn-trainer-name { font-weight: 700; font-size: 10px; }
+.tourn-trainer-lv { font-size: 9px; color: var(--text3); }
+.tourn-vs { text-align: center; font-size: 8px; color: var(--text3); font-weight: 700; margin: 1px 0; }
+.tourn-result-badge {
+  font-size: 8px; font-weight: 700; letter-spacing: 0.5px;
+  padding: 1px 6px; border-radius: 4px; text-align: center; margin-top: 2px;
+}
+.tourn-result-badge.win { background: rgba(61,186,110,0.2); color: var(--green); }
+.tourn-result-badge.loss { background: rgba(224,82,82,0.2); color: var(--red); }
+.tourn-result-badge.next { background: rgba(79,142,247,0.2); color: var(--accent); }
+.tourn-enter-btn {
+  background: linear-gradient(135deg, var(--yellow), #e07830);
+  color: #000; border: none; border-radius: 10px;
+  padding: 14px 28px; font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: 'Exo 2', sans-serif;
+  transition: all 0.15s; letter-spacing: 0.5px;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.tourn-enter-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(240,192,64,0.3); }
+.tourn-enter-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+.tourn-rewards { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.tourn-reward-chip {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 7px 12px; font-size: 11px; font-weight: 700;
+}
+.tourn-combat-log {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px;
+  max-height: 200px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.tourn-log-line { font-size: 11px; color: var(--text2); padding: 2px 0; border-bottom: 1px solid rgba(42,48,64,0.5); }
+.tourn-log-line.good { color: var(--green); }
+.tourn-log-line.bad { color: var(--red); }
+.tourn-log-line.info { color: var(--accent); }
+.tourn-log-line.gold { color: var(--yellow); }
+
+/* ===================== MARKET ===================== */
+.market-layout { display: grid; grid-template-columns: 260px 1fr; gap: 16px; align-items: start; }
+.market-sidebar { display: flex; flex-direction: column; gap: 12px; }
+.market-tab-btn {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text2); font-family: 'Exo 2', sans-serif;
+  font-size: 12px; font-weight: 700; padding: 11px 14px;
+  border-radius: 8px; cursor: pointer; text-align: left;
+  display: flex; align-items: center; gap: 10px; transition: all 0.15s;
+}
+.market-tab-btn:hover { border-color: var(--accent); color: var(--text); }
+.market-tab-btn.active { border-color: var(--accent); background: rgba(79,142,247,0.1); color: var(--accent); }
+.market-main { display: flex; flex-direction: column; gap: 14px; }
+.market-section-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--text3);
+  margin-bottom: 10px;
+}
+.market-offer-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 14px;
+  transition: border-color 0.15s;
+}
+.market-offer-card:hover { border-color: var(--border2); }
+.market-offer-icon { font-size: 28px; flex-shrink: 0; }
+.market-offer-info { flex: 1; }
+.market-offer-name { font-size: 13px; font-weight: 700; }
+.market-offer-sub { font-size: 10px; color: var(--text2); margin-top: 2px; }
+.market-offer-val { font-size: 15px; font-weight: 700; color: var(--yellow); }
+.market-offer-val.good-offer { color: var(--green); }
+.market-offer-val.bad-offer { color: var(--red); }
+.market-pk-offer {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px;
+  display: flex; align-items: center; gap: 12px;
+  transition: all 0.15s;
+}
+.market-pk-offer:hover { border-color: var(--border2); }
+.market-pk-offer img { width: 52px; height: 52px; image-rendering: pixelated; }
+.market-pk-info { flex: 1; }
+.market-pk-name { font-size: 13px; font-weight: 700; }
+.market-pk-details { font-size: 10px; color: var(--text2); margin-top: 2px; }
+.market-pk-value { font-size: 14px; font-weight: 700; color: var(--yellow); }
+.market-reset-bar {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 14px;
+  font-size: 11px; color: var(--text2);
+}
+.market-countdown { font-family: 'Press Start 2P', monospace; font-size: 10px; color: var(--cyan); min-width: 50px; }
 </style>
 </head>
 <body>
@@ -1109,7 +1420,7 @@ body {
   <button class="nav-btn active" onclick="nav('home',this)">🏠 Inicio</button>
   <button class="nav-btn" onclick="nav('profile',this)">👤 Perfil</button>
   <button class="nav-btn" onclick="nav('tasks',this)">📋 Tareas</button>
-  <button class="nav-btn" onclick="nav('explore',this)">🗺️ Exploración</button>
+  <button class="nav-btn" onclick="nav('explore',this)">🌍 Pokémon World</button>
   <button class="nav-btn" onclick="nav('shop',this)">🏪 Tienda</button>
   <button class="nav-btn" onclick="nav('config',this)">⚙️ Config</button>
   <div class="topbar-right">
@@ -1196,10 +1507,11 @@ body {
         <!-- Explore mini -->
         <div class="dash-widget">
           <div class="dash-widget-header">
-            <span>🗺️ Exploración</span>
+            <span>🌍 Pokémon World</span>
             <span class="dash-sp-badge">🔍 <span id="dash-sp-badge">0</span> SP</span>
           </div>
           <div id="dash-zones-mini" class="dash-zones-mini"></div>
+          <button class="dash-widget-footer-btn" onclick="nav('explore',document.querySelector('.nav-btn:nth-child(4)'))">Ver mapa completo →</button>
         </div>
 
         <!-- Team -->
@@ -1363,21 +1675,304 @@ body {
   <div id="tasks-list"></div>
 </div>
 
-<!-- EXPLORE -->
+<!-- POKÉMON WORLD -->
 <div class="section main" id="sec-explore">
-  <div class="map-header">
+
+  <!-- Header -->
+  <div class="pw-header">
     <div>
-      <h2 style="font-size:20px; font-weight:700">🗺️ Región de Kanto</h2>
-      <div style="font-size:12px; color:var(--text2); margin-top:4px">Selecciona una zona para explorar</div>
+      <h2 class="pw-title">🌍 Pokémon World</h2>
+      <div class="pw-subtitle">Explora zonas, entrena tu equipo, compite en torneos y visita el mercado</div>
     </div>
-    <div class="search-points-info">
-      🔍 Puntos de Búsqueda: <strong id="sp-explore">0</strong>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div class="search-points-info">🔍 <strong id="sp-explore">0</strong> SP</div>
+      <div class="search-points-info">🪙 <strong id="pw-coins">0</strong></div>
     </div>
   </div>
-  <div class="kanto-map">
-    <div class="kanto-title">▶ KANTO REGION</div>
-    <div class="zones-grid" id="zones-grid"></div>
+
+  <!-- Category tabs -->
+  <div class="pw-tabs">
+    <button class="pw-tab active" id="pwtab-map" onclick="switchPWTab('map',this)">🗺️ Mapa</button>
+    <button class="pw-tab" id="pwtab-explore" onclick="switchPWTab('explore',this)">🔍 Zonas de Caza</button>
+    <button class="pw-tab" id="pwtab-train" onclick="switchPWTab('train',this)">🏋️ Entrenamiento</button>
+    <button class="pw-tab" id="pwtab-tournament" onclick="switchPWTab('tournament',this)">🏆 Torneos</button>
+    <button class="pw-tab" id="pwtab-market" onclick="switchPWTab('market',this)">🛒 Mercado</button>
   </div>
+
+  <!-- MAP VIEW -->
+  <div class="pw-content active" id="pwcontent-map">
+    <div class="pw-map-container">
+      <div class="pw-map-bg">
+        <div class="pw-map-title">▶ KANTO REGION — MAPA GENERAL</div>
+
+        <!-- Map districts -->
+        <div class="pw-map-grid">
+
+          <!-- Zona caza -->
+          <div class="pw-map-district district-hunt" onclick="switchPWTab('explore', document.getElementById('pwtab-explore'))">
+            <div class="pw-district-icon">🌿</div>
+            <div class="pw-district-name">Zonas de Caza</div>
+            <div class="pw-district-desc">Captura Pokémon salvajes</div>
+            <div class="pw-district-badge unlocked">DISPONIBLE</div>
+          </div>
+
+          <!-- Gimnasio / Entrenamiento -->
+          <div class="pw-map-district district-gym" onclick="switchPWTab('train', document.getElementById('pwtab-train'))">
+            <div class="pw-district-icon">🏋️</div>
+            <div class="pw-district-name">Centro de Entrenamiento</div>
+            <div class="pw-district-desc">Sube de nivel a tu equipo</div>
+            <div class="pw-district-badge unlocked">DISPONIBLE</div>
+          </div>
+
+          <!-- Torneos -->
+          <div class="pw-map-district district-tournament" onclick="switchPWTab('tournament', document.getElementById('pwtab-tournament'))">
+            <div class="pw-district-icon">🏆</div>
+            <div class="pw-district-name">Arena de Torneos</div>
+            <div class="pw-district-desc">Combate contra otros entrenadores</div>
+            <div class="pw-district-badge unlocked">DISPONIBLE</div>
+          </div>
+
+          <!-- Mercado -->
+          <div class="pw-map-district district-market" onclick="switchPWTab('market', document.getElementById('pwtab-market'))">
+            <div class="pw-district-icon">🛒</div>
+            <div class="pw-district-name">Gran Mercado</div>
+            <div class="pw-district-desc">Intercambia ítems y Pokémon</div>
+            <div class="pw-district-badge unlocked">DISPONIBLE</div>
+          </div>
+
+        </div>
+
+        <!-- Map decorations -->
+        <div class="pw-map-deco">
+          <span class="pw-map-cloud" style="top:8%;left:10%">☁️</span>
+          <span class="pw-map-cloud" style="top:15%;right:15%">☁️</span>
+          <span class="pw-map-cloud" style="top:5%;left:55%">☁️</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLORE / HUNT VIEW -->
+  <div class="pw-content" id="pwcontent-explore">
+    <div class="kanto-map">
+      <div class="kanto-title">▶ ZONAS DE CAZA — KANTO</div>
+      <div class="zones-grid" id="zones-grid"></div>
+    </div>
+  </div>
+
+  <!-- TRAINING VIEW -->
+  <div class="pw-content" id="pwcontent-train">
+    <div class="train-layout">
+
+      <!-- Left: training menu -->
+      <div class="train-sidebar">
+        <div class="card">
+          <div class="card-title">🏋️ Centro de Entrenamiento</div>
+          <p style="font-size:11px;color:var(--text2);margin-bottom:14px;line-height:1.6">
+            Paga monedas para entrenar a tus Pokémon directamente. Ganan XP garantizada sin necesidad de explorar ni combatir.
+          </p>
+
+          <!-- Training modes -->
+          <div style="display:flex;flex-direction:column;gap:10px">
+
+            <div class="train-mode-card active-mode" id="tmode-light" onclick="selectTrainMode('light')">
+              <div class="train-mode-icon">🥊</div>
+              <div class="train-mode-info">
+                <div class="train-mode-name">Entrenamiento Ligero</div>
+                <div class="train-mode-desc">Sesión corta de ejercicio básico</div>
+                <div class="train-mode-rewards">+<span id="tmode-light-xp">—</span> XP · 🪙<span class="train-mode-cost">15</span></div>
+              </div>
+            </div>
+
+            <div class="train-mode-card" id="tmode-medium" onclick="selectTrainMode('medium')">
+              <div class="train-mode-icon">⚔️</div>
+              <div class="train-mode-info">
+                <div class="train-mode-name">Entrenamiento Intensivo</div>
+                <div class="train-mode-desc">Sparring y técnicas avanzadas</div>
+                <div class="train-mode-rewards">+<span id="tmode-medium-xp">—</span> XP · 🪙<span class="train-mode-cost">35</span></div>
+              </div>
+            </div>
+
+            <div class="train-mode-card" id="tmode-heavy" onclick="selectTrainMode('heavy')">
+              <div class="train-mode-icon">💪</div>
+              <div class="train-mode-info">
+                <div class="train-mode-name">Entrenamiento Extremo</div>
+                <div class="train-mode-desc">Al límite. Máxima ganancia de XP</div>
+                <div class="train-mode-rewards">+<span id="tmode-heavy-xp">—</span> XP · 🪙<span class="train-mode-cost">70</span></div>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="margin-top:16px;padding:12px;background:var(--bg3);border-radius:8px;border:1px solid var(--border)">
+            <div style="font-size:10px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Modo seleccionado</div>
+            <div style="font-size:13px;font-weight:700;color:var(--yellow)" id="train-selected-label">🥊 Entrenamiento Ligero</div>
+            <div style="font-size:11px;color:var(--text2);margin-top:4px" id="train-selected-desc">XP garantizada al Pokémon elegido</div>
+          </div>
+
+          <div style="margin-top:10px;font-size:12px;color:var(--text2)">💰 Tus monedas: <strong style="color:var(--yellow)" id="train-coins-display">0</strong></div>
+        </div>
+
+        <!-- Timed Training -->
+        <div class="card">
+          <div class="card-title">⏱️ Entrenamiento Temporizado</div>
+          <p style="font-size:11px;color:var(--text2);margin-bottom:12px;line-height:1.6">
+            Paga monedas + SP y tu Pokémon gana XP automáticamente durante un periodo de tiempo. Cuanto más inviertes, más tiempo y más XP por minuto.
+          </p>
+          <div class="timed-train-grid" id="timed-plans-grid"></div>
+          <div id="timed-pk-select" style="margin-top:12px">
+            <div style="font-size:10px;color:var(--text3);margin-bottom:6px;letter-spacing:0.5px">POKÉMON A ENTRENAR</div>
+            <select id="timed-pk-selector" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:12px">
+              <option value="">— Selecciona un Pokémon —</option>
+            </select>
+          </div>
+          <button class="train-confirm-btn" id="timed-train-btn" onclick="startTimedTraining()" style="margin-top:12px;background:var(--cyan);color:#000" disabled>
+            ⏱️ Iniciar Entrenamiento Temporizado
+          </button>
+          <div id="timed-train-active" style="display:none;margin-top:14px">
+            <div class="timed-train-timer">
+              <div style="font-size:10px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px" id="timed-active-label">Entrenando...</div>
+              <div class="timed-timer-val" id="timed-timer-display">00:00</div>
+              <div class="timed-timer-bar" style="margin-top:10px">
+                <div class="bar-bg"><div class="bar-fill" id="timed-timer-bar" style="background:var(--cyan);width:100%"></div></div>
+              </div>
+              <div style="font-size:11px;color:var(--text2);margin-top:8px" id="timed-xp-earned-display">XP ganados: 0</div>
+              <button class="btn danger sm" onclick="cancelTimedTraining()" style="margin-top:10px;width:100%">✕ Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: pick Pokémon -->
+      <div class="train-main">
+        <div class="card" style="margin-bottom:14px">
+          <div class="card-title">Elige el Pokémon a entrenar</div>
+          <div class="train-pk-grid" id="train-pk-grid"></div>
+        </div>
+        <div class="card" id="train-result-card" style="display:none">
+          <div class="card-title">📊 Resultado del Entrenamiento</div>
+          <div id="train-result-content"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOURNAMENT VIEW -->
+  <div class="pw-content" id="pwcontent-tournament">
+    <div class="tournament-layout">
+
+      <!-- Requirements + Entry -->
+      <div class="tourn-req-card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px">
+          <div>
+            <div class="card-title">🏆 Arena de Torneos — 32 Entrenadores</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.7;max-width:560px">
+              Compite en un torneo de eliminación directa con 32 entrenadores (6 rondas). Cada ronda los rivales son más fuertes.
+              El campeón recibe recompensas masivas: monedas, XP enorme para ti y tus Pokémon, y un Pokémon poderoso (evolucionado).
+            </div>
+            <div id="tourn-req-status" style="margin-top:12px;font-size:12px;line-height:2"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+            <div class="tourn-rewards">
+              <div class="tourn-reward-chip">🏆 <span id="tourn-prize-coins" style="color:var(--yellow)">—</span> 🪙</div>
+              <div class="tourn-reward-chip">⚡ <span id="tourn-prize-xp" style="color:var(--cyan)">—</span> XP</div>
+              <div class="tourn-reward-chip">🎁 Pokémon Premio</div>
+            </div>
+            <div style="font-size:10px;color:var(--text3)">Coste: <strong style="color:var(--accent)" id="tourn-round-cost">1 SP / ronda</strong></div>
+            <button class="tourn-enter-btn" id="tourn-enter-btn" onclick="enterTournament()">🏆 Inscribirse (1 SP)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active tournament bracket -->
+      <div id="tourn-bracket-section" style="display:none">
+        <div class="card" style="margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+            <div class="card-title" style="margin-bottom:0" id="tourn-status-title">Ronda 1 de 5</div>
+            <div style="font-size:11px;color:var(--text2)" id="tourn-status-sub"></div>
+          </div>
+          <div class="tourn-bracket" id="tourn-bracket"></div>
+        </div>
+
+        <!-- Current battle -->
+        <div class="card" id="tourn-battle-card">
+          <div class="card-title" id="tourn-battle-title">Tu próximo combate</div>
+          <div id="tourn-battle-content"></div>
+          <div style="margin-top:12px">
+            <div style="font-size:10px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Registro de combate</div>
+            <div class="tourn-combat-log" id="tourn-log"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MARKET VIEW -->
+  <div class="pw-content" id="pwcontent-market">
+    <div class="market-layout">
+
+      <!-- Sidebar tabs -->
+      <div class="market-sidebar">
+        <div class="card">
+          <div class="card-title">🛒 Gran Mercado</div>
+          <div style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:12px">
+            Vende ítems, intercambia o vende Pokémon. Las ofertas se actualizan solos cada 10 min o puedes resetearlas pagando 1 SP.
+          </div>
+          <div class="market-reset-bar" style="margin-bottom:12px">
+            <span>🔄 Próximo reseteo</span>
+            <span class="market-countdown" id="market-countdown">--:--</span>
+            <button class="btn ghost sm" onclick="resetMarketOffers()" style="margin-left:auto">🔍 1 SP</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <button class="market-tab-btn active" id="mtab-items" onclick="switchMarketTab('items',this)">📦 Vender Ítems</button>
+            <button class="market-tab-btn" id="mtab-sell-pk" onclick="switchMarketTab('sell-pk',this)">💰 Vender Pokémon</button>
+            <button class="market-tab-btn" id="mtab-trade-pk" onclick="switchMarketTab('trade-pk',this)">🔄 Intercambiar Pokémon</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Tu Balance</div>
+          <div style="font-size:22px;font-weight:700;color:var(--yellow)">🪙 <span id="market-coins-display">0</span></div>
+          <div style="font-size:11px;color:var(--text3);margin-top:4px">🔍 <span id="market-sp-display">0</span> SP disponibles</div>
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div class="market-main">
+
+        <!-- Items tab -->
+        <div id="mview-items" class="market-view">
+          <div class="card">
+            <div class="market-section-title">Vender Ítems de tu Inventario</div>
+            <div id="market-items-list"></div>
+          </div>
+        </div>
+
+        <!-- Sell Pokemon tab -->
+        <div id="mview-sell-pk" class="market-view" style="display:none">
+          <div class="card">
+            <div class="market-section-title">Vender Pokémon del PC</div>
+            <div id="market-sell-pk-list"></div>
+          </div>
+        </div>
+
+        <!-- Trade Pokemon tab -->
+        <div id="mview-trade-pk" class="market-view" style="display:none">
+          <div class="card">
+            <div class="market-section-title">Intercambiar Pokémon con Entrenadores Bot</div>
+            <div style="font-size:11px;color:var(--text2);margin-bottom:14px;line-height:1.6">
+              Los entrenadores bot ofrecen Pokémon a cambio de los tuyos. La calidad de la oferta depende de la suerte y el valor del Pokémon que ofreces.
+            </div>
+            <div id="market-trade-offers"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- SHOP -->
@@ -2236,6 +2831,7 @@ function saveGame() {
       log:          (state.log        || []).slice(-MAX_LOG),
       activityLog:  (state.activityLog|| []).slice(-MAX_ACTIVITY),
       performance:  (state.performance|| []).slice(-MAX_PERF),
+      tournState:   tournState || null,
     };
 
     localStorage.setItem(SAVE_KEY, JSON.stringify(toSave));
@@ -2289,6 +2885,7 @@ function loadGame() {
     state.log          = saved.log          ?? [];
     state.activityLog  = saved.activityLog  ?? [];
     state.performance  = saved.performance  ?? [];
+    tournState         = saved.tournState   || null;
     return true;
   } catch(e) { return false; }
 }
@@ -2351,7 +2948,7 @@ function nav(id, btn) {
   if(id === 'home') renderHome();
   if(id === 'profile') renderProfile();
   if(id === 'tasks') renderTasks();
-  if(id === 'explore') renderExplore();
+  if(id === 'explore') { switchPWTab('map', document.getElementById('pwtab-map')); }
   if(id === 'shop') renderShop();
   if(id === 'config') {
     const p = state.player;
@@ -3264,9 +3861,227 @@ function saveEditTask() {
   notify('Tarea actualizada', 'good');
 }
 
+// ===================== POKÉMON WORLD =====================
+const TRAIN_MODES = {
+  light:  { label:'🥊 Entrenamiento Ligero',   desc:'Sesión corta · +XP baja garantizada',    cost:15, xpMult:0.25 },
+  medium: { label:'⚔️ Entrenamiento Intensivo', desc:'Sparring avanzado · +XP media garantizada', cost:35, xpMult:0.55 },
+  heavy:  { label:'💪 Entrenamiento Extremo',   desc:'Al límite · +XP alta garantizada',       cost:70, xpMult:1.0  },
+};
+let selectedTrainMode = 'light';
+let selectedTrainPkIdx = null;
+
+function switchPWTab(tab, btn) {
+  document.querySelectorAll('.pw-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.pw-content').forEach(c => c.classList.remove('active'));
+  const tabBtn = btn || document.getElementById('pwtab-' + tab);
+  if(tabBtn) tabBtn.classList.add('active');
+  const content = document.getElementById('pwcontent-' + tab);
+  if(content) content.classList.add('active');
+  if(tab === 'explore') renderExplore();
+  if(tab === 'train')   { renderTrainView(); renderTimedPlans(); }
+  if(tab === 'tournament') renderTournamentView();
+  if(tab === 'market') renderMarketView();
+  // Sync sp/coins display
+  const spEl = document.getElementById('sp-explore');
+  const coinsEl = document.getElementById('pw-coins');
+  if(spEl) spEl.textContent = state.searchPoints;
+  if(coinsEl) coinsEl.textContent = state.coins;
+}
+
+function renderTrainView() {
+  // Sync coins display
+  const cd = document.getElementById('train-coins-display');
+  if(cd) cd.textContent = state.coins;
+
+  // Update XP previews for each mode
+  const teamPk = state.team.filter(Boolean);
+  const refPk = selectedTrainPkIdx !== null ? state.team[selectedTrainPkIdx] : (teamPk[0] || null);
+  Object.entries(TRAIN_MODES).forEach(([key, mode]) => {
+    const el = document.getElementById(`tmode-${key}-xp`);
+    if(el && refPk) {
+      const xpGain = Math.round(refPk.xpNext * mode.xpMult);
+      el.textContent = xpGain;
+    } else if(el) {
+      el.textContent = '?';
+    }
+  });
+
+  // Render Pokémon grid
+  const grid = document.getElementById('train-pk-grid');
+  if(!grid) return;
+  let html = '';
+  for(let i = 0; i < 6; i++) {
+    const pk = state.team[i];
+    if(pk) {
+      const hpPct = Math.max(0, (pk.hp / pk.hpMax) * 100);
+      const xpPct = Math.min(100, (pk.xp / pk.xpNext) * 100);
+      const hpCls = hpPct > 50 ? 'hp' : hpPct > 20 ? 'hp mid' : 'hp low';
+      const sel = selectedTrainPkIdx === i ? 'selected' : '';
+      const mode = TRAIN_MODES[selectedTrainMode];
+      const xpGain = Math.round(pk.xpNext * mode.xpMult);
+      html += `<div class="train-pk-card ${sel}" onclick="selectTrainPk(${i})">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pk.id}.png" alt="${pk.name}">
+        <div class="train-pk-name">${pk.name}</div>
+        <div class="train-pk-lv">Nv.${pk.level}</div>
+        <div class="train-pk-hp"><div class="bar-bg" style="height:3px"><div class="bar-fill ${hpCls}" style="width:${hpPct}%"></div></div></div>
+        <div class="train-pk-xp"><div class="bar-bg" style="height:3px;border-color:rgba(79,142,247,0.3)"><div class="bar-fill xp" style="width:${xpPct}%"></div></div></div>
+        <div class="train-pk-xplabel">+${xpGain} XP</div>
+        ${sel ? `<div style="position:absolute;top:6px;right:6px;font-size:10px;color:var(--yellow);font-weight:700">✓</div>` : ''}
+      </div>`;
+    } else {
+      html += `<div class="train-pk-card empty"><div style="font-size:22px;opacity:0.2">+</div><div class="train-pk-name" style="opacity:0.4">Vacío</div></div>`;
+    }
+  }
+  grid.innerHTML = html;
+
+  // Confirm button
+  const existingBtn = document.getElementById('train-confirm-btn');
+  if(!existingBtn) {
+    const btn = document.createElement('button');
+    btn.id = 'train-confirm-btn';
+    btn.className = 'train-confirm-btn';
+    btn.textContent = '🏋️ Iniciar Entrenamiento';
+    btn.onclick = confirmTraining;
+    grid.parentElement.appendChild(btn);
+  }
+  updateTrainConfirmBtn();
+
+  // Hide result card
+  const res = document.getElementById('train-result-card');
+  if(res) res.style.display = 'none';
+}
+
+function selectTrainMode(mode) {
+  selectedTrainMode = mode;
+  document.querySelectorAll('.train-mode-card').forEach(c => c.classList.remove('active-mode'));
+  const card = document.getElementById(`tmode-${mode}`);
+  if(card) card.classList.add('active-mode');
+  const m = TRAIN_MODES[mode];
+  const lbl = document.getElementById('train-selected-label');
+  const desc = document.getElementById('train-selected-desc');
+  if(lbl) lbl.textContent = m.label;
+  if(desc) desc.textContent = m.desc;
+  renderTrainView();
+}
+
+function selectTrainPk(idx) {
+  if(!state.team[idx]) return;
+  selectedTrainPkIdx = idx;
+  renderTrainView();
+}
+
+function updateTrainConfirmBtn() {
+  const btn = document.getElementById('train-confirm-btn');
+  if(!btn) return;
+  const mode = TRAIN_MODES[selectedTrainMode];
+  const canAfford = state.coins >= mode.cost;
+  const hasPk = selectedTrainPkIdx !== null && state.team[selectedTrainPkIdx];
+  btn.disabled = !canAfford || !hasPk;
+  if(!hasPk) {
+    btn.textContent = '🏋️ Selecciona un Pokémon';
+  } else if(!canAfford) {
+    btn.textContent = `🪙 Necesitas ${mode.cost} monedas`;
+  } else {
+    const pk = state.team[selectedTrainPkIdx];
+    const xpGain = Math.round(pk.xpNext * mode.xpMult);
+    btn.textContent = `🏋️ Entrenar a ${pk.name} — 🪙${mode.cost} → +${xpGain} XP`;
+  }
+}
+
+function confirmTraining() {
+  const mode = TRAIN_MODES[selectedTrainMode];
+  const pk = selectedTrainPkIdx !== null ? state.team[selectedTrainPkIdx] : null;
+  if(!pk) { notify('Selecciona un Pokémon primero', 'bad'); return; }
+  if(state.coins < mode.cost) { notify('No tienes monedas suficientes', 'bad'); return; }
+
+  state.coins -= mode.cost;
+  const xpGain = Math.round(pk.xpNext * mode.xpMult);
+
+  // Apply XP and check level-ups
+  pk.xp += xpGain;
+  let levelsGained = 0;
+  while(pk.xp >= pk.xpNext) {
+    pk.xp -= pk.xpNext;
+    pk.level++;
+    levelsGained++;
+    pk.xpNext = Math.floor(pk.level * pk.level * 6 + 20);
+    // Recalculate stats on level up
+    const base = POKEMONS[pk.id].stats;
+    pk.hpMax = Math.floor((2 * base.hp    * pk.level / 100) + pk.level + 10) + (pk.bonusStats?.hp    || 0);
+    pk.hp    = Math.min(pk.hp + 10, pk.hpMax);
+    pk.atk   = Math.floor((2 * base.atk   * pk.level / 100) + 5) + (pk.bonusStats?.atk   || 0);
+    pk.def   = Math.floor((2 * base.def   * pk.level / 100) + 5) + (pk.bonusStats?.def   || 0);
+    pk.spAtk = Math.floor((2 * base.spAtk * pk.level / 100) + 5) + (pk.bonusStats?.spAtk || 0);
+    pk.spDef = Math.floor((2 * base.spDef * pk.level / 100) + 5) + (pk.bonusStats?.spDef || 0);
+    pk.spd   = Math.floor((2 * base.spd   * pk.level / 100) + 5) + (pk.bonusStats?.spd   || 0);
+    pk.statPoints = (pk.statPoints || 0) + 3;
+    // Unlock moves
+    const unlockedCount = getUnlockedMoveCount(pk.level);
+    pk.moves.forEach((m, i) => { m.unlocked = i < unlockedCount; });
+    // Check evolution
+    const basePk = POKEMONS[pk.id];
+    if(basePk.evolves && pk.level >= basePk.evolveLv && basePk.evolveLv > 0) {
+      const evoData = POKEMONS[basePk.evolves];
+      if(evoData) {
+        const oldName = pk.name;
+        pk.id = evoData.id;
+        pk.name = evoData.name;
+        pk.types = evoData.types;
+        pk.moves = evoData.moves.map((m, i) => ({...m, ppLeft: m.pp, unlocked: i < getUnlockedMoveCount(pk.level)}));
+        if(!state.captured.includes(evoData.id)) state.captured.push(evoData.id);
+        addActivity(`✨ <strong>${oldName}</strong> evolucionó a <strong>${pk.name}</strong>!`, 'info');
+        notify(`✨ ¡${oldName} evolucionó a ${pk.name}!`, 'good');
+      }
+    }
+  }
+
+  updateHUD();
+  saveGame();
+  addActivity(`🏋️ <strong>${pk.name}</strong> entrenó (${mode.label.replace(/[^\w\s]/gi,'').trim()}) · +${xpGain} XP${levelsGained > 0 ? ` · ¡Subió ${levelsGained} nivel${levelsGained>1?'es':''}!` : ''}`, 'good');
+
+  // Show result
+  const res = document.getElementById('train-result-card');
+  const content = document.getElementById('train-result-content');
+  if(res && content) {
+    res.style.display = '';
+    content.innerHTML = `
+      <div style="display:flex;align-items:center;gap:16px;padding:14px;background:var(--bg3);border-radius:10px;border:1px solid var(--border);margin-bottom:12px">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pk.id}.png" style="width:64px;height:64px;image-rendering:pixelated">
+        <div>
+          <div style="font-size:16px;font-weight:700">${pk.name} <span style="font-size:12px;color:var(--text3)">Nv.${pk.level}</span></div>
+          ${levelsGained > 0 ? `<div style="font-size:13px;font-weight:700;color:var(--yellow)">⬆️ ¡Subió ${levelsGained} nivel${levelsGained>1?'es':''}!</div>` : ''}
+          <div style="font-size:12px;color:var(--green);margin-top:4px">+${xpGain} XP ganados</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">XP hasta el próximo nivel: ${pk.xpNext - pk.xp}</div>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div style="font-size:11px;color:var(--text3)">Coste</div>
+          <div style="font-size:16px;font-weight:700;color:var(--yellow)">-🪙${mode.cost}</div>
+          <div style="font-size:10px;color:var(--text3);margin-top:2px">Saldo: 🪙${state.coins}</div>
+        </div>
+      </div>
+      <div style="width:100%">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:3px"><span>XP</span><span>${pk.xp} / ${pk.xpNext}</span></div>
+        <div class="bar-bg"><div class="bar-fill xp" style="width:${Math.min(100,(pk.xp/pk.xpNext)*100)}%"></div></div>
+      </div>
+      ${levelsGained > 0 && (pk.statPoints||0) > 0 ? `<div style="margin-top:10px;padding:10px;background:rgba(240,192,64,0.1);border:1px solid rgba(240,192,64,0.3);border-radius:8px;font-size:12px;color:var(--yellow)">
+        ★ ${pk.name} tiene <strong>${pk.statPoints} puntos de estadística</strong> sin asignar. ¡Ve al perfil para distribuirlos!
+      </div>` : ''}
+    `;
+    res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  const modeLabel = {light:'Ligero',medium:'Intensivo',heavy:'Extremo'}[selectedTrainMode];
+  notify(`+${xpGain} XP para ${pk.name}${levelsGained>0?' · ¡Nivel '+pk.level+'!':''}`, 'good');
+  renderTrainView();
+  renderHome();
+}
+
 // ===================== EXPLORE =====================
 function renderExplore() {
-  document.getElementById('sp-explore').textContent = state.searchPoints;
+  const spEl = document.getElementById('sp-explore');
+  const coinsEl = document.getElementById('pw-coins');
+  if(spEl) spEl.textContent = state.searchPoints;
+  if(coinsEl) coinsEl.textContent = state.coins;
   const grid = document.getElementById('zones-grid');
   grid.innerHTML = ZONES.map(z => {
     const locked = state.player.level < z.reqLevel;
@@ -4230,6 +5045,911 @@ function showPkDetailById(id, pkInstance) {
       </div>
     </div>`;
   document.getElementById('pk-detail-overlay').classList.add('show');
+}
+
+// ===================== TIMED TRAINING =====================
+const TIMED_PLANS = [
+  { id:'t15',  label:'15 min',  icon:'⏱️', duration:15*60, xpPerMin:15, coinCost:30,  spCost:1 },
+  { id:'t30',  label:'30 min',  icon:'⏰', duration:30*60, xpPerMin:22, coinCost:55,  spCost:2 },
+  { id:'t60',  label:'1 hora',  icon:'🕐', duration:60*60, xpPerMin:30, coinCost:100, spCost:3 },
+  { id:'t120', label:'2 horas', icon:'🕑', duration:120*60,xpPerMin:40, coinCost:180, spCost:5 },
+  { id:'t240', label:'4 horas', icon:'🕓', duration:240*60,xpPerMin:55, coinCost:320, spCost:8 },
+  { id:'t480', label:'8 horas', icon:'🌙', duration:480*60,xpPerMin:75, coinCost:580, spCost:12 },
+];
+let selectedTimedPlan = 't15';
+let timedTrainInterval = null;
+let timedTrainState = null; // { pkIdx, planId, startTs, durationSec, xpPerMin, totalXpGiven }
+
+function renderTimedPlans() {
+  const grid = document.getElementById('timed-plans-grid');
+  if(!grid) return;
+  grid.innerHTML = TIMED_PLANS.map(p => `
+    <div class="timed-plan-card ${selectedTimedPlan===p.id?'selected':''}" onclick="selectTimedPlan('${p.id}')">
+      <div class="timed-plan-icon">${p.icon}</div>
+      <div class="timed-plan-name">${p.label}</div>
+      <div class="timed-plan-xp">+${p.xpPerMin} XP/min</div>
+      <div class="timed-plan-cost">🪙${p.coinCost} · 🔍${p.spCost} SP</div>
+    </div>
+  `).join('');
+  updateTimedTrainBtn();
+  populateTimedPkSelector();
+}
+
+function selectTimedPlan(id) {
+  selectedTimedPlan = id;
+  renderTimedPlans();
+}
+
+function populateTimedPkSelector() {
+  const sel = document.getElementById('timed-pk-selector');
+  if(!sel) return;
+  const val = sel.value;
+  sel.innerHTML = '<option value="">— Selecciona un Pokémon —</option>' +
+    state.team.filter(Boolean).map((pk, i) => {
+      const teamIdx = state.team.indexOf(pk);
+      return `<option value="${teamIdx}">${pk.name} Nv.${pk.level} (HP: ${pk.hp}/${pk.hpMax})</option>`;
+    }).join('');
+  if(val) sel.value = val;
+  sel.onchange = updateTimedTrainBtn;
+  updateTimedTrainBtn();
+}
+
+function updateTimedTrainBtn() {
+  const btn = document.getElementById('timed-train-btn');
+  if(!btn) return;
+  const plan = TIMED_PLANS.find(p => p.id === selectedTimedPlan);
+  const pkIdx = parseInt(document.getElementById('timed-pk-selector')?.value);
+  const canAfford = state.coins >= plan.coinCost && state.searchPoints >= plan.spCost;
+  const hasPk = !isNaN(pkIdx) && state.team[pkIdx];
+  btn.disabled = !canAfford || !hasPk || timedTrainState;
+  if(timedTrainState) btn.textContent = '⏱️ Entrenamiento en curso...';
+  else if(!hasPk) btn.textContent = '⏱️ Selecciona un Pokémon';
+  else if(!canAfford) btn.textContent = `🪙${plan.coinCost} + 🔍${plan.spCost} SP requeridos`;
+  else btn.textContent = `⏱️ Iniciar ${plan.label} — 🪙${plan.coinCost} + 🔍${plan.spCost} SP`;
+}
+
+function startTimedTraining() {
+  const plan = TIMED_PLANS.find(p => p.id === selectedTimedPlan);
+  const pkIdx = parseInt(document.getElementById('timed-pk-selector')?.value);
+  const pk = state.team[pkIdx];
+  if(!pk) { notify('Selecciona un Pokémon', 'bad'); return; }
+  if(state.coins < plan.coinCost) { notify('Monedas insuficientes', 'bad'); return; }
+  if(state.searchPoints < plan.spCost) { notify('SP insuficientes', 'bad'); return; }
+  state.coins -= plan.coinCost;
+  state.searchPoints -= plan.spCost;
+  updateHUD();
+  saveGame();
+  timedTrainState = { pkIdx, planId: plan.id, startTs: Date.now(), durationSec: plan.duration, xpPerMin: plan.xpPerMin, totalXpGiven: 0 };
+  document.getElementById('timed-train-active').style.display = '';
+  document.getElementById('timed-train-btn').style.display = 'none';
+  document.getElementById('timed-pk-select').style.display = 'none';
+  document.getElementById('timed-active-label').textContent = `Entrenando a ${pk.name}...`;
+  addActivity(`⏱️ <strong>${pk.name}</strong> comenzó entrenamiento de ${plan.label} · 🪙-${plan.coinCost} · 🔍-${plan.spCost}`, 'info');
+  notify(`Entrenamiento de ${plan.label} iniciado para ${pk.name}!`, 'good');
+  timedTrainInterval = setInterval(tickTimedTraining, 1000);
+  tickTimedTraining();
+}
+
+function tickTimedTraining() {
+  if(!timedTrainState) return;
+  const now = Date.now();
+  const elapsed = (now - timedTrainState.startTs) / 1000;
+  const remaining = Math.max(0, timedTrainState.durationSec - elapsed);
+  const progress = Math.min(1, elapsed / timedTrainState.durationSec);
+  // XP per tick (1 second = 1/60 minute)
+  const plan = TIMED_PLANS.find(p => p.id === timedTrainState.planId);
+  const xpThisTick = plan.xpPerMin / 60;
+  timedTrainState.totalXpGiven += xpThisTick;
+  const pk = state.team[timedTrainState.pkIdx];
+  if(pk) {
+    givePokemonXP(pk, Math.floor(xpThisTick));
+    updateHUD();
+  }
+  // Update UI
+  const mins = Math.floor(remaining / 60);
+  const secs = Math.floor(remaining % 60);
+  const timerEl = document.getElementById('timed-timer-display');
+  const barEl = document.getElementById('timed-timer-bar');
+  const xpEl = document.getElementById('timed-xp-earned-display');
+  if(timerEl) timerEl.textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+  if(barEl) barEl.style.width = `${(1-progress)*100}%`;
+  if(xpEl) xpEl.textContent = `XP ganados: +${Math.floor(timedTrainState.totalXpGiven)}`;
+  if(remaining <= 0) finishTimedTraining();
+}
+
+function finishTimedTraining() {
+  clearInterval(timedTrainInterval);
+  timedTrainInterval = null;
+  if(!timedTrainState) return;
+  const pk = state.team[timedTrainState.pkIdx];
+  const plan = TIMED_PLANS.find(p => p.id === timedTrainState.planId);
+  const totalXp = Math.floor(timedTrainState.totalXpGiven);
+  addActivity(`✅ <strong>${pk?.name||'Pokémon'}</strong> completó entrenamiento de ${plan?.label} · +${totalXp} XP`, 'good');
+  notify(`¡Entrenamiento completado! +${totalXp} XP`, 'good');
+  saveGame();
+  timedTrainState = null;
+  const activeEl = document.getElementById('timed-train-active');
+  if(activeEl) activeEl.style.display = 'none';
+  const btnEl = document.getElementById('timed-train-btn');
+  if(btnEl) btnEl.style.display = '';
+  const pickEl = document.getElementById('timed-pk-select');
+  if(pickEl) pickEl.style.display = '';
+  renderTimedPlans();
+  renderTrainView();
+}
+
+function cancelTimedTraining() {
+  if(!confirm('¿Cancelar el entrenamiento? Perderás el tiempo pagado.')) return;
+  clearInterval(timedTrainInterval);
+  timedTrainInterval = null;
+  const pk = state.team[timedTrainState?.pkIdx];
+  const xpSoFar = Math.floor(timedTrainState?.totalXpGiven || 0);
+  if(pk && xpSoFar > 0) addActivity(`⚠️ <strong>${pk.name}</strong> canceló entrenamiento · +${xpSoFar} XP parciales`, 'bad');
+  timedTrainState = null;
+  const activeEl = document.getElementById('timed-train-active');
+  if(activeEl) activeEl.style.display = 'none';
+  const btnEl = document.getElementById('timed-train-btn');
+  if(btnEl) btnEl.style.display = '';
+  const pickEl = document.getElementById('timed-pk-select');
+  if(pickEl) pickEl.style.display = '';
+  saveGame();
+  renderTimedPlans();
+}
+
+// ===================== TOURNAMENT SYSTEM =====================
+const TOURN_TRAINER_NAMES = ['Ash','Misty','Brock','Gary','Giovanni','Sabrina','Lorelei','Bruno','Lance','Koga','Blaine','Erika','Surge','Janine','Karen','Will','Chuck','Pryce','Claire','Whitney','Jasmine','Morty','Falkner','Bugsy','Red','Blue','Silver','Clair','Roxanne','Brawly','Drake','Sidney','Phoebe','Steven','Wallace'];
+const TOURN_ROUNDS = ['32avos','Dieciseisavos','Octavos','Cuartos','Semis','Final'];
+const TOURN_ROUND_LABELS = ['Normal','Fuerte','Muy Fuerte','Élite','Experto','¡CAMPEÓN!'];
+// tournState: { active, round(0-5), bracket:[[{name,level,pks,slot}x32]], results:[{enemy,playerWon,xpEarned,coinsEarned}], prize:{coins,xp}, bracketAdvances:[[...]] }
+let tournState = null;
+
+function calcTournRequirements() {
+  const minPlayerLv = 10;
+  const minPkLv = 5;
+  const minPkCount = 3;
+  const qualPks = state.team.filter(Boolean).filter(pk => pk.level >= minPkLv);
+  const ok = state.player.level >= minPlayerLv && qualPks.length >= minPkCount;
+  return { ok, minPlayerLv, minPkLv, minPkCount, qualPks };
+}
+
+function getTournPrizeMult() {
+  return Math.max(1, Math.floor(state.player.level / 5));
+}
+
+function renderTournamentView() {
+  const { ok, minPlayerLv, minPkLv, minPkCount, qualPks } = calcTournRequirements();
+  const reqEl = document.getElementById('tourn-req-status');
+  if(reqEl) {
+    reqEl.innerHTML = `
+      <span style="color:${state.player.level>=minPlayerLv?'var(--green)':'var(--red)'}">
+        ${state.player.level>=minPlayerLv?'✅':'❌'} Nivel entrenador ≥ ${minPlayerLv} (actual: ${state.player.level})
+      </span><br>
+      <span style="color:${qualPks.length>=minPkCount?'var(--green)':'var(--red)'}">
+        ${qualPks.length>=minPkCount?'✅':'❌'} Al menos ${minPkCount} Pokémon Nivel ≥ ${minPkLv} (tienes: ${qualPks.length})
+      </span>
+    `;
+  }
+  const enterBtn = document.getElementById('tourn-enter-btn');
+  if(enterBtn) {
+    if(tournState && tournState.active) {
+      enterBtn.textContent = '⚔️ Continuar Torneo';
+      enterBtn.disabled = false;
+      document.getElementById('tourn-bracket-section').style.display = '';
+    } else {
+      enterBtn.textContent = '🏆 Inscribirse (1 SP)';
+      enterBtn.disabled = !ok || state.searchPoints < 1;
+      document.getElementById('tourn-bracket-section').style.display = 'none';
+    }
+  }
+  const prizeMult = getTournPrizeMult();
+  const prizeCoins = 3000 * prizeMult;
+  const prizeXP = 8000 * prizeMult;
+  const prizeEl = document.getElementById('tourn-prize-coins');
+  if(prizeEl) prizeEl.textContent = prizeCoins.toLocaleString();
+  const prizeXpEl = document.getElementById('tourn-prize-xp');
+  if(prizeXpEl) prizeXpEl.textContent = prizeXP.toLocaleString();
+  const costEl = document.getElementById('tourn-round-cost');
+  if(costEl) costEl.textContent = '1 SP por ronda';
+  if(tournState && tournState.active) renderTournamentBracket();
+}
+
+function buildTournBracket() {
+  // Generate 32 trainers for the full bracket
+  const allIds = Object.keys(POKEMONS).map(Number);
+  const usedNames = new Set();
+  const trainers = [];
+  const namePool = [...TOURN_TRAINER_NAMES];
+  // Shuffle names
+  for(let i = namePool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [namePool[i],namePool[j]] = [namePool[j],namePool[i]];
+  }
+  for(let i = 0; i < 32; i++) {
+    const name = namePool[i % namePool.length] + (i >= namePool.length ? ` ${Math.floor(i/namePool.length)+1}` : '');
+    const baseLv = Math.max(3, state.player.level - 8 + Math.floor(i / 4)); // Gradually harder slots
+    const pkCount = 3;
+    const pks = [];
+    for(let p = 0; p < pkCount; p++) {
+      const lv = baseLv + Math.floor(Math.random() * 3);
+      const id = allIds[Math.floor(Math.random() * allIds.length)];
+      pks.push(mkPokemon(id, lv));
+    }
+    trainers.push({ name, level: baseLv, pks, slot: i });
+  }
+  // Player goes in slot 0
+  const playerSlot = Math.floor(Math.random() * 32);
+  trainers.splice(playerSlot, 0, { name: state.player.name, isPlayer: true, level: state.player.level, pks: state.team.filter(Boolean), slot: playerSlot });
+  // Keep only 32
+  if(trainers.length > 32) trainers.splice(32);
+  return trainers;
+}
+
+function enterTournament() {
+  if(tournState && tournState.active) {
+    document.getElementById('tourn-bracket-section').style.display = '';
+    renderTournamentBracket();
+    return;
+  }
+  const { ok } = calcTournRequirements();
+  if(!ok) { notify('No cumples los requisitos para inscribirte', 'bad'); return; }
+  if(state.searchPoints < 1) { notify('Necesitas al menos 1 SP para inscribirte', 'bad'); return; }
+  const prizeMult = getTournPrizeMult();
+  const bracket = buildTournBracket();
+  tournState = {
+    active: true,
+    round: 0, // 0-5 (6 rounds for 32 players)
+    bracket, // full list of 32 trainers
+    results: [],
+    prize: { coins: 3000 * prizeMult, xp: 8000 * prizeMult },
+    currentEnemy: null,
+  };
+  // Pre-generate current round's enemy
+  tournState.currentEnemy = genTournEnemyForRound(0);
+  notify('¡Inscrito en el torneo! 32 entrenadores compiten.', 'good');
+  addActivity('🏆 <strong>' + state.player.name + '</strong> se inscribió en el Torneo de Arena (32 participantes)', 'info');
+  saveGame();
+  renderTournamentBracket();
+  document.getElementById('tourn-bracket-section').style.display = '';
+}
+
+function genTournEnemyForRound(roundIdx) {
+  // Progressive difficulty: each round enemies are significantly stronger
+  const baseBoost = roundIdx * 4; // +4 levels per round
+  const baseLv = Math.max(8, state.player.level - 3 + baseBoost);
+  const pkCount = 3 + Math.min(3, roundIdx); // 3→4→5→5→6→6 pokemon
+  const diffLabel = TOURN_ROUND_LABELS[roundIdx];
+  const names = TOURN_TRAINER_NAMES;
+  const name = names[Math.floor(Math.random() * names.length)];
+  const allIds = Object.keys(POKEMONS).map(Number);
+  // Higher rounds: bias towards evolved pokemon (higher IDs tend to be evolutions)
+  const pks = [];
+  for(let i = 0; i < pkCount; i++) {
+    const lv = baseLv + Math.floor(Math.random() * 5) + i; // Each pokemon slightly stronger
+    let id;
+    if(roundIdx >= 3) {
+      // Elite rounds: pick from evolved or strong pokemon
+      const strongIds = [6,9,3,130,149,143,131,59,68,65,76,112,113,45,38,36,103,105,110,121,124,125,126,127,128];
+      id = strongIds[Math.floor(Math.random() * strongIds.length)];
+    } else {
+      id = allIds[Math.floor(Math.random() * allIds.length)];
+    }
+    pks.push(mkPokemon(id, lv));
+  }
+  return { name, level: baseLv + roundIdx * 2, pks, difficulty: roundIdx, diffLabel };
+}
+
+function renderTournamentBracket() {
+  const bracketEl = document.getElementById('tourn-bracket');
+  if(!bracketEl || !tournState) return;
+  const roundLabels = TOURN_ROUNDS;
+  let html = '';
+  for(let r = 0; r < 6; r++) {
+    const result = tournState.results[r];
+    const isCurrent = r === tournState.round && tournState.active;
+    const isDone = r < tournState.results.length;
+    const isPending = r > tournState.round;
+    html += `<div class="tourn-round-col">
+      <div class="tourn-round-title">${roundLabels[r]}</div>`;
+
+    if(isDone && result) {
+      // Show the completed match
+      const matchClass = result.playerWon ? 'won' : 'lost';
+      html += `<div class="tourn-match ${matchClass}">
+        <div class="tourn-trainer"><span class="tourn-trainer-name" style="color:var(--accent)">${state.player.name}</span></div>
+        <div class="tourn-vs">VS</div>
+        <div class="tourn-trainer"><span class="tourn-trainer-name">${result.enemy.name}</span> <span class="tourn-trainer-lv">Nv.${result.enemy.level}</span></div>
+        <div class="tourn-result-badge ${result.playerWon?'win':'loss'}">${result.playerWon?'✓ VICTORIA':'✗ DERROTA'}</div>
+      </div>`;
+      if(result.playerWon) {
+        html += `<div style="font-size:9px;color:var(--green);text-align:center;padding:3px">+${result.xpEarned} XP · 🪙${result.coinsEarned}</div>`;
+      }
+    } else if(isCurrent) {
+      const enemy = tournState.currentEnemy;
+      html += `<div class="tourn-match player-match">
+        <div class="tourn-trainer"><span class="tourn-trainer-name" style="color:var(--accent)">${state.player.name}</span> <span class="tourn-trainer-lv">Nv.${state.player.level}</span></div>
+        <div class="tourn-vs">⚔️ VS</div>
+        <div class="tourn-trainer"><span class="tourn-trainer-name">${enemy.name}</span> <span class="tourn-trainer-lv">Nv.${enemy.level}</span></div>
+        <div class="tourn-result-badge next">▶ AHORA</div>
+      </div>`;
+    } else {
+      // Upcoming round - show placeholder
+      html += `<div class="tourn-match pending">
+        <div class="tourn-trainer"><span class="tourn-trainer-name" style="color:var(--text3)">???</span></div>
+        <div class="tourn-vs">VS</div>
+        <div class="tourn-trainer"><span class="tourn-trainer-name" style="color:var(--text3)">???</span></div>
+      </div>`;
+    }
+    // Show a few bot matches below
+    const botsToShow = Math.min(2, Math.pow(2, Math.max(0, 4-r)) - 1);
+    for(let b = 0; b < botsToShow; b++) {
+      html += `<div class="tourn-match pending" style="opacity:0.4">
+        <div class="tourn-trainer"><span class="tourn-trainer-name" style="font-size:9px">${TOURN_TRAINER_NAMES[(r*3+b)%TOURN_TRAINER_NAMES.length]}</span></div>
+        <div class="tourn-vs">vs</div>
+        <div class="tourn-trainer"><span class="tourn-trainer-name" style="font-size:9px">${TOURN_TRAINER_NAMES[(r*3+b+10)%TOURN_TRAINER_NAMES.length]}</span></div>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+  bracketEl.innerHTML = html;
+
+  const titleEl = document.getElementById('tourn-status-title');
+  const subEl = document.getElementById('tourn-status-sub');
+  if(titleEl) titleEl.textContent = `Ronda ${tournState.round + 1} de 6 — ${TOURN_ROUNDS[tournState.round]}`;
+  if(subEl) subEl.textContent = `🔍 ${state.searchPoints} SP disponibles · Dificultad: ${TOURN_ROUND_LABELS[tournState.round]}`;
+
+  renderTournamentBattle();
+}
+
+function renderTournamentBattle() {
+  if(!tournState || !tournState.active) return;
+  if(tournState.round >= 6) { tournamentComplete(true); return; }
+  const enemy = tournState.currentEnemy || genTournEnemyForRound(tournState.round);
+  tournState.currentEnemy = enemy;
+  const battleTitle = document.getElementById('tourn-battle-title');
+  const battleContent = document.getElementById('tourn-battle-content');
+  if(!battleContent) return;
+  const roundCost = 1; // Always 1 SP per round
+  if(battleTitle) battleTitle.textContent = `⚔️ Tu combate — ${TOURN_ROUNDS[tournState.round]}`;
+
+  // Calculate win probability for display
+  const playerPower = state.team.filter(Boolean).reduce((acc, pk) => acc + pk.level * 1.2, 0);
+  const enemyPower = enemy.pks.reduce((acc, pk) => acc + pk.level, 0);
+  const winChance = Math.min(90, Math.max(10, Math.round((playerPower / (playerPower + enemyPower)) * 100)));
+
+  // XP/coin preview for this round
+  const xpReward = Math.floor(300 * Math.pow(1.8, tournState.round));
+  const coinReward = Math.floor(120 * Math.pow(1.8, tournState.round));
+
+  battleContent.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:stretch;padding:14px;background:var(--bg3);border-radius:10px;border:1px solid var(--border);margin-bottom:12px;flex-wrap:wrap;gap:10px">
+      <div style="flex:1">
+        <div style="font-size:16px;font-weight:700;margin-bottom:6px">${state.player.name} <span style="font-size:11px;color:var(--text3)">vs</span> <span style="color:var(--accent)">${enemy.name}</span></div>
+        <div style="font-size:11px;color:var(--text2);margin-bottom:8px">
+          Rival · ${enemy.diffLabel} · ${enemy.pks.length} Pokémon (nivel ~${enemy.level})
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+          ${enemy.pks.map(pk => `<span style="font-size:9px;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:2px 7px">${pk.name} Nv.${pk.level}</span>`).join('')}
+        </div>
+        <div style="font-size:10px;color:var(--text3)">
+          Tu equipo: ${state.team.filter(Boolean).map(pk=>`${pk.name} Nv.${pk.level}`).join(', ')}
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;min-width:120px">
+        <div style="text-align:right">
+          <div style="font-size:9px;color:var(--text3);letter-spacing:1px">PROBABILIDAD</div>
+          <div style="font-size:22px;font-weight:700;color:${winChance>=60?'var(--green)':winChance>=40?'var(--yellow)':'var(--red)'}">${winChance}%</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:9px;color:var(--text3)">Si ganas</div>
+          <div style="font-size:11px;font-weight:700;color:var(--cyan)">+${xpReward} XP · 🪙${coinReward}</div>
+        </div>
+        <div style="text-align:right;font-size:11px;color:var(--accent);font-weight:700">Coste: 🔍1 SP</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn" onclick="runTournamentBattle()" ${state.searchPoints < roundCost ? 'disabled' : ''} style="flex:1;min-width:140px;background:linear-gradient(135deg,var(--accent2),var(--accent))">⚔️ ¡Combatir! (🔍1 SP)</button>
+      <button class="btn danger" onclick="forfeitTournament()" style="flex:0">🏳️ Abandonar</button>
+    </div>
+    ${state.searchPoints < roundCost ? `<div style="margin-top:8px;font-size:11px;color:var(--red)">❌ Necesitas 1 SP para combatir. Completa tareas para obtener más.</div>` : ''}
+  `;
+}
+
+function runTournamentBattle() {
+  if(!tournState || !tournState.active) return;
+  if(state.searchPoints < 1) { notify('Necesitas 1 SP para combatir', 'bad'); return; }
+  state.searchPoints -= 1;
+  updateHUD();
+  const enemy = tournState.currentEnemy || genTournEnemyForRound(tournState.round);
+  const logEl = document.getElementById('tourn-log');
+  if(logEl) logEl.innerHTML = '';
+  const tlog = (msg, cls='') => {
+    if(!logEl) return;
+    const d = document.createElement('div');
+    d.className = `tourn-log-line ${cls}`;
+    d.textContent = msg;
+    logEl.appendChild(d);
+    logEl.scrollTop = logEl.scrollHeight;
+  };
+
+  // Battle simulation: weighted by power but fair randomness
+  const myPks = state.team.filter(Boolean);
+  const playerPower = myPks.reduce((acc, pk) => acc + pk.level * 1.2 * (pk.hp/pk.hpMax), 0);
+  const enemyPower = enemy.pks.reduce((acc, pk) => acc + pk.level, 0);
+  // Randomness band: ±35% — prevents trivial wins at low rounds, allows upsets at high rounds
+  const playerScore = playerPower * (0.75 + Math.random() * 0.5);
+  const enemyScore = enemyPower * (0.5 + Math.random() * 0.65);
+  const playerWon = playerScore > enemyScore;
+
+  tlog(`🏆 ${TOURN_ROUNDS[tournState.round].toUpperCase()} — ${state.player.name} vs ${enemy.name}`, 'info');
+  tlog(`Dificultad: ${enemy.diffLabel}`, 'info');
+
+  // Detailed pokemon-by-pokemon simulation
+  const battlePairs = Math.min(myPks.length, enemy.pks.length);
+  let playerKOs = 0, enemyKOs = 0;
+  for(let i = 0; i < battlePairs; i++) {
+    const myPk = myPks[i];
+    const enPk = enemy.pks[i];
+    const myStr = myPk.level * (0.9 + Math.random() * 0.4);
+    const enStr = enPk.level * (0.7 + Math.random() * 0.5);
+    if(myStr > enStr) {
+      tlog(`✓ ${myPk.name} (Nv.${myPk.level}) venció a ${enPk.name} (Nv.${enPk.level})`, 'good');
+      enemyKOs++;
+    } else {
+      tlog(`✗ ${enPk.name} (Nv.${enPk.level}) derrotó a ${myPk.name} (Nv.${myPk.level})`, 'bad');
+      playerKOs++;
+    }
+  }
+  // If enemy has more pokemon, simulate extra
+  if(enemy.pks.length > myPks.length) {
+    for(let i = myPks.length; i < enemy.pks.length; i++) {
+      if(!playerWon) tlog(`${enemy.pks[i].name} (Nv.${enemy.pks[i].level}) sigue en pie...`, 'bad');
+    }
+  }
+
+  if(playerWon) {
+    const xpReward = Math.floor(300 * Math.pow(1.8, tournState.round));
+    const coinReward = Math.floor(120 * Math.pow(1.8, tournState.round));
+    const pkXpReward = Math.floor(xpReward * 0.6);
+
+    tlog(``, '');
+    tlog(`🏆 ¡VICTORIA! ${state.player.name} avanza a la siguiente ronda!`, 'gold');
+    tlog(`Recompensa: +${xpReward} XP entrenador · +${pkXpReward} XP por Pokémon · 🪙${coinReward}`, 'good');
+
+    givePlayerXP(xpReward);
+    myPks.forEach(pk => givePokemonXP(pk, pkXpReward));
+    state.coins += coinReward;
+    updateHUD();
+    saveGame();
+
+    addActivity(`🏆 <strong>${state.player.name}</strong> superó la ${TOURN_ROUNDS[tournState.round]} vs <strong>${enemy.name}</strong> (+${xpReward} XP +🪙${coinReward})`, 'good');
+    tournState.results.push({ enemy, playerWon: true, xpEarned: xpReward, coinsEarned: coinReward });
+    tournState.round++;
+    tournState.currentEnemy = null;
+
+    if(tournState.round >= 6) {
+      setTimeout(() => tournamentComplete(true), 1200);
+    } else {
+      // Generate next enemy
+      tournState.currentEnemy = genTournEnemyForRound(tournState.round);
+      saveGame();
+      notify(`¡Victoria! Avanzas a ${TOURN_ROUNDS[tournState.round]}`, 'good');
+      setTimeout(() => renderTournamentBracket(), 1000);
+    }
+  } else {
+    const roundsWon = tournState.results.filter(r=>r.playerWon).length;
+    const consolationXP = Math.floor(100 * Math.pow(1.5, tournState.round));
+    const consolationCoins = Math.floor(40 * Math.pow(1.5, tournState.round));
+    tlog(``, '');
+    tlog(`💔 DERROTA — ${enemy.name} fue demasiado fuerte.`, 'bad');
+    tlog(`Rondas ganadas: ${roundsWon}/6. Consolación: +${consolationXP} XP · 🪙${consolationCoins}`, '');
+    // Give consolation XP
+    givePlayerXP(consolationXP);
+    myPks.forEach(pk => givePokemonXP(pk, Math.floor(consolationXP * 0.3)));
+    state.coins += consolationCoins;
+    updateHUD();
+    addActivity(`💔 <strong>${state.player.name}</strong> fue eliminado en la ${TOURN_ROUNDS[tournState.round]} por <strong>${enemy.name}</strong> (${roundsWon} rondas ganadas)`, 'bad');
+    tournState.results.push({ enemy, playerWon: false, xpEarned: 0, coinsEarned: 0 });
+    saveGame();
+    notify(`Eliminado. ${roundsWon} rondas ganadas. ¡Sigue entrenando!`, 'bad');
+    setTimeout(() => tournamentComplete(false), 2000);
+  }
+}
+
+function forfeitTournament() {
+  if(!confirm('¿Seguro que quieres abandonar el torneo? Perderás el progreso de esta edición.')) return;
+  tournState = null;
+  saveGame();
+  renderTournamentView();
+  document.getElementById('tourn-bracket-section').style.display = 'none';
+  notify('Abandonaste el torneo', 'bad');
+}
+
+function tournamentComplete(won) {
+  const logEl = document.getElementById('tourn-log');
+  const tlog = (msg, cls='') => {
+    if(!logEl) return;
+    const d = document.createElement('div');
+    d.className = `tourn-log-line ${cls}`;
+    d.textContent = msg;
+    logEl.appendChild(d);
+    logEl.scrollTop = logEl.scrollHeight;
+  };
+  if(won) {
+    const { coins, xp } = tournState.prize;
+    // Prize Pokémon: always an evolved/strong Pokémon
+    const PRIZE_PK_POOL = [
+      {id:149, name:'Dragonite'},  {id:130, name:'Gyarados'},   {id:143, name:'Snorlax'},
+      {id:131, name:'Lapras'},     {id:65,  name:'Alakazam'},   {id:68,  name:'Machamp'},
+      {id:76,  name:'Golem'},      {id:59,  name:'Arcanine'},   {id:45,  name:'Vileplume'},
+      {id:103, name:'Exeggutor'},  {id:112, name:'Rhydon'},     {id:9,   name:'Blastoise'},
+      {id:6,   name:'Charizard'},  {id:3,   name:'Venusaur'},   {id:38,  name:'Ninetales'},
+    ];
+    const prizeEntry = PRIZE_PK_POOL[Math.floor(Math.random() * PRIZE_PK_POOL.length)];
+    const prizeLv = 35 + Math.floor(state.player.level / 3) + Math.floor(Math.random() * 15);
+    const prizePk = mkPokemon(prizeEntry.id, prizeLv);
+
+    if(state.team.filter(Boolean).length < 6) state.team.push(prizePk);
+    else state.pc.push(prizePk);
+    if(!state.captured.includes(prizeEntry.id)) state.captured.push(prizeEntry.id);
+
+    state.coins += coins;
+    givePlayerXP(xp);
+    state.team.filter(Boolean).forEach(pk => givePokemonXP(pk, Math.floor(xp * 0.5)));
+    updateHUD(); saveGame();
+
+    tlog(``, '');
+    tlog(`🏆 ¡¡¡CAMPEÓN DEL TORNEO DE ARENA!!!`, 'gold');
+    tlog(`Eres el mejor entrenador de los 32 participantes.`, 'gold');
+    tlog(`🪙 Premio: ${coins.toLocaleString()} monedas`, 'gold');
+    tlog(`⚡ XP: +${xp.toLocaleString()} (entrenador) +${Math.floor(xp*0.5).toLocaleString()} (por Pokémon)`, 'gold');
+    tlog(`🎁 Pokémon premio: ${prizePk.name} Nv.${prizePk.level} ¡añadido a tu equipo!`, 'gold');
+
+    addActivity(`🏆🏆 <strong>${state.player.name}</strong> ¡CAMPEÓN DEL TORNEO! 🪙${coins} +${xp} XP + ${prizePk.name} Nv.${prizePk.level}`, 'good');
+    notify(`¡¡CAMPEÓN!! +🪙${coins} +${xp}XP + ${prizePk.name} Nv.${prizePk.level}!`, 'good');
+  } else {
+    const roundsWon = tournState ? tournState.results.filter(r=>r.playerWon).length : 0;
+    tlog(`Torneo finalizado. Rondas superadas: ${roundsWon}/6`, '');
+    tlog(`¡Entrena más y vuelve a intentarlo!`, 'info');
+  }
+  tournState = null;
+  saveGame();
+  setTimeout(() => {
+    renderTournamentView();
+    document.getElementById('tourn-bracket-section').style.display = 'none';
+  }, 4000);
+}
+
+// ===================== MARKET SYSTEM =====================
+let marketTab = 'items';
+let marketOffers = null; // { ts, itemOffers:{id,price}[], pkSellOffers:[{pcIdx,value}], tradeOffers:[...] }
+let marketCountdownInterval = null;
+const MARKET_RESET_MS = 10 * 60 * 1000; // 10 minutes
+
+const MARKET_ITEMS_CATALOG = [
+  {id:'pokeball',     name:'Poké Ball',    icon:'⚪', baseValue:12},
+  {id:'great_ball',   name:'Super Ball',   icon:'🔵', baseValue:40},
+  {id:'ultra_ball',   name:'Ultra Ball',   icon:'⚫', baseValue:80},
+  {id:'master_ball',  name:'Master Ball',  icon:'🟣', baseValue:350},
+  {id:'potion',       name:'Poción',       icon:'🧪', baseValue:18},
+  {id:'super_potion', name:'Super Poción', icon:'💊', baseValue:50},
+  {id:'hyper_potion', name:'Hiperpoción',  icon:'💉', baseValue:100},
+  {id:'full_restore', name:'Restauración', icon:'🌟', baseValue:200},
+  {id:'antidote',     name:'Antídoto',     icon:'🟢', baseValue:15},
+  {id:'burn_heal',    name:'Quema-s',      icon:'🧊', baseValue:15},
+  {id:'elixir',       name:'Elixir',       icon:'🔮', baseValue:140},
+];
+
+// Bot trainer names for trade offers
+const MARKET_BOT_NAMES = ['Trader Max','Broker Sam','Merchant Lea','Dealer Jin','Exchanger Kai','Collector Mira','Dealer Roy','Broker Yuna','Trader Zane','Agent Cleo'];
+
+// Strong/evolved pokemon pool for good trade offers
+const EVOLVED_PK_POOL = [6,9,3,65,68,76,59,38,45,103,112,130,131,143,149,36,40,110,121,124,125,126,127,128];
+
+function calcPokemonValue(pk) {
+  const base = POKEMONS[pk.id];
+  if(!base) return 50;
+  const baseStatSum = Object.values(base.stats).reduce((a,b)=>a+b,0);
+  const rarityFactor = pk.level >= 50 ? 3.5 : pk.level >= 40 ? 2.5 : pk.level >= 30 ? 2 : pk.level >= 15 ? 1.5 : 1;
+  const isEvolved = !base.evolves || base.evolveLv === 0;
+  const evoBonus = isEvolved ? 1.6 : 1;
+  // Evolved pool bonus (strong pokemon are worth more)
+  const strongBonus = EVOLVED_PK_POOL.includes(pk.id) ? 1.3 : 1;
+  return Math.floor((baseStatSum / 5) * (pk.level / 4) * rarityFactor * evoBonus * strongBonus);
+}
+
+function generateMarketOffers() {
+  const now = Date.now();
+  const allIds = Object.keys(POKEMONS).map(Number);
+
+  // Item offers: random price multiplier per item (75%-115% of base)
+  const itemOffers = MARKET_ITEMS_CATALOG.map(item => ({
+    id: item.id,
+    name: item.name,
+    icon: item.icon,
+    price: Math.floor(item.baseValue * (0.75 + Math.random() * 0.40)),
+  }));
+
+  // PC sell offers (with consistent values — no randomness in value display)
+  const pkSellOffers = state.pc.map((pk, i) => ({
+    pcIdx: i,
+    pk,
+    value: calcPokemonValue(pk),
+  }));
+
+  // Trade offers: multiple bots with different quality tiers
+  const tradeOffers = [];
+  if(state.pc.length > 0) {
+    // Generate up to 4 trade offers (one per PC pokemon, max 4)
+    const maxOffers = Math.min(4, state.pc.length);
+    const usedPcIdx = new Set();
+    for(let o = 0; o < maxOffers; o++) {
+      // Pick a PC pokemon the bot wants (not already used)
+      let wantIdx = -1;
+      for(let attempt = 0; attempt < 10; attempt++) {
+        const candidate = Math.floor(Math.random() * state.pc.length);
+        if(!usedPcIdx.has(candidate)) { wantIdx = candidate; break; }
+      }
+      if(wantIdx < 0) continue;
+      usedPcIdx.add(wantIdx);
+
+      const wantPk = state.pc[wantIdx];
+      const wantValue = calcPokemonValue(wantPk);
+      const luck = Math.random(); // 0-1, determines offer quality
+
+      // Bot name
+      const botName = MARKET_BOT_NAMES[Math.floor(Math.random() * MARKET_BOT_NAMES.length)];
+
+      let offeredId, offeredLv, qualityLabel, qualityClass;
+      if(luck > 0.85) {
+        // Exceptional: evolved pokemon, same or higher level
+        offeredId = EVOLVED_PK_POOL[Math.floor(Math.random() * EVOLVED_PK_POOL.length)];
+        offeredLv = wantPk.level + Math.floor(Math.random() * 8) + 2;
+        qualityLabel = '🌟 ¡OFERTA EXCEPCIONAL!';
+        qualityClass = 'good-offer';
+      } else if(luck > 0.6) {
+        // Good: slightly better level, any pokemon
+        offeredId = allIds[Math.floor(Math.random() * allIds.length)];
+        offeredLv = wantPk.level + Math.floor(Math.random() * 5);
+        qualityLabel = '✨ Buena oferta';
+        qualityClass = 'good-offer';
+      } else if(luck > 0.3) {
+        // Fair: same level range
+        offeredId = allIds[Math.floor(Math.random() * allIds.length)];
+        offeredLv = Math.max(5, wantPk.level + Math.floor(Math.random() * 4) - 2);
+        qualityLabel = '😐 Oferta normal';
+        qualityClass = '';
+      } else {
+        // Poor: lower level
+        offeredId = allIds[Math.floor(Math.random() * allIds.length)];
+        offeredLv = Math.max(3, wantPk.level - Math.floor(Math.random() * 6) - 1);
+        qualityLabel = '👎 Oferta baja';
+        qualityClass = 'bad-offer';
+      }
+
+      const offeredPk = mkPokemon(offeredId, offeredLv);
+      const offeredValue = calcPokemonValue(offeredPk);
+      const valueDiff = offeredValue - wantValue;
+      const valueDiffStr = valueDiff >= 0 ? `+🪙${valueDiff}` : `-🪙${Math.abs(valueDiff)}`;
+
+      tradeOffers.push({
+        wantPcIdx: wantIdx,
+        wantPk,
+        offeredPk,
+        offeredValue,
+        wantValue,
+        qualityLabel,
+        qualityClass,
+        botName,
+        luck,
+        valueDiffStr,
+      });
+    }
+  }
+  marketOffers = { ts: now, itemOffers, pkSellOffers, tradeOffers };
+}
+
+function switchMarketTab(tab, btn) {
+  marketTab = tab;
+  document.querySelectorAll('.market-tab-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.querySelectorAll('.market-view').forEach(v => v.style.display = 'none');
+  const view = document.getElementById(`mview-${tab}`);
+  if(view) view.style.display = '';
+  renderMarketView();
+}
+
+function renderMarketView() {
+  if(!marketOffers) generateMarketOffers();
+  // Sync balance
+  const coinsEl = document.getElementById('market-coins-display');
+  const spEl = document.getElementById('market-sp-display');
+  if(coinsEl) coinsEl.textContent = state.coins;
+  if(spEl) spEl.textContent = state.searchPoints;
+  startMarketCountdown();
+  if(marketTab === 'items') renderMarketItems();
+  else if(marketTab === 'sell-pk') renderMarketSellPk();
+  else if(marketTab === 'trade-pk') renderMarketTrade();
+}
+
+function startMarketCountdown() {
+  if(marketCountdownInterval) return;
+  marketCountdownInterval = setInterval(() => {
+    if(!marketOffers) return;
+    const elapsed = Date.now() - marketOffers.ts;
+    const remaining = Math.max(0, MARKET_RESET_MS - elapsed);
+    const mins = Math.floor(remaining / 60000);
+    const secs = Math.floor((remaining % 60000) / 1000);
+    const el = document.getElementById('market-countdown');
+    if(el) el.textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+    if(remaining <= 0) {
+      generateMarketOffers();
+      renderMarketView();
+    }
+  }, 1000);
+}
+
+function resetMarketOffers() {
+  if(state.searchPoints < 1) { notify('Necesitas 1 SP para resetear las ofertas', 'bad'); return; }
+  state.searchPoints--;
+  updateHUD();
+  generateMarketOffers();
+  renderMarketView();
+  notify('¡Ofertas actualizadas!', 'good');
+}
+
+function renderMarketItems() {
+  const el = document.getElementById('market-items-list');
+  if(!el || !marketOffers) return;
+  const owned = MARKET_ITEMS_CATALOG.filter(item => (state.inventory[item.id] || 0) > 0);
+  if(owned.length === 0) {
+    el.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:20px;text-align:center">Tu inventario está vacío. ¡Compra ítems en la tienda primero!</div>';
+    return;
+  }
+  el.innerHTML = owned.map(item => {
+    const qty = state.inventory[item.id] || 0;
+    const offer = marketOffers.itemOffers.find(o => o.id === item.id);
+    const price = offer ? offer.price : Math.floor(item.baseValue * 0.8);
+    const quality = price > item.baseValue ? 'good-offer' : price < item.baseValue * 0.85 ? 'bad-offer' : '';
+    const qualLabel = price > item.baseValue ? '▲ Alta' : price < item.baseValue * 0.85 ? '▼ Baja' : '= Normal';
+    return `<div class="market-offer-card">
+      <div class="market-offer-icon">${item.icon}</div>
+      <div class="market-offer-info">
+        <div class="market-offer-name">${item.name} <span style="color:var(--text3);font-size:10px">x${qty}</span></div>
+        <div class="market-offer-sub">Demanda: <span style="color:var(--${quality?'green':'text3'})">${qualLabel}</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        <div class="market-offer-val ${quality}">🪙 ${price} / ud</div>
+        <div style="display:flex;gap:6px">
+          <button class="btn ghost sm" onclick="sellMarketItem('${item.id}',${price},1)" ${qty<1?'disabled':''}>Vender 1</button>
+          ${qty>1?`<button class="btn ghost sm" onclick="sellMarketItem('${item.id}',${price},${qty})">Vender todo (${qty})</button>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function sellMarketItem(itemId, price, qty) {
+  if((state.inventory[itemId]||0) < qty) { notify('No tienes suficientes', 'bad'); return; }
+  state.inventory[itemId] -= qty;
+  const total = price * qty;
+  state.coins += total;
+  updateHUD();
+  saveGame();
+  addActivity(`💰 Vendiste ${qty}x ${MARKET_ITEMS_CATALOG.find(i=>i.id===itemId)?.name||itemId} por 🪙${total}`, 'good');
+  notify(`+🪙${total} ganados!`, 'good');
+  renderMarketView();
+}
+
+function renderMarketSellPk() {
+  const el = document.getElementById('market-sell-pk-list');
+  if(!el) return;
+  if(state.pc.length === 0) {
+    el.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:20px;text-align:center">No tienes Pokémon en el PC. Captura más y envíalos aquí.</div>';
+    return;
+  }
+  el.innerHTML = state.pc.map((pk, i) => {
+    const offer = marketOffers?.pkSellOffers?.find(o => o.pcIdx === i);
+    const value = offer ? offer.value : calcPokemonValue(pk);
+    const isEvolved = !POKEMONS[pk.id]?.evolves || POKEMONS[pk.id]?.evolveLv === 0;
+    return `<div class="market-pk-offer">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pk.id}.png" alt="${pk.name}">
+      <div class="market-pk-info">
+        <div class="market-pk-name">${pk.name} ${isEvolved?'<span style="font-size:9px;color:var(--green)">EVOLUCIONADO</span>':''}</div>
+        <div class="market-pk-details">Nv.${pk.level} · ${pk.types.join('/')} · HP: ${pk.hp}/${pk.hpMax}</div>
+        <div style="display:flex;gap:4px;margin-top:3px">${pk.types.map(t=>`<span class="type-badge type-${t}">${t}</span>`).join('')}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="market-pk-value">🪙 ${value}</div>
+        <button class="btn success sm" onclick="sellPcPokemon(${i},${value})">💰 Vender</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function sellPcPokemon(pcIdx, value) {
+  const pk = state.pc[pcIdx];
+  if(!pk) return;
+  if(!confirm(`¿Vender a ${pk.name} Nv.${pk.level} por 🪙${value}? Esta acción no se puede deshacer.`)) return;
+  state.pc.splice(pcIdx, 1);
+  state.coins += value;
+  updateHUD(); saveGame();
+  addActivity(`💰 Vendiste a <strong>${pk.name}</strong> Nv.${pk.level} por 🪙${value}`, 'good');
+  notify(`¡${pk.name} vendido por 🪙${value}!`, 'good');
+  generateMarketOffers(); // refresh offers since PC changed
+  renderMarketView();
+}
+
+function renderMarketTrade() {
+  const el = document.getElementById('market-trade-offers');
+  if(!el) return;
+  if(!marketOffers?.tradeOffers || marketOffers.tradeOffers.length === 0) {
+    el.innerHTML = `<div style="font-size:12px;color:var(--text3);padding:20px;text-align:center;line-height:1.8">
+      No hay ofertas de intercambio disponibles.<br>
+      Necesitas Pokémon en el PC para recibir propuestas de los bots.<br><br>
+      <button class="btn ghost sm" onclick="resetMarketOffers()">🔍 Generar nuevas ofertas (1 SP)</button>
+    </div>`;
+    return;
+  }
+  el.innerHTML = marketOffers.tradeOffers.map((offer, i) => {
+    const wantPk = offer.wantPk;
+    const offerPk = offer.offeredPk;
+    const isGood = offer.offeredValue >= offer.wantValue;
+    const isExcellent = offer.luck > 0.85;
+    return `<div class="market-pk-offer" style="flex-wrap:wrap;gap:12px;margin-bottom:12px;${isExcellent?'border-color:var(--yellow);background:rgba(240,192,64,0.04)':''}">
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+          <span style="font-size:11px;font-weight:700;color:var(--text3)">${offer.botName}</span>
+          <span style="font-size:10px;font-weight:700;color:var(--${isExcellent?'yellow':isGood?'green':'text3'})">${offer.qualityLabel}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <div style="text-align:center">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${wantPk.id}.png" style="width:52px;height:52px;image-rendering:pixelated">
+            <div style="font-size:10px;font-weight:700">${wantPk.name}</div>
+            <div style="font-size:9px;color:var(--text3)">Nv.${wantPk.level}</div>
+            <div style="font-size:9px;color:var(--yellow)">🪙${offer.wantValue}</div>
+            <div style="font-size:8px;color:var(--text3);margin-top:1px">Tu Pokémon</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px">
+            <span style="font-size:18px;color:var(--text3)">⇄</span>
+            <span style="font-size:9px;font-weight:700;color:${isGood?'var(--green)':'var(--red)'}">${offer.valueDiffStr}</span>
+          </div>
+          <div style="text-align:center">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${offerPk.id}.png" style="width:52px;height:52px;image-rendering:pixelated">
+            <div style="font-size:10px;font-weight:700;color:var(--accent)">${offerPk.name}</div>
+            <div style="font-size:9px;color:var(--text3)">Nv.${offerPk.level}</div>
+            <div style="font-size:9px;color:var(--yellow)">🪙${offer.offeredValue}</div>
+            <div style="font-size:8px;color:var(--text3);margin-top:1px">Te ofrecen</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:8px">
+        <button class="btn sm ${isGood?'success':isExcellent?'':'ghost'}" onclick="acceptTrade(${i})" style="${isExcellent?'background:linear-gradient(135deg,var(--yellow),var(--orange));color:#000':''}">
+          ${isExcellent?'🌟 ¡Aceptar!':'🔄 Aceptar'}
+        </button>
+        <button class="btn danger sm" onclick="rejectTrade(${i})">✕ Rechazar</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function acceptTrade(offerIdx) {
+  const offer = marketOffers?.tradeOffers?.[offerIdx];
+  if(!offer) return;
+  const wantPk = state.pc[offer.wantPcIdx];
+  if(!wantPk) { notify('El Pokémon ya no está disponible', 'bad'); generateMarketOffers(); renderMarketView(); return; }
+  state.pc.splice(offer.wantPcIdx, 1);
+  state.pc.push(offer.offeredPk);
+  if(!state.captured.includes(offer.offeredPk.id)) state.captured.push(offer.offeredPk.id);
+  saveGame();
+  addActivity(`🔄 Intercambiaste <strong>${wantPk.name}</strong> Nv.${wantPk.level} por <strong>${offer.offeredPk.name}</strong> Nv.${offer.offeredPk.level}`, 'info');
+  notify(`¡Intercambio completado! Recibiste a ${offer.offeredPk.name}!`, 'good');
+  generateMarketOffers();
+  renderMarketView();
+}
+
+function rejectTrade(offerIdx) {
+  marketOffers?.tradeOffers?.splice(offerIdx, 1);
+  renderMarketTrade();
 }
 
 // ===================== EXPORT / IMPORT =====================
