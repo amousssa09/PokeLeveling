@@ -353,6 +353,33 @@ body {
 }
 .kanto-title { font-family: 'Press Start 2P', monospace; font-size: 10px; color: var(--yellow); margin-bottom: 24px; }
 .zones-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.dash-carousel-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 0 2px;
+  margin-top: 4px;
+  border-top: 1px solid var(--border);
+}
+.dash-carousel-btn {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  line-height: 1;
+}
+.dash-carousel-btn:hover:not(:disabled) { background: var(--bg4); color: var(--accent); border-color: var(--accent); }
+.dash-carousel-btn:disabled { opacity: 0.3; cursor: default; }
+.dash-carousel-info { font-size: 10px; color: var(--text3); font-weight: 600; min-width: 36px; text-align: center; }
 .zone-card {
   background: var(--bg3);
   border: 1px solid var(--border);
@@ -2466,10 +2493,24 @@ function quickAddTask() {
   notify('Tarea creada: ' + name, 'good');
 }
 
+let dashZonePage = 0;
+const DASH_ZONES_PER_PAGE = 3;
+
 function renderDashZones() {
   const el = document.getElementById('dash-zones-mini');
   if(!el) return;
-  el.innerHTML = ZONES.map(z => {
+  const totalPages = Math.ceil(ZONES.length / DASH_ZONES_PER_PAGE);
+  if(dashZonePage >= totalPages) dashZonePage = 0;
+  const start = dashZonePage * DASH_ZONES_PER_PAGE;
+  const visibleZones = ZONES.slice(start, start + DASH_ZONES_PER_PAGE);
+
+  const navHtml = `<div class="dash-carousel-nav">
+    <button class="dash-carousel-btn" onclick="dashZonePage=Math.max(0,dashZonePage-1);renderDashZones()" ${dashZonePage===0?'disabled':''}>&#8592;</button>
+    <span class="dash-carousel-info">${dashZonePage+1} / ${totalPages}</span>
+    <button class="dash-carousel-btn" onclick="dashZonePage=Math.min(${totalPages-1},dashZonePage+1);renderDashZones()" ${dashZonePage===totalPages-1?'disabled':''}>&#8594;</button>
+  </div>`;
+
+  el.innerHTML = visibleZones.map(z => {
     const locked = state.player.level < z.reqLevel;
     return `<div class="dash-zone-row ${locked?'locked':''}" ${locked?'':'onclick="dashExplore(\''+z.id+'\')"'}>
       <div class="dash-zone-icon">${z.icon}</div>
@@ -2481,7 +2522,7 @@ function renderDashZones() {
         🔍 Explorar
       </button>` : ''}
     </div>`;
-  }).join('');
+  }).join('') + navHtml;
 }
 
 function dashExplore(zoneId) {
@@ -2515,21 +2556,35 @@ function renderDashTeam() {
   el.innerHTML = html;
 }
 
+let dashShopPage = 0;
+const DASH_SHOP_PER_PAGE = 3;
+const DASH_QUICK_ITEMS = [
+  {id:'pokeball',     name:'Poké Ball',   icon:'⚪', price:20},
+  {id:'potion',       name:'Poción 25%',  icon:'🧪', price:30},
+  {id:'great_ball',   name:'Super Ball',  icon:'🔵', price:60},
+  {id:'super_potion', name:'S.Poc. 50%',  icon:'💊', price:70},
+  {id:'ultra_ball',   name:'Ultra Ball',  icon:'⚫', price:120},
+  {id:'hyper_potion', name:'Hiperpoc.',   icon:'💉', price:150},
+  {id:'elixir',       name:'Elixir',      icon:'🔮', price:200},
+  {id:'full_restore', name:'Restauración',icon:'🌟', price:300},
+  {id:'master_ball',  name:'Master Ball', icon:'🟣', price:500},
+];
+
 function renderDashShop() {
   const el = document.getElementById('dash-shop-mini');
   if(!el) return;
-  const quickItems = [
-    {id:'pokeball',     name:'Poké Ball',   icon:'⚪', price:20},
-    {id:'potion',       name:'Poción 25%',  icon:'🧪', price:30},
-    {id:'great_ball',   name:'Super Ball',  icon:'🔵', price:60},
-    {id:'super_potion', name:'S.Poc. 50%',  icon:'💊', price:70},
-    {id:'ultra_ball',   name:'Ultra Ball',  icon:'⚫', price:120},
-    {id:'hyper_potion', name:'Hiperpoc.',   icon:'💉', price:150},
-    {id:'elixir',       name:'Elixir',      icon:'🔮', price:200},
-    {id:'full_restore', name:'Restauración',icon:'🌟', price:300},
-    {id:'master_ball',  name:'Master Ball', icon:'🟣', price:500},
-  ];
-  el.innerHTML = quickItems.map(item => {
+  const totalPages = Math.ceil(DASH_QUICK_ITEMS.length / DASH_SHOP_PER_PAGE);
+  if(dashShopPage >= totalPages) dashShopPage = 0;
+  const start = dashShopPage * DASH_SHOP_PER_PAGE;
+  const visibleItems = DASH_QUICK_ITEMS.slice(start, start + DASH_SHOP_PER_PAGE);
+
+  const navHtml = `<div class="dash-carousel-nav">
+    <button class="dash-carousel-btn" onclick="dashShopPage=Math.max(0,dashShopPage-1);renderDashShop()" ${dashShopPage===0?'disabled':''}>&#8592;</button>
+    <span class="dash-carousel-info">${dashShopPage+1} / ${totalPages}</span>
+    <button class="dash-carousel-btn" onclick="dashShopPage=Math.min(${totalPages-1},dashShopPage+1);renderDashShop()" ${dashShopPage===totalPages-1?'disabled':''}>&#8594;</button>
+  </div>`;
+
+  el.innerHTML = visibleItems.map(item => {
     const canBuy = state.coins >= item.price;
     const owned = state.inventory[item.id]||0;
     return `<div class="dash-shop-row">
@@ -2538,7 +2593,7 @@ function renderDashShop() {
       <span class="dash-shop-price">🪙${item.price}</span>
       <button class="dash-shop-buy" onclick="dashBuy('${item.id}',${item.price})" ${!canBuy?'disabled':''}>Comprar</button>
     </div>`;
-  }).join('');
+  }).join('') + navHtml;
 }
 
 function dashBuy(id, price) {
