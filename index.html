@@ -1198,6 +1198,56 @@ body {
 .pw-map-cloud:nth-child(3) { animation-delay: 4s; }
 @keyframes cloudFloat { from { transform: translateY(0); } to { transform: translateY(-6px); } }
 
+/* ===================== KAIZEN ===================== */
+.kaizen-tab-btn { border-color: rgba(46,196,182,0.3) !important; }
+.kaizen-tab-btn.active { background: linear-gradient(135deg, #1a4a3a, #1a3a4a) !important; color: var(--cyan) !important; border-color: var(--cyan) !important; }
+.kaizen-header-card {
+  background: linear-gradient(135deg, rgba(46,196,182,0.06) 0%, rgba(61,186,110,0.06) 100%);
+  border: 1px solid rgba(46,196,182,0.25);
+  border-radius: 14px; padding: 20px;
+}
+.kaizen-symbol {
+  width: 52px; height: 52px; border-radius: 12px;
+  background: linear-gradient(135deg, rgba(46,196,182,0.2), rgba(61,186,110,0.2));
+  border: 1px solid rgba(46,196,182,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; color: var(--cyan); font-weight: 700; flex-shrink: 0;
+}
+.kaizen-new-btn { background: linear-gradient(135deg, #1e5a48, #2d5fc4) !important; border: 1px solid rgba(46,196,182,0.3) !important; white-space: nowrap; }
+.kaizen-new-btn:hover { filter: brightness(1.2) !important; transform: translateY(-1px) !important; }
+.kaizen-rewards-strip { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.kaizen-reward-chip { background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 600; }
+.kaizen-entry { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: border-color 0.15s; }
+.kaizen-entry:hover { border-color: var(--border2); }
+.kaizen-entry-header { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg3); border-bottom: 1px solid var(--border); cursor: pointer; }
+.kaizen-entry-date { font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--cyan); }
+.kaizen-entry-time { font-size: 10px; color: var(--text3); margin-top: 3px; }
+.kaizen-entry-actions { margin-left: auto; display: flex; gap: 8px; }
+.kaizen-entry-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 14px; }
+.kaizen-entry-body.collapsed { display: none; }
+.kaizen-section-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+.kaizen-section-label.good { color: var(--green); }
+.kaizen-section-label.bad { color: var(--red); }
+.kaizen-section-label.improve { color: var(--yellow); }
+.kaizen-section-label.summary { color: var(--cyan); }
+.kaizen-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--text2); line-height: 1.5; padding: 4px 0; }
+.kaizen-item-num { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.kaizen-item-num.good { background: rgba(61,186,110,0.2); color: var(--green); border: 1px solid rgba(61,186,110,0.4); }
+.kaizen-item-num.bad { background: rgba(224,82,82,0.2); color: var(--red); border: 1px solid rgba(224,82,82,0.4); }
+.kaizen-item-num.improve { background: rgba(240,192,64,0.2); color: var(--yellow); border: 1px solid rgba(240,192,64,0.4); }
+.kaizen-itask { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 8px; transition: border-color 0.15s; }
+.kaizen-itask.completed-ktask { opacity: 0.5; }
+.kaizen-itask.expired-ktask { border-color: rgba(224,82,82,0.4); background: rgba(224,82,82,0.04); }
+.kaizen-itask-bar { width: 4px; height: 40px; border-radius: 2px; flex-shrink: 0; background: var(--yellow); }
+.kaizen-itask-bar.expired { background: var(--red); }
+.kaizen-itask-bar.done { background: var(--green); }
+.kaizen-itask-info { flex: 1; }
+.kaizen-itask-name { font-size: 13px; font-weight: 600; }
+.kaizen-itask-meta { font-size: 10px; color: var(--text3); margin-top: 3px; }
+.kaizen-itask-timer { font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--yellow); margin-top: 4px; }
+.kaizen-itask-timer.urgent { color: var(--orange); }
+.kaizen-itask-timer.expired-t { color: var(--red); opacity:0.7; }
+
 /* COMING SOON */
 .pw-coming-soon {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -1410,6 +1460,178 @@ body {
   font-size: 11px; color: var(--text2);
 }
 .market-countdown { font-family: 'Press Start 2P', monospace; font-size: 10px; color: var(--cyan); min-width: 50px; }
+
+/* ===================== CALENDAR ===================== */
+.cal-view-btn {
+  background: none; border: none; color: var(--text2);
+  font-family: 'Exo 2', sans-serif; font-size: 12px; font-weight: 600;
+  padding: 7px 14px; cursor: pointer; transition: all 0.15s;
+}
+.cal-view-btn:hover { background: var(--bg4); color: var(--text); }
+.cal-view-btn.active { background: var(--accent2); color: #fff; }
+
+.cal-nav-bar {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.cal-nav-btn {
+  background: var(--bg3); border: 1px solid var(--border2);
+  color: var(--text2); font-size: 20px; font-weight: 700;
+  width: 34px; height: 34px; border-radius: 8px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; line-height: 1;
+}
+.cal-nav-btn:hover { background: var(--bg4); color: var(--accent); border-color: var(--accent); }
+.cal-today-btn {
+  background: var(--bg3); border: 1px solid var(--border2);
+  color: var(--text2); font-family: 'Exo 2', sans-serif;
+  font-size: 12px; font-weight: 700; padding: 6px 14px;
+  border-radius: 8px; cursor: pointer; transition: all 0.15s;
+}
+.cal-today-btn:hover { border-color: var(--accent); color: var(--accent); }
+.cal-nav-title {
+  font-size: 16px; font-weight: 700; color: var(--text);
+  flex: 1; text-align: left;
+}
+
+/* Grid wrapper (shared day/week) */
+.cal-grid-wrap {
+  display: flex;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+.cal-grid-wrap::-webkit-scrollbar { width: 6px; }
+.cal-grid-wrap::-webkit-scrollbar-track { background: var(--bg3); }
+.cal-grid-wrap::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+.cal-time-col {
+  width: 56px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+.cal-time-slot {
+  height: 60px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start;
+  padding: 4px 6px 0;
+  font-size: 10px; color: var(--text3);
+  font-weight: 600; letter-spacing: 0.3px;
+  box-sizing: border-box;
+}
+
+/* DAY VIEW */
+.cal-day-col {
+  flex: 1;
+  position: relative;
+}
+.cal-day-hour-row {
+  height: 60px;
+  border-bottom: 1px solid var(--border);
+  box-sizing: border-box;
+  cursor: default;
+}
+.cal-day-hour-row:hover { background: rgba(79,142,247,0.03); }
+.cal-current-time-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--red);
+  z-index: 5;
+  pointer-events: none;
+}
+.cal-current-time-line::before {
+  content: '';
+  position: absolute;
+  left: -4px; top: -4px;
+  width: 10px; height: 10px;
+  background: var(--red);
+  border-radius: 50%;
+}
+
+/* WEEK VIEW */
+.cal-week-header {
+  display: flex;
+  margin-left: 56px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+.cal-week-day-head {
+  flex: 1;
+  text-align: center;
+  padding: 10px 4px;
+  font-size: 11px; font-weight: 700;
+  color: var(--text2);
+  border-right: 1px solid var(--border);
+}
+.cal-week-day-head:last-child { border-right: none; }
+.cal-week-day-head.today { color: var(--accent); }
+.cal-week-day-num {
+  font-size: 18px; font-weight: 700;
+  display: block;
+  width: 32px; height: 32px;
+  line-height: 32px;
+  border-radius: 50%;
+  margin: 2px auto 0;
+}
+.cal-week-day-head.today .cal-week-day-num {
+  background: var(--accent);
+  color: #fff;
+}
+.cal-week-cols {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+.cal-week-col {
+  flex: 1;
+  position: relative;
+  border-right: 1px solid var(--border);
+}
+.cal-week-col:last-child { border-right: none; }
+.cal-hour-row {
+  height: 60px;
+  border-bottom: 1px solid var(--border);
+  box-sizing: border-box;
+}
+
+/* EVENTS / BLOCKS */
+.cal-event {
+  position: absolute;
+  border-radius: 6px;
+  padding: 4px 7px;
+  font-size: 11px;
+  font-weight: 700;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 2;
+  box-sizing: border-box;
+  transition: filter 0.12s;
+  min-height: 22px;
+  line-height: 1.3;
+  user-select: none;
+}
+.cal-event:hover { filter: brightness(1.15); z-index: 3; }
+.cal-event .cal-event-time {
+  font-size: 9px; opacity: 0.85; font-weight: 600;
+  display: block; margin-top: 1px;
+}
+
+/* COLOR SWATCHES */
+.cal-color-swatch {
+  width: 26px; height: 26px; border-radius: 50%;
+  cursor: pointer; border: 3px solid transparent;
+  transition: border-color 0.15s, transform 0.12s;
+}
+.cal-color-swatch:hover { transform: scale(1.15); }
+.cal-color-swatch.selected { border-color: #fff; }
 </style>
 </head>
 <body>
@@ -1424,6 +1646,7 @@ body {
   <button class="nav-btn" onclick="nav('shop',this)">🏪 Tienda</button>
   <button class="nav-btn" onclick="nav('config',this)">⚙️ Config</button>
   <div class="topbar-right">
+    <span id="autosave-indicator" style="font-size:10px;color:var(--green);opacity:0;transition:opacity 0.4s;font-weight:600;letter-spacing:0.5px"></span>
     <div class="stat-chip"><span class="icon">🔍</span><span id="sp-display">0</span> SP</div>
     <div class="stat-chip"><span class="icon">🪙</span><span id="coins-display">50</span></div>
   </div>
@@ -1585,6 +1808,7 @@ body {
         <button class="profile-tab-btn active" onclick="switchProfileTab('pokemon', this)">🎮 Pokémon</button>
         <button class="profile-tab-btn" onclick="switchProfileTab('trainer', this)">👤 Jugador</button>
         <button class="profile-tab-btn" onclick="switchProfileTab('pokedex', this)">📖 Pokédex</button>
+        <button class="profile-tab-btn kaizen-tab-btn" onclick="switchProfileTab('kaizen', this)">🌱 Kaizen</button>
       </div>
 
       <div class="profile-tab-content active" id="ptab-pokemon">
@@ -1655,6 +1879,49 @@ body {
           <div class="pokedex-grid" id="pokedex-grid"></div>
         </div>
       </div>
+
+      <!-- ===================== KAIZEN TAB ===================== -->
+      <div class="profile-tab-content" id="ptab-kaizen">
+
+        <!-- Header -->
+        <div class="kaizen-header-card">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="kaizen-symbol">改</div>
+            <div>
+              <div style="font-size:18px;font-weight:700;letter-spacing:0.5px">Kaizen <span style="font-size:12px;color:var(--text3);font-weight:400">— Mejora Continua</span></div>
+              <div style="font-size:11px;color:var(--text2);margin-top:2px">Reflexiona cada día · Gana 🔍 SP y 🪙 monedas · Crea tareas de mejora</div>
+            </div>
+            <button class="btn kaizen-new-btn" onclick="openKaizenForm()" style="margin-left:auto">✦ Nueva Reflexión</button>
+          </div>
+          <div class="kaizen-rewards-strip">
+            <div class="kaizen-reward-chip">🔍 <strong>+3 SP</strong> por reflexión</div>
+            <div class="kaizen-reward-chip">🪙 <strong>+25</strong> por reflexión</div>
+            <div class="kaizen-reward-chip">⚔️ <strong>+50 XP</strong> tarea mejora completada</div>
+            <div class="kaizen-reward-chip" style="color:var(--red)">⚠️ <strong>Sanción</strong> tarea expirada</div>
+          </div>
+        </div>
+
+        <!-- Improvement tasks section -->
+        <div class="card" style="margin-top:14px" id="kaizen-improvement-tasks-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <div class="card-title" style="margin-bottom:0">🎯 Tareas de Mejora Activas <span id="kaizen-improv-count" style="color:var(--text3);font-weight:400">(0)</span></div>
+            <span style="font-size:10px;color:var(--text3)">Límite 24h · Generadas desde reflexiones Kaizen</span>
+          </div>
+          <div id="kaizen-improvement-tasks-list">
+            <div style="font-size:12px;color:var(--text3);padding:12px 0;text-align:center">Sin tareas de mejora activas. ¡Crea una reflexión!</div>
+          </div>
+        </div>
+
+        <!-- Entries list -->
+        <div style="margin-top:14px;display:flex;flex-direction:column;gap:12px" id="kaizen-entries-list">
+          <div style="font-size:12px;color:var(--text3);padding:20px;text-align:center;background:var(--bg2);border:1px solid var(--border);border-radius:12px">
+            Aún no hay reflexiones Kaizen. ¡Pulsa <strong>Nueva Reflexión</strong> para empezar!
+          </div>
+        </div>
+
+      </div>
+      <!-- ===================== END KAIZEN TAB ===================== -->
+
     </div>
   </div>
 </div>
@@ -1663,16 +1930,133 @@ body {
 <div class="section main" id="sec-tasks">
   <div class="tasks-header">
     <h2>📋 Tareas & Objetivos</h2>
-    <button class="btn" onclick="openTaskModal()">+ Nueva Tarea</button>
+    <div style="display:flex;gap:8px;align-items:center">
+      <div style="display:flex;background:var(--bg3);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <button class="cal-view-btn active" id="calview-list" onclick="switchTasksView('list',this)">☰ Lista</button>
+        <button class="cal-view-btn" id="calview-day" onclick="switchTasksView('day',this)">📅 Día</button>
+        <button class="cal-view-btn" id="calview-week" onclick="switchTasksView('week',this)">🗓 Semana</button>
+      </div>
+      <button class="btn" onclick="openTaskModal()">+ Nueva Tarea</button>
+    </div>
   </div>
-  <div class="tasks-tabs">
-    <button class="tab-btn active" onclick="filterTasks('all', this)">Todas</button>
-    <button class="tab-btn" onclick="filterTasks('pending', this)">Pendientes</button>
-    <button class="tab-btn" onclick="filterTasks('habit', this)">Hábitos</button>
-    <button class="tab-btn" onclick="filterTasks('goal', this)">Objetivos</button>
-    <button class="tab-btn" onclick="filterTasks('completed', this)">Completadas</button>
+
+  <!-- LIST VIEW -->
+  <div id="tasks-view-list">
+    <div class="tasks-tabs">
+      <button class="tab-btn active" onclick="filterTasks('all', this)">Todas</button>
+      <button class="tab-btn" onclick="filterTasks('pending', this)">Pendientes</button>
+      <button class="tab-btn" onclick="filterTasks('habit', this)">Hábitos</button>
+      <button class="tab-btn" onclick="filterTasks('goal', this)">Objetivos</button>
+      <button class="tab-btn" onclick="filterTasks('completed', this)">Completadas</button>
+    </div>
+    <div id="tasks-list"></div>
   </div>
-  <div id="tasks-list"></div>
+
+  <!-- CALENDAR VIEWS -->
+  <div id="tasks-view-calendar" style="display:none">
+    <!-- Calendar nav bar -->
+    <div class="cal-nav-bar">
+      <button class="cal-nav-btn" onclick="calNavigate(-1)">‹</button>
+      <button class="cal-today-btn" onclick="calGoToday()">Hoy</button>
+      <div class="cal-nav-title" id="cal-nav-title">—</div>
+      <button class="cal-nav-btn" onclick="calNavigate(1)">›</button>
+    </div>
+    <!-- Day view -->
+    <div id="cal-day-view" style="display:none">
+      <div class="cal-grid-wrap">
+        <div class="cal-time-col" id="cal-day-times"></div>
+        <div class="cal-day-col" id="cal-day-col">
+          <div class="cal-current-time-line" id="cal-time-line" style="display:none"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Week view -->
+    <div id="cal-week-view" style="display:none">
+      <div class="cal-week-header" id="cal-week-header"></div>
+      <div class="cal-grid-wrap">
+        <div class="cal-time-col" id="cal-week-times"></div>
+        <div class="cal-week-cols" id="cal-week-cols"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CUSTOM BLOCK MODAL -->
+<div class="overlay" id="cal-block-overlay">
+  <div class="modal">
+    <h3>⏱️ Nuevo Bloque de Tiempo</h3>
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text" id="cal-block-name" placeholder="Nombre del bloque...">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Inicio</label>
+        <input type="datetime-local" id="cal-block-start">
+      </div>
+      <div class="form-group">
+        <label>Fin</label>
+        <input type="datetime-local" id="cal-block-end">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Color</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px" id="cal-block-color-picker">
+        <div class="cal-color-swatch selected" style="background:#7c6fcd" data-color="#7c6fcd" onclick="selectBlockColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#3dba6e" data-color="#3dba6e" onclick="selectBlockColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#e07830" data-color="#e07830" onclick="selectBlockColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#e85d8a" data-color="#e85d8a" onclick="selectBlockColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#2ec4b6" data-color="#2ec4b6" onclick="selectBlockColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#f0c040" data-color="#f0c040" onclick="selectBlockColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#4f8ef7" data-color="#4f8ef7" onclick="selectBlockColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#e05252" data-color="#e05252" onclick="selectBlockColor(this)"></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="closeCalBlockModal()">Cancelar</button>
+      <button class="btn" onclick="saveCalBlock()">Crear Bloque</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT CUSTOM BLOCK MODAL -->
+<div class="overlay" id="cal-block-edit-overlay">
+  <div class="modal">
+    <h3>✏️ Editar Bloque</h3>
+    <input type="hidden" id="cal-block-edit-id">
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text" id="cal-block-edit-name" placeholder="Nombre del bloque...">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Inicio</label>
+        <input type="datetime-local" id="cal-block-edit-start">
+      </div>
+      <div class="form-group">
+        <label>Fin</label>
+        <input type="datetime-local" id="cal-block-edit-end">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Color</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px" id="cal-block-edit-color-picker">
+        <div class="cal-color-swatch selected" style="background:#7c6fcd" data-color="#7c6fcd" onclick="selectBlockEditColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#3dba6e" data-color="#3dba6e" onclick="selectBlockEditColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#e07830" data-color="#e07830" onclick="selectBlockEditColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#e85d8a" data-color="#e85d8a" onclick="selectBlockEditColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#2ec4b6" data-color="#2ec4b6" onclick="selectBlockEditColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#f0c040" data-color="#f0c040" onclick="selectBlockEditColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#4f8ef7" data-color="#4f8ef7" onclick="selectBlockEditColor(this)"></div>
+        <div class="cal-color-swatch" style="background:#e05252" data-color="#e05252" onclick="selectBlockEditColor(this)"></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn danger" onclick="deleteCalBlock(document.getElementById('cal-block-edit-id').value)">🗑 Eliminar</button>
+      <button class="btn ghost" onclick="document.getElementById('cal-block-edit-overlay').classList.remove('show'); renderCalendar();">Cancelar</button>
+      <button class="btn" onclick="saveEditCalBlock()">Guardar</button>
+    </div>
+  </div>
 </div>
 
 <!-- POKÉMON WORLD -->
@@ -2071,6 +2455,64 @@ body {
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- KAIZEN MODAL -->
+<div class="overlay" id="kaizen-overlay">
+  <div class="modal" style="width:620px;max-height:92vh">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="font-size:28px">改</div>
+      <div>
+        <h3 style="margin:0;font-size:16px;font-weight:700" id="kaizen-modal-title">Nueva Reflexión Kaizen</h3>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px" id="kaizen-modal-date">—</div>
+      </div>
+    </div>
+    <input type="hidden" id="kaizen-edit-id">
+
+    <!-- Resumen del día -->
+    <div class="form-group">
+      <label style="color:var(--cyan)">📝 Resumen del día / semana</label>
+      <textarea id="kaizen-summary" rows="3" placeholder="¿Qué pasó hoy? Palabras clave, sucesos importantes, estado de ánimo..."></textarea>
+    </div>
+
+    <!-- 3 cosas bien -->
+    <div class="form-group">
+      <label style="color:var(--green)">✅ 3 cosas que hice bien (y cómo / por qué)</label>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <input type="text" id="kaizen-good-1" placeholder="1. ¿Qué hice bien? ¿Cómo? ¿Por qué fue positivo?">
+        <input type="text" id="kaizen-good-2" placeholder="2. ¿Qué hice bien? ¿Cómo? ¿Por qué fue positivo?">
+        <input type="text" id="kaizen-good-3" placeholder="3. ¿Qué hice bien? ¿Cómo? ¿Por qué fue positivo?">
+      </div>
+    </div>
+
+    <!-- 3 cosas mal -->
+    <div class="form-group">
+      <label style="color:var(--red)">❌ 3 cosas que hice mal (y cómo / por qué)</label>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <input type="text" id="kaizen-bad-1" placeholder="1. ¿Qué salió mal? ¿Cómo ocurrió? ¿Por qué?">
+        <input type="text" id="kaizen-bad-2" placeholder="2. ¿Qué salió mal? ¿Cómo ocurrió? ¿Por qué?">
+        <input type="text" id="kaizen-bad-3" placeholder="3. ¿Qué salió mal? ¿Cómo ocurrió? ¿Por qué?">
+      </div>
+    </div>
+
+    <!-- 3 mejoras para mañana -->
+    <div class="form-group">
+      <label style="color:var(--yellow)">🚀 3 cosas a mejorar mañana <span style="color:var(--text3);font-weight:400;font-size:9px">(se crearán como tareas con límite de 24h)</span></label>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <input type="text" id="kaizen-improve-1" placeholder="1. Cambio importante que harás mañana...">
+        <input type="text" id="kaizen-improve-2" placeholder="2. Cambio importante que harás mañana...">
+        <input type="text" id="kaizen-improve-3" placeholder="3. Cambio importante que harás mañana...">
+      </div>
+      <div style="font-size:10px;color:var(--text3);margin-top:6px;padding:8px;background:var(--bg3);border-radius:6px;border:1px solid var(--border)">
+        ⚡ Cada mejora se convierte en una tarea de 24h. Completarla da <strong style="color:var(--accent)">+2 SP</strong>, <strong style="color:var(--yellow)">+15🪙</strong> y <strong style="color:var(--green)">+50 XP</strong>. No completarla aplica <strong style="color:var(--red)">sanción: -1 SP, -10🪙</strong>.
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="closeKaizenModal()">Cancelar</button>
+      <button class="btn" onclick="saveKaizen()" style="background:linear-gradient(135deg,#2d5fc4,#3dba6e)">改 Guardar Reflexión</button>
     </div>
   </div>
 </div>
@@ -2780,6 +3222,10 @@ let state = {
   combat: null,
   // Performance tracking: array of {ts, type, detail} events
   performance: [],
+  // Custom calendar blocks
+  calBlocks: [],
+  // Kaizen entries
+  kaizenEntries: [],
 };
 
 // ===================== LOCALSTORAGE =====================
@@ -2804,7 +3250,7 @@ function loadPhotos() {
   } catch(e) { return {}; }
 }
 
-function saveGame() {
+function saveGame(silent) {
   try {
     // Guardar fotos por separado (pueden ser base64 muy grandes)
     savePhotos(state.player);
@@ -2832,6 +3278,8 @@ function saveGame() {
       activityLog:  (state.activityLog|| []).slice(-MAX_ACTIVITY),
       performance:  (state.performance|| []).slice(-MAX_PERF),
       tournState:   tournState || null,
+      calBlocks:    state.calBlocks || [],
+      kaizenEntries: state.kaizenEntries || [],
     };
 
     localStorage.setItem(SAVE_KEY, JSON.stringify(toSave));
@@ -2851,8 +3299,10 @@ function saveGame() {
         log:          [],
         activityLog:  [],
         performance:  [],
+        tournState:   tournState || null,
+        calBlocks:    state.calBlocks || [],
+        kaizenEntries: state.kaizenEntries || [],
       };
-      localStorage.setItem(SAVE_KEY, JSON.stringify(minSave));
       console.warn('PokéLeveling: guardado sin logs por falta de espacio en localStorage.');
     } catch(e2) {
       console.error('PokéLeveling: no se pudo guardar la partida.', e2);
@@ -2886,6 +3336,8 @@ function loadGame() {
     state.activityLog  = saved.activityLog  ?? [];
     state.performance  = saved.performance  ?? [];
     tournState         = saved.tournState   || null;
+    state.calBlocks    = saved.calBlocks    ?? [];
+    state.kaizenEntries = saved.kaizenEntries ?? [];
     return true;
   } catch(e) { return false; }
 }
@@ -2895,7 +3347,17 @@ function resetGame() {
   localStorage.removeItem(PHOTO_KEY);
   location.reload();
 }
-setInterval(saveGame, 30000);
+// Autosave cada 30 segundos con indicador visual discreto
+function autosave() {
+  saveGame();
+  const el = document.getElementById('autosave-indicator');
+  if (el) {
+    el.textContent = '💾 guardado';
+    el.style.opacity = '1';
+    setTimeout(() => { el.style.opacity = '0'; }, 1800);
+  }
+}
+setInterval(autosave, 30000);
 
 // ===================== MOVE UNLOCK SYSTEM =====================
 // Each pokemon has 4 moves. They unlock at these levels:
@@ -3240,6 +3702,7 @@ function switchProfileTab(tab, btn) {
   if(tab === 'pokedex') renderPokedex();
   if(tab === 'pokemon') renderPCAndTeam();
   if(tab === 'trainer') renderTrainerTab();
+  if(tab === 'kaizen') { renderKaizenEntries(); renderKaizenImprovementTasks(); }
 }
 
 function renderProfile() {
@@ -3262,6 +3725,7 @@ function renderProfile() {
   if(activeProfileTab === 'pokemon') renderPCAndTeam();
   else if(activeProfileTab === 'trainer') renderTrainerTab();
   else if(activeProfileTab === 'pokedex') renderPokedex();
+  else if(activeProfileTab === 'kaizen') { renderKaizenEntries(); renderKaizenImprovementTasks(); }
 }
 
 function loadCoverPhoto(input) {
@@ -3859,6 +4323,444 @@ function saveEditTask() {
   saveGame();
   renderTasks();
   notify('Tarea actualizada', 'good');
+}
+
+// ===================== CALENDAR =====================
+let calView = 'list'; // 'list' | 'day' | 'week'
+let calDate = new Date(); // current reference date
+
+function switchTasksView(view, btn) {
+  calView = view;
+  document.querySelectorAll('.cal-view-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const listView = document.getElementById('tasks-view-list');
+  const calViewEl = document.getElementById('tasks-view-calendar');
+  if (view === 'list') {
+    listView.style.display = '';
+    calViewEl.style.display = 'none';
+    renderTasks();
+  } else {
+    listView.style.display = 'none';
+    calViewEl.style.display = '';
+    document.getElementById('cal-day-view').style.display = view === 'day' ? '' : 'none';
+    document.getElementById('cal-week-view').style.display = view === 'week' ? '' : 'none';
+    renderCalendar();
+  }
+}
+
+function calNavigate(dir) {
+  if (calView === 'day') {
+    calDate.setDate(calDate.getDate() + dir);
+  } else {
+    calDate.setDate(calDate.getDate() + dir * 7);
+  }
+  renderCalendar();
+}
+
+function calGoToday() {
+  calDate = new Date();
+  renderCalendar();
+}
+
+function renderCalendar() {
+  if (calView === 'day') renderDayView();
+  else if (calView === 'week') renderWeekView();
+}
+
+function fmtTime(h, m) {
+  const hh = h % 12 === 0 ? 12 : h % 12;
+  const mm = m === 0 ? '' : `:${String(m).padStart(2,'0')}`;
+  const ampm = h < 12 ? 'am' : 'pm';
+  return `${hh}${mm} ${ampm}`;
+}
+
+function fmtHour(h) {
+  if (h === 0) return '12 AM';
+  if (h < 12) return `${h} AM`;
+  if (h === 12) return '12 PM';
+  return `${h-12} PM`;
+}
+
+// Returns events for a given day (Date object), flat blocks array
+// Each block: { id, name, color, startMin (minutes since midnight), endMin, isTask, taskId, priority }
+function getEventsForDay(day) {
+  const dayStr = day.toISOString().slice(0,10);
+  const events = [];
+
+  // From tasks
+  (state.tasks || []).forEach(t => {
+    if (!t.start || !t.end) return;
+    const tStart = new Date(t.start);
+    const tEnd = new Date(t.end);
+    // Multi-day: show on every day between start and end
+    const tStartDay = new Date(tStart); tStartDay.setHours(0,0,0,0);
+    const tEndDay = new Date(tEnd); tEndDay.setHours(0,0,0,0);
+    const thisDay = new Date(day); thisDay.setHours(0,0,0,0);
+    if (thisDay < tStartDay || thisDay > tEndDay) return;
+    const startMin = tStart.toISOString().slice(0,10) === dayStr
+      ? tStart.getHours()*60 + tStart.getMinutes() : 0;
+    const endMin = tEnd.toISOString().slice(0,10) === dayStr
+      ? tEnd.getHours()*60 + tEnd.getMinutes() : 24*60;
+    const colorMap = { high: '#e05252', mid: '#f0c040', low: '#3dba6e' };
+    const typeIcon = { task:'📋', habit:'🔄', goal:'🎯' };
+    events.push({
+      id: t.id, isTask: true, taskId: t.id,
+      name: (typeIcon[t.type]||'📋') + ' ' + t.name,
+      color: colorMap[t.priority] || '#4f8ef7',
+      startMin, endMin,
+      completed: t.completed,
+    });
+  });
+
+  // From custom blocks
+  (state.calBlocks || []).forEach(b => {
+    if (!b.start || !b.end) return;
+    const bStart = new Date(b.start);
+    const bEnd = new Date(b.end);
+    const bStartDay = new Date(bStart); bStartDay.setHours(0,0,0,0);
+    const bEndDay = new Date(bEnd); bEndDay.setHours(0,0,0,0);
+    const thisDay = new Date(day); thisDay.setHours(0,0,0,0);
+    if (thisDay < bStartDay || thisDay > bEndDay) return;
+    const startMin = bStart.toISOString().slice(0,10) === dayStr
+      ? bStart.getHours()*60 + bStart.getMinutes() : 0;
+    const endMin = bEnd.toISOString().slice(0,10) === dayStr
+      ? bEnd.getHours()*60 + bEnd.getMinutes() : 24*60;
+    events.push({
+      id: b.id, isTask: false, blockId: b.id,
+      name: b.name,
+      color: b.color || '#7c6fcd',
+      startMin, endMin,
+    });
+  });
+
+  return events;
+}
+
+// Overlap detection: returns array of groups, each group is an array of events that overlap
+function resolveOverlaps(events) {
+  // Sort by startMin
+  const sorted = [...events].sort((a,b) => a.startMin - b.startMin);
+  const columns = []; // each column is array of events
+  sorted.forEach(ev => {
+    let placed = false;
+    for (let col of columns) {
+      const last = col[col.length - 1];
+      if (last.endMin <= ev.startMin) {
+        col.push(ev);
+        placed = true;
+        break;
+      }
+    }
+    if (!placed) columns.push([ev]);
+  });
+  // Assign column index and total columns to each event
+  const result = [];
+  columns.forEach((col, colIdx) => {
+    col.forEach(ev => {
+      // Count how many columns overlap this event
+      let totalCols = columns.filter(c =>
+        c.some(e => e.startMin < ev.endMin && e.endMin > ev.startMin)
+      ).length;
+      result.push({ ...ev, colIdx, totalCols });
+    });
+  });
+  return result;
+}
+
+function buildTimeGrid(timesEl, hourRowsEl, isWeekCol) {
+  // Build 24 hour rows in time col
+  timesEl.innerHTML = '';
+  for (let h = 0; h < 24; h++) {
+    const div = document.createElement('div');
+    div.className = 'cal-time-slot';
+    div.textContent = fmtHour(h);
+    timesEl.appendChild(div);
+  }
+  // Build 24 hour rows in content col
+  hourRowsEl.innerHTML = '';
+  for (let h = 0; h < 24; h++) {
+    const div = document.createElement('div');
+    div.className = isWeekCol ? 'cal-hour-row' : 'cal-day-hour-row';
+    hourRowsEl.appendChild(div);
+  }
+}
+
+const PX_PER_MIN = 60 / 60; // 60px per hour → 1px per minute
+
+function renderEventBlock(ev, containerEl, leftPct, widthPct) {
+  const top = ev.startMin * PX_PER_MIN;
+  const height = Math.max(22, (ev.endMin - ev.startMin) * PX_PER_MIN);
+  const div = document.createElement('div');
+  div.className = 'cal-event';
+  div.style.cssText = `
+    top:${top}px;
+    height:${height}px;
+    left:calc(${leftPct}% + 2px);
+    width:calc(${widthPct}% - 4px);
+    background:${ev.color}22;
+    border-left:3px solid ${ev.color};
+    color:${ev.color};
+    ${ev.completed ? 'opacity:0.45;text-decoration:line-through' : ''}
+  `;
+  const startH = Math.floor(ev.startMin/60);
+  const startM = ev.startMin % 60;
+  const endH = Math.floor(ev.endMin/60);
+  const endM = ev.endMin % 60;
+  div.innerHTML = `<span>${ev.name}</span><span class="cal-event-time">${fmtTime(startH,startM)} – ${fmtTime(endH%24,endM)}</span>`;
+  div.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (ev.isTask) openEditTaskModal(ev.taskId);
+    else openEditCalBlock(ev.blockId);
+  });
+  containerEl.appendChild(div);
+}
+
+function renderDayView() {
+  const today = new Date();
+  const isToday = calDate.toDateString() === today.toDateString();
+  // Title
+  document.getElementById('cal-nav-title').textContent =
+    calDate.toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+  const timesEl = document.getElementById('cal-day-times');
+  const colEl = document.getElementById('cal-day-col');
+
+  // Clear events but keep time-line
+  const timeLine = document.getElementById('cal-time-line');
+  colEl.innerHTML = '';
+  colEl.appendChild(timeLine);
+
+  buildTimeGrid(timesEl, colEl, false);
+  colEl.appendChild(timeLine); // re-append after innerHTML clear
+
+  // Current time line
+  if (isToday) {
+    const nowMin = today.getHours()*60 + today.getMinutes();
+    timeLine.style.display = '';
+    timeLine.style.top = (nowMin * PX_PER_MIN) + 'px';
+  } else {
+    timeLine.style.display = 'none';
+  }
+
+  // Events
+  const events = getEventsForDay(calDate);
+  const resolved = resolveOverlaps(events);
+  resolved.forEach(ev => {
+    const leftPct = (ev.colIdx / ev.totalCols) * 100;
+    const widthPct = (1 / ev.totalCols) * 100;
+    renderEventBlock(ev, colEl, leftPct, widthPct);
+  });
+
+  // Double-click to create block
+  colEl.addEventListener('dblclick', (e) => {
+    if (e.target.classList.contains('cal-event') || e.target.closest('.cal-event')) return;
+    const rect = colEl.getBoundingClientRect();
+    const scrollTop = colEl.closest('.cal-grid-wrap').scrollTop;
+    const relY = e.clientY - rect.top + scrollTop;
+    const clickedMin = Math.floor(relY / PX_PER_MIN / 15) * 15;
+    openCalBlockModal(calDate, clickedMin, clickedMin + 60);
+  }, { once: false });
+
+  // Scroll to current time or 8am
+  requestAnimationFrame(() => {
+    const wrap = document.querySelector('#cal-day-view .cal-grid-wrap');
+    if (wrap) wrap.scrollTop = isToday ? Math.max(0, (today.getHours()-1)*60) : 8*60;
+  });
+}
+
+function renderWeekView() {
+  const today = new Date();
+  // Get Monday of the week
+  const dayOfWeek = calDate.getDay(); // 0=Sun
+  const monday = new Date(calDate);
+  const diff = (dayOfWeek === 0 ? -6 : 1 - dayOfWeek);
+  monday.setDate(calDate.getDate() + diff);
+  monday.setHours(0,0,0,0);
+
+  // Build days array Mon-Sun
+  const days = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    days.push(d);
+  }
+
+  // Title
+  const startStr = monday.toLocaleDateString('es-ES', {day:'numeric', month:'short'});
+  const endDay = days[6];
+  const endStr = endDay.toLocaleDateString('es-ES', {day:'numeric', month:'short', year:'numeric'});
+  document.getElementById('cal-nav-title').textContent = `${startStr} – ${endStr}`;
+
+  // Week header
+  const headerEl = document.getElementById('cal-week-header');
+  const DAY_NAMES = ['LUN','MAR','MIÉ','JUE','VIE','SÁB','DOM'];
+  headerEl.innerHTML = days.map((d, i) => {
+    const isT = d.toDateString() === today.toDateString();
+    return `<div class="cal-week-day-head ${isT?'today':''}">
+      ${DAY_NAMES[i]}<span class="cal-week-day-num">${d.getDate()}</span>
+    </div>`;
+  }).join('');
+
+  // Build time column
+  const timesEl = document.getElementById('cal-week-times');
+  timesEl.innerHTML = '';
+  for (let h = 0; h < 24; h++) {
+    const div = document.createElement('div');
+    div.className = 'cal-time-slot';
+    div.textContent = fmtHour(h);
+    timesEl.appendChild(div);
+  }
+
+  // Build day columns
+  const colsEl = document.getElementById('cal-week-cols');
+  colsEl.innerHTML = '';
+
+  days.forEach((day, di) => {
+    const colDiv = document.createElement('div');
+    colDiv.className = 'cal-week-col';
+
+    // Hour rows
+    for (let h = 0; h < 24; h++) {
+      const row = document.createElement('div');
+      row.className = 'cal-hour-row';
+      colDiv.appendChild(row);
+    }
+
+    // Current time line
+    if (day.toDateString() === today.toDateString()) {
+      const nowMin = today.getHours()*60 + today.getMinutes();
+      const line = document.createElement('div');
+      line.className = 'cal-current-time-line';
+      line.style.cssText = `position:absolute;top:${nowMin*PX_PER_MIN}px;left:0;right:0;`;
+      colDiv.appendChild(line);
+    }
+
+    // Events
+    const events = getEventsForDay(day);
+    const resolved = resolveOverlaps(events);
+    resolved.forEach(ev => {
+      const leftPct = (ev.colIdx / ev.totalCols) * 100;
+      const widthPct = (1 / ev.totalCols) * 100;
+      renderEventBlock(ev, colDiv, leftPct, widthPct);
+    });
+
+    // Double-click to create
+    colDiv.addEventListener('dblclick', (e) => {
+      if (e.target.classList.contains('cal-event') || e.target.closest('.cal-event')) return;
+      const rect = colDiv.getBoundingClientRect();
+      const scrollTop = colDiv.closest('.cal-grid-wrap').scrollTop;
+      const relY = e.clientY - rect.top + scrollTop;
+      const clickedMin = Math.floor(relY / PX_PER_MIN / 15) * 15;
+      openCalBlockModal(day, clickedMin, clickedMin + 60);
+    });
+
+    colsEl.appendChild(colDiv);
+  });
+
+  // Scroll to 8am
+  requestAnimationFrame(() => {
+    const wrap = document.querySelector('#cal-week-view .cal-grid-wrap');
+    if (wrap) wrap.scrollTop = 8*60;
+  });
+}
+
+// ---- Custom blocks ----
+let _calBlockSelectedColor = '#7c6fcd';
+let _calBlockEditSelectedColor = '#7c6fcd';
+
+function openCalBlockModal(day, startMin, endMin) {
+  _calBlockSelectedColor = '#7c6fcd';
+  document.querySelectorAll('#cal-block-color-picker .cal-color-swatch').forEach(s => {
+    s.classList.toggle('selected', s.dataset.color === _calBlockSelectedColor);
+  });
+  document.getElementById('cal-block-name').value = '';
+  // Set datetime-local values
+  const toLocal = (d, min) => {
+    const dt = new Date(d);
+    dt.setHours(Math.floor(min/60), min%60, 0, 0);
+    dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
+    return dt.toISOString().slice(0,16);
+  };
+  document.getElementById('cal-block-start').value = toLocal(day, startMin);
+  document.getElementById('cal-block-end').value = toLocal(day, endMin);
+  document.getElementById('cal-block-overlay').classList.add('show');
+}
+
+function closeCalBlockModal() {
+  document.getElementById('cal-block-overlay').classList.remove('show');
+}
+
+function selectBlockColor(el) {
+  _calBlockSelectedColor = el.dataset.color;
+  document.querySelectorAll('#cal-block-color-picker .cal-color-swatch').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function saveCalBlock() {
+  const name = document.getElementById('cal-block-name').value.trim();
+  if (!name) { notify('Escribe un nombre para el bloque', 'bad'); return; }
+  const start = document.getElementById('cal-block-start').value;
+  const end = document.getElementById('cal-block-end').value;
+  if (!start || !end) { notify('Indica inicio y fin', 'bad'); return; }
+  if (!state.calBlocks) state.calBlocks = [];
+  state.calBlocks.push({
+    id: 'cb_' + Date.now(),
+    name, start, end, color: _calBlockSelectedColor,
+  });
+  closeCalBlockModal();
+  saveGame();
+  renderCalendar();
+  notify('Bloque creado: ' + name, 'good');
+}
+
+function openEditCalBlock(id) {
+  const b = (state.calBlocks || []).find(b => b.id === id);
+  if (!b) return;
+  _calBlockEditSelectedColor = b.color || '#7c6fcd';
+  document.getElementById('cal-block-edit-id').value = id;
+  document.getElementById('cal-block-edit-name').value = b.name;
+  const toLocal = iso => {
+    if (!iso) return '';
+    const d = new Date(iso);
+    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+    return d.toISOString().slice(0,16);
+  };
+  document.getElementById('cal-block-edit-start').value = toLocal(b.start);
+  document.getElementById('cal-block-edit-end').value = toLocal(b.end);
+  document.querySelectorAll('#cal-block-edit-color-picker .cal-color-swatch').forEach(s => {
+    s.classList.toggle('selected', s.dataset.color === _calBlockEditSelectedColor);
+  });
+  document.getElementById('cal-block-edit-overlay').classList.add('show');
+}
+
+function selectBlockEditColor(el) {
+  _calBlockEditSelectedColor = el.dataset.color;
+  document.querySelectorAll('#cal-block-edit-color-picker .cal-color-swatch').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function saveEditCalBlock() {
+  const id = document.getElementById('cal-block-edit-id').value;
+  const b = (state.calBlocks || []).find(b => b.id === id);
+  if (!b) return;
+  const name = document.getElementById('cal-block-edit-name').value.trim();
+  if (!name) { notify('El nombre no puede estar vacío', 'bad'); return; }
+  b.name = name;
+  b.start = document.getElementById('cal-block-edit-start').value;
+  b.end = document.getElementById('cal-block-edit-end').value;
+  b.color = _calBlockEditSelectedColor;
+  document.getElementById('cal-block-edit-overlay').classList.remove('show');
+  saveGame();
+  renderCalendar();
+  notify('Bloque actualizado', 'good');
+}
+
+function deleteCalBlock(id) {
+  state.calBlocks = (state.calBlocks || []).filter(b => b.id !== id);
+  document.getElementById('cal-block-edit-overlay').classList.remove('show');
+  saveGame();
+  renderCalendar();
+  notify('Bloque eliminado', 'info');
 }
 
 // ===================== POKÉMON WORLD =====================
@@ -5952,6 +6854,272 @@ function rejectTrade(offerIdx) {
   renderMarketTrade();
 }
 
+// ===================== KAIZEN =====================
+
+function openKaizenForm(editId) {
+  const overlay = document.getElementById('kaizen-overlay');
+  const titleEl = document.getElementById('kaizen-modal-title');
+  const dateEl  = document.getElementById('kaizen-modal-date');
+  document.getElementById('kaizen-edit-id').value = editId || '';
+
+  if (editId) {
+    const entry = (state.kaizenEntries || []).find(e => e.id === editId);
+    if (!entry) return;
+    titleEl.textContent = 'Editar Reflexión Kaizen';
+    dateEl.textContent = new Date(entry.createdAt).toLocaleString('es-ES', {dateStyle:'full', timeStyle:'short'});
+    document.getElementById('kaizen-summary').value   = entry.summary || '';
+    document.getElementById('kaizen-good-1').value    = entry.good[0] || '';
+    document.getElementById('kaizen-good-2').value    = entry.good[1] || '';
+    document.getElementById('kaizen-good-3').value    = entry.good[2] || '';
+    document.getElementById('kaizen-bad-1').value     = entry.bad[0] || '';
+    document.getElementById('kaizen-bad-2').value     = entry.bad[1] || '';
+    document.getElementById('kaizen-bad-3').value     = entry.bad[2] || '';
+    document.getElementById('kaizen-improve-1').value = entry.improve[0] || '';
+    document.getElementById('kaizen-improve-2').value = entry.improve[1] || '';
+    document.getElementById('kaizen-improve-3').value = entry.improve[2] || '';
+  } else {
+    titleEl.textContent = 'Nueva Reflexión Kaizen';
+    const now = new Date();
+    dateEl.textContent = now.toLocaleString('es-ES', {dateStyle:'full', timeStyle:'short'});
+    ['kaizen-summary','kaizen-good-1','kaizen-good-2','kaizen-good-3','kaizen-bad-1','kaizen-bad-2','kaizen-bad-3','kaizen-improve-1','kaizen-improve-2','kaizen-improve-3'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+  }
+  overlay.classList.add('show');
+}
+
+function closeKaizenModal() {
+  document.getElementById('kaizen-overlay').classList.remove('show');
+}
+
+function saveKaizen() {
+  if (!state.kaizenEntries) state.kaizenEntries = [];
+  const editId = document.getElementById('kaizen-edit-id').value;
+  const summary  = document.getElementById('kaizen-summary').value.trim();
+  const good     = [1,2,3].map(n => document.getElementById(`kaizen-good-${n}`).value.trim()).filter(Boolean);
+  const bad      = [1,2,3].map(n => document.getElementById(`kaizen-bad-${n}`).value.trim()).filter(Boolean);
+  const improve  = [1,2,3].map(n => document.getElementById(`kaizen-improve-${n}`).value.trim()).filter(Boolean);
+
+  if (!summary && !good.length && !bad.length && !improve.length) {
+    notify('Rellena al menos un campo de la reflexión.', 'bad'); return;
+  }
+
+  const isNew = !editId;
+
+  if (isNew) {
+    const id = 'kz_' + Date.now();
+    const entry = { id, summary, good, bad, improve, createdAt: Date.now(), collapsed: false };
+    state.kaizenEntries.unshift(entry);
+
+    // Rewards for writing a new entry
+    state.searchPoints += 3;
+    state.coins += 25;
+    notify('🌱 Reflexión Kaizen guardada · +3 SP · +25🪙', 'good');
+    addActivityLog('🌱 Reflexión Kaizen registrada', 'good');
+
+    // Create improvement tasks (24h limit)
+    improve.forEach((txt, i) => {
+      if (!txt) return;
+      const taskId = 'kz_task_' + Date.now() + '_' + i;
+      const t = {
+        id: taskId,
+        name: txt,
+        type: 'task',
+        priority: 'high',
+        diff: 'medium',
+        start: new Date().toISOString(),
+        end: new Date(Date.now() + 86400000).toISOString(),
+        completed: false,
+        spReward: 2,
+        coinReward: 15,
+        xpReward: 50,
+        createdAt: Date.now(),
+        isKaizenTask: true,
+        kaizenEntryId: id,
+        sanctionApplied: false,
+      };
+      state.tasks.push(t);
+    });
+
+    // XP for player
+    state.player.xp += 30;
+    checkPlayerLevelUp();
+  } else {
+    const idx = state.kaizenEntries.findIndex(e => e.id === editId);
+    if (idx < 0) return;
+    state.kaizenEntries[idx] = { ...state.kaizenEntries[idx], summary, good, bad, improve, editedAt: Date.now() };
+    notify('✏️ Reflexión editada.', 'info');
+  }
+
+  updateHUD();
+  saveGame();
+  closeKaizenModal();
+  renderKaizenEntries();
+  renderKaizenImprovementTasks();
+  renderTasks();
+}
+
+function deleteKaizenEntry(id) {
+  if (!confirm('¿Eliminar esta reflexión Kaizen? Las tareas de mejora asociadas también se eliminarán.')) return;
+  state.kaizenEntries = (state.kaizenEntries || []).filter(e => e.id !== id);
+  state.tasks = state.tasks.filter(t => !(t.isKaizenTask && t.kaizenEntryId === id));
+  saveGame();
+  renderKaizenEntries();
+  renderKaizenImprovementTasks();
+  renderTasks();
+  notify('🗑️ Reflexión eliminada.', 'info');
+}
+
+function toggleKaizenEntry(id) {
+  const entry = (state.kaizenEntries || []).find(e => e.id === id);
+  if (!entry) return;
+  entry.collapsed = !entry.collapsed;
+  const body = document.querySelector(`[data-kz-body="${id}"]`);
+  if (body) body.classList.toggle('collapsed', !!entry.collapsed);
+  const icon = document.querySelector(`[data-kz-toggle="${id}"]`);
+  if (icon) icon.textContent = entry.collapsed ? '▶' : '▼';
+}
+
+function completeKaizenTask(taskId) {
+  const t = state.tasks.find(t2 => t2.id === taskId);
+  if (!t || t.completed) return;
+  const now = Date.now();
+  const end = new Date(t.end).getTime();
+  if (now > end) { notify('⏰ El tiempo de esta tarea ha expirado.', 'bad'); return; }
+  t.completed = true;
+  state.searchPoints += t.spReward || 2;
+  state.coins += t.coinReward || 15;
+  state.player.xp += t.xpReward || 50;
+  state.stats.tasks++;
+  checkPlayerLevelUp();
+  updateHUD();
+  saveGame();
+  renderKaizenImprovementTasks();
+  renderTasks();
+  notify(`✅ Tarea Kaizen completada · +${t.spReward||2} SP · +${t.coinReward||15}🪙 · +${t.xpReward||50} XP`, 'good');
+  addActivityLog(`✅ Tarea de mejora completada: ${t.name}`, 'good');
+}
+
+function checkKaizenSanctions() {
+  const now = Date.now();
+  (state.tasks || []).forEach(t => {
+    if (!t.isKaizenTask || t.completed || t.sanctionApplied) return;
+    const end = new Date(t.end).getTime();
+    if (now > end) {
+      t.sanctionApplied = true;
+      state.searchPoints = Math.max(0, state.searchPoints - 1);
+      state.coins = Math.max(0, state.coins - 10);
+      addActivityLog(`⚠️ Sanción: tarea "${t.name}" expiró sin completar (-1 SP, -10🪙)`, 'bad');
+    }
+  });
+}
+
+function formatKaizenTimer(endIso) {
+  const now = Date.now();
+  const end = new Date(endIso).getTime();
+  const diff = end - now;
+  if (diff <= 0) return { text: 'EXPIRADA', cls: 'expired-t' };
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  const txt = h > 0 ? `${h}h ${m}m restantes` : `${m}m ${s}s restantes`;
+  const cls = diff < 3600000 ? 'urgent' : '';
+  return { text: txt, cls };
+}
+
+function renderKaizenEntries() {
+  const list = document.getElementById('kaizen-entries-list');
+  if (!list) return;
+  const entries = state.kaizenEntries || [];
+  if (!entries.length) {
+    list.innerHTML = `<div style="font-size:12px;color:var(--text3);padding:20px;text-align:center;background:var(--bg2);border:1px solid var(--border);border-radius:12px">Aún no hay reflexiones Kaizen. ¡Pulsa <strong>Nueva Reflexión</strong> para empezar!</div>`;
+    return;
+  }
+
+  list.innerHTML = entries.map(entry => {
+    const dt = new Date(entry.createdAt);
+    const dateStr = dt.toLocaleDateString('es-ES', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+    const timeStr = dt.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+    const editedStr = entry.editedAt ? `<span style="font-size:9px;color:var(--text3);margin-left:8px">(editado ${new Date(entry.editedAt).toLocaleDateString('es-ES')})</span>` : '';
+    const collapsed = entry.collapsed;
+
+    const goodItems = [0,1,2].map(i => entry.good[i] ? `<div class="kaizen-item"><div class="kaizen-item-num good">${i+1}</div><div>${entry.good[i]}</div></div>` : '').join('');
+    const badItems  = [0,1,2].map(i => entry.bad[i]  ? `<div class="kaizen-item"><div class="kaizen-item-num bad">${i+1}</div><div>${entry.bad[i]}</div></div>`  : '').join('');
+    const improveItems = [0,1,2].map(i => entry.improve[i] ? `<div class="kaizen-item"><div class="kaizen-item-num improve">${i+1}</div><div>${entry.improve[i]}</div></div>` : '').join('');
+
+    // Count related tasks
+    const relatedTasks = state.tasks.filter(t => t.isKaizenTask && t.kaizenEntryId === entry.id);
+    const completedCount = relatedTasks.filter(t => t.completed).length;
+
+    return `
+<div class="kaizen-entry">
+  <div class="kaizen-entry-header" onclick="toggleKaizenEntry('${entry.id}')">
+    <div style="font-size:22px;flex-shrink:0">改</div>
+    <div style="flex:1">
+      <div class="kaizen-entry-date">${dateStr.toUpperCase()}</div>
+      <div class="kaizen-entry-time">${timeStr}${editedStr}</div>
+      ${relatedTasks.length ? `<div style="font-size:9px;color:var(--yellow);margin-top:2px">🎯 ${completedCount}/${relatedTasks.length} tareas completadas</div>` : ''}
+    </div>
+    <div style="font-size:16px;color:var(--text3)" data-kz-toggle="${entry.id}">${collapsed ? '▶' : '▼'}</div>
+    <div class="kaizen-entry-actions" onclick="event.stopPropagation()">
+      <button class="btn ghost sm" onclick="openKaizenForm('${entry.id}')">✏️</button>
+      <button class="btn danger sm" onclick="deleteKaizenEntry('${entry.id}')">🗑</button>
+    </div>
+  </div>
+  <div class="kaizen-entry-body ${collapsed ? 'collapsed' : ''}" data-kz-body="${entry.id}">
+    ${entry.summary ? `<div><div class="kaizen-section-label summary">📝 Resumen del día</div><div style="font-size:12px;color:var(--text2);line-height:1.7;padding:10px;background:var(--bg3);border-radius:8px;border:1px solid var(--border)">${entry.summary}</div></div>` : ''}
+    ${goodItems ? `<div><div class="kaizen-section-label good">✅ Lo que hice bien</div>${goodItems}</div>` : ''}
+    ${badItems  ? `<div><div class="kaizen-section-label bad">❌ Lo que hice mal</div>${badItems}</div>`   : ''}
+    ${improveItems ? `<div><div class="kaizen-section-label improve">🚀 A mejorar mañana</div>${improveItems}</div>` : ''}
+  </div>
+</div>`;
+  }).join('');
+}
+
+function renderKaizenImprovementTasks() {
+  const list = document.getElementById('kaizen-improvement-tasks-list');
+  const countEl = document.getElementById('kaizen-improv-count');
+  if (!list) return;
+
+  const kTasks = (state.tasks || []).filter(t => t.isKaizenTask);
+  const active  = kTasks.filter(t => !t.completed && !t.sanctionApplied);
+  const done    = kTasks.filter(t => t.completed);
+  const expired = kTasks.filter(t => t.sanctionApplied && !t.completed);
+
+  if (countEl) countEl.textContent = `(${kTasks.length})`;
+
+  if (!kTasks.length) {
+    list.innerHTML = `<div style="font-size:12px;color:var(--text3);padding:12px 0;text-align:center">Sin tareas de mejora activas. ¡Crea una reflexión!</div>`;
+    return;
+  }
+
+  const renderTask = t => {
+    const isExpired = t.sanctionApplied && !t.completed;
+    const timer = t.completed ? null : formatKaizenTimer(t.end);
+    const barCls = t.completed ? 'done' : isExpired ? 'expired' : '';
+    const cardCls = t.completed ? 'completed-ktask' : isExpired ? 'expired-ktask' : '';
+    const timerHtml = t.completed
+      ? `<div style="font-size:10px;color:var(--green);margin-top:3px">✅ Completada</div>`
+      : isExpired
+        ? `<div class="kaizen-itask-timer expired-t">⏰ EXPIRADA — Sanción aplicada</div>`
+        : `<div class="kaizen-itask-timer ${timer.cls}">${timer.text}</div>`;
+
+    return `<div class="kaizen-itask ${cardCls}">
+  <div class="kaizen-itask-bar ${barCls}"></div>
+  <div class="kaizen-itask-info">
+    <div class="kaizen-itask-name">${t.name}</div>
+    <div class="kaizen-itask-meta">Creada ${new Date(t.createdAt).toLocaleDateString('es-ES')} · +2🔍 +15🪙 +50XP</div>
+    ${timerHtml}
+  </div>
+  <div style="display:flex;gap:6px">
+    ${(!t.completed && !isExpired) ? `<button class="btn success sm" onclick="completeKaizenTask('${t.id}')">✓ Hecha</button>` : ''}
+  </div>
+</div>`;
+  };
+
+  list.innerHTML = [...active, ...done, ...expired].map(renderTask).join('');
+}
+
 // ===================== EXPORT / IMPORT =====================
 function exportProgress() {
   saveGame();
@@ -6046,6 +7214,7 @@ function confirmImport() {
       log:         (Array.isArray(imp.log)         ? imp.log         : defaults.log).slice(-MAX_LOG),
       activityLog: (Array.isArray(imp.activityLog) ? imp.activityLog : defaults.activityLog).slice(-MAX_ACTIVITY),
       performance: (Array.isArray(imp.performance) ? imp.performance : defaults.performance).slice(-MAX_PERF),
+      kaizenEntries: Array.isArray(imp.kaizenEntries) ? imp.kaizenEntries : [],
     };
 
     // Guardar fotos por separado
@@ -6120,6 +7289,9 @@ function init() {
   }
   if(!state.performance) state.performance = [];
   if(!state.activityLog) state.activityLog = [];
+  if(!state.kaizenEntries) state.kaizenEntries = [];
+  // Check kaizen sanctions on load
+  checkKaizenSanctions();
   // Migrate: ensure all pokemon have full bonusStats and spAtk/spDef live stats
   [...state.team, ...state.pc].forEach(pk => {
     if(pk) {
@@ -6155,6 +7327,14 @@ function init() {
 }
 
 init();
+
+// Refresh kaizen timers every 30s when tab is active
+setInterval(() => {
+  if(document.getElementById('ptab-kaizen')?.classList.contains('active')) {
+    renderKaizenImprovementTasks();
+  }
+  checkKaizenSanctions();
+}, 30000);
 
 // Close overlay on background click (but NOT the combat screen - that stays until ended)
 document.querySelectorAll('.overlay').forEach(o => {
